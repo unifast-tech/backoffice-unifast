@@ -1,0 +1,149 @@
+/* Ficha medida em reference-ficha.png: caixa 432x332 na pagina em (519, 629),
+   borda dourada de 2px. Separadores internos em y=674 (toda a largura) e
+   y=777,5 (recuado 22,5px). */
+
+.ficha-camada {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+/* A reference escurece a pagina inteira, nao so o diagrama. Opacidade de 83%
+   medida na borda do cartao U4 sob o overlay (#C5A566 vira #272115). */
+.ficha-fundo {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  cursor: pointer;
+}
+
+/* O cartao clicado continua legivel acima do escurecimento, com o botao
+   + preenchido, como na reference. */
+.sistema--ativo {
+  z-index: 11;
+}
+
+.sistema--ativo .sistema__mais {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.ficha {
+  position: absolute;
+  left: 455px;
+  top: 67px;
+  width: 432px;
+  height: 332px;
+  display: flex;
+  flex-direction: column;
+  border-width: 2px;
+  border-color: var(--gold);
+  padding: 0;
+}
+
+.ficha__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  padding: 0 22.5px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ficha__topo .t3 {
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+}
+
+.ficha__topo .ficha__fechar {
+  color: var(--muted);
+}
+
+.ficha__fechar {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.ficha__fechar:hover {
+  color: var(--ink);
+}
+
+.ficha__identidade {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  height: 105px;
+  padding: 17.5px 22.5px 0;
+}
+
+.ficha__ico {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 57px;
+  height: 58.5px;
+  border: 1.5px solid var(--gold);
+  border-radius: 4px;
+  color: var(--gold);
+}
+
+.ficha__nome {
+  margin: 8px 0 0;
+  font-size: 22.5px;
+  letter-spacing: -0.01em;
+}
+
+.ficha__tagline {
+  margin: 1.5px 0 0;
+  max-width: 224px;
+  font: italic 400 12.8px/16.5px var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+}
+
+.ficha__specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 0 22.5px;
+  padding-top: 28.5px;
+  border-top: 1px solid var(--hairline);
+}
+
+.ficha__specs dt {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.ficha__specs dd {
+  margin: 8px 0 0;
+  font: 400 13px/18.5px var(--mono);
+  letter-spacing: 0;
+  padding-right: 8px;
+  color: var(--ink);
+}
+
+.ficha__rodape {
+  margin-top: auto;
+  padding: 0 22.5px 22px;
+}
+
+.ficha__rodape p {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--verde);
+}
+
+.ficha__rodape .ponto {
+  background: var(--verde);
+}

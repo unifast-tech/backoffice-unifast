@@ -1,0 +1,71 @@
+/* Etapa 2 - fundo completo: preto, malha tecnica e cantos da moldura. */
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      var(--grid) 0 var(--grid-line),
+      transparent var(--grid-line) var(--grid-cell)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--grid) 0 var(--grid-line),
+      transparent var(--grid-line) var(--grid-cell)
+    );
+  background-position: 0 0;
+}
+
+/* Quatro cantos em L, recuados da borda da pagina. */
+.frame {
+  position: absolute;
+  inset: var(--frame-inset);
+  pointer-events: none;
+}
+
+.frame__corner {
+  position: absolute;
+  width: var(--frame-arm);
+  height: var(--frame-arm);
+  border: 0 solid var(--gold-dim);
+}
+
+.frame__corner--tl {
+  top: 0;
+  left: 0;
+  border-top-width: var(--frame-weight);
+  border-left-width: var(--frame-weight);
+}
+
+.frame__corner--tr {
+  top: 0;
+  right: 0;
+  border-top-width: var(--frame-weight);
+  border-right-width: var(--frame-weight);
+}
+
+.frame__corner--bl {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: var(--frame-weight);
+  border-left-width: var(--frame-weight);
+}
+
+.frame__corner--br {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: var(--frame-weight);
+  border-right-width: var(--frame-weight);
+}
+
+/* Faixa de conteudo: 1312px entre margens de 64px, medidos na reference. */
+.shell {
+  position: relative;
+  width: var(--page-w);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}

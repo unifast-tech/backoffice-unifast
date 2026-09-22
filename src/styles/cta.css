@@ -1,0 +1,26 @@
+.cta {
+  display: flex;
+  justify-content: center;
+  padding-top: 75px;
+}
+
+/* O circulo e cortado pela base da pagina na reference; margin-bottom negativa
+   reproduz o corte. */
+.btn2 {
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  margin-bottom: -60px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  color: var(--ink);
+  text-align: center;
+  text-decoration: none;
+  font: 700 13px/1.35 var(--sans);
+  letter-spacing: 0.01em;
+}
+
+.btn2:hover {
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+}

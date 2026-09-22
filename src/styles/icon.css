@@ -1,0 +1,10 @@
+.ico {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+
+.ico--vazio {
+  width: 24px;
+  height: 24px;
+}

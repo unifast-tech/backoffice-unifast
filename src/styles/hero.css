@@ -1,0 +1,109 @@
+/* Posicoes medidas na reference (pagina 1440x2190):
+   marca em y=95, ficha tecnica 332x203 em (1044, 95), h1 com topo de
+   maiusculas em y=224,5, corpo em y=417 e regua da secao em y=499,5. */
+
+.hero {
+  position: relative;
+  padding-top: 35px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero__marca {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  height: 56px;
+}
+
+.hero__marca p {
+  margin: 0;
+}
+
+/* Quadrado preto solido de 56px atras da marca, medido em (64, 96). */
+.hero__logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  background: #000;
+}
+
+.hero__marca > div {
+  padding-top: 3.2px;
+}
+
+.hero__marca-nome {
+  margin-bottom: 5px !important;
+  letter-spacing: 0.03em;
+}
+
+.hero__marca .t3 {
+  font-size: 11px;
+  letter-spacing: 0.17em;
+}
+
+/* ---- ficha tecnica ---- */
+.ficha-tecnica {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 332px;
+  padding: 0;
+}
+
+.ficha-tecnica__titulo {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 16px 2.5px;
+  border-bottom: 1px solid var(--hairline);
+  letter-spacing: 0.236em;
+  color: var(--gold);
+}
+
+.ficha-tecnica__linhas {
+  margin: 0;
+  padding: 11px 16px 0;
+}
+
+.ficha-tecnica__linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 39.25px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ficha-tecnica__linha:last-child {
+  border-bottom: 0;
+}
+
+.ficha-tecnica__linha dt,
+.ficha-tecnica__linha dd {
+  margin: 0;
+}
+
+.ficha-tecnica__linha dt {
+  letter-spacing: 0.053em;
+}
+
+.ficha-tecnica__linha dd {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---- titulo e chamada ---- */
+.hero h1 {
+  margin-top: 59px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.hero__linha-fina {
+  margin-top: 11px;
+}

@@ -1,0 +1,206 @@
+.secao {
+  padding-top: 44px;
+}
+
+.secao__cabecalho .t3 {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.secao__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.secao__nota {
+  margin: 11px 0 0;
+  letter-spacing: 0.054em;
+  color: var(--gold-dim);
+}
+
+/* ---- diagrama ---- */
+.diagrama {
+  position: relative;
+  height: 680px;
+  margin-top: -1.5px;
+}
+
+.diagrama__malha {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fio {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+}
+
+.fio--tracejado {
+  stroke-dasharray: 8 4;
+}
+
+.perna {
+  fill: var(--gold);
+}
+
+.no {
+  fill: var(--bg);
+  stroke: var(--gold);
+  stroke-width: 1.5;
+}
+
+/* ---- cartao de sistema ----
+   U1 medido: caixa 261x150 em (169, 584); icone 31x35 em x=188,5;
+   bloco de texto em x=232,5 com "U1" em y=629, nome em y=647 e sub em y=673;
+   status com topo de maiusculas em y=713. */
+
+.sistema {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1.5px solid var(--gold);
+  padding: 0 19.5px 0 14.5px;
+}
+
+.sistema--desenvolvimento {
+  border-style: dashed;
+  border-color: var(--gold-dim);
+}
+
+/* O bloco do nucleo fica 14px abaixo do centro do cartao, como na reference. */
+.sistema--nucleo {
+  padding-top: 28px;
+  border-width: 2px;
+  border-radius: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+.sistema .ico {
+  color: var(--gold);
+}
+
+.sistema--nucleo .ico {
+  color: var(--ink);
+}
+
+.sistema--nucleo .sistema__ico {
+  width: auto;
+}
+
+.sistema--desenvolvimento .ico {
+  color: var(--muted);
+}
+
+/* Coluna do icone com largura fixa: na reference todos os icones ficam
+   centrados em x = borda do cartao + 34, e o texto comeca sempre no mesmo x. */
+.sistema__ico {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36.5px;
+  margin-top: 3px;
+}
+
+.sistema__corpo {
+  display: flex;
+  gap: 9.5px;
+  align-items: center;
+}
+
+/* O bloco de texto fica 4,75px acima do centro do cartao, como na reference. */
+.sistema__texto {
+  margin-bottom: 9.5px;
+}
+
+.sistema--nucleo .sistema__texto {
+  margin-bottom: 0;
+}
+
+.sistema--nucleo .sistema__code {
+  font-size: 11.4px;
+}
+
+.sistema--nucleo .sistema__ico {
+  margin-top: 0;
+}
+
+.sistema--nucleo .sistema__corpo {
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.sistema__texto > p {
+  margin: 0;
+}
+
+.sistema__code {
+  font-size: 9.3px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.sistema__nome {
+  margin: 4.5px 0 6px !important;
+  font-size: 15.5px;
+}
+
+.sistema__sub {
+  font-size: 9px;
+  letter-spacing: 0.081em;
+  color: var(--muted);
+}
+
+.sistema__status {
+  position: absolute;
+  right: 19.5px;
+  bottom: 10px;
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: 0.005em;
+  color: var(--gold-dim);
+}
+
+.sistema--desenvolvimento .sistema__status {
+  color: var(--muted);
+}
+
+/* ---- botao + no canto ---- */
+.sistema__mais {
+  position: absolute;
+  top: -13.5px;
+  right: -10.5px;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--gold);
+  font: 400 14px/1 var(--mono);
+  cursor: pointer;
+}
+
+.sistema--desenvolvimento .sistema__mais {
+  border-color: var(--gold-dim);
+  color: var(--gold-dim);
+}
+
+.sistema__mais:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}

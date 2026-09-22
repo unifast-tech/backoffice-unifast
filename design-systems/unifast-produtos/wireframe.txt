@@ -1,0 +1,132 @@
+UNIFAST TECH / DOC.04 - LP DE PRODUTOS INTERNOS
+wireframe tipado (format=ascii) - fonte: reference.png / reference-ficha.png
+
+======================================================================================================================
+ESTADO 1 - PADRAO                                                                                 fonte: reference.png
+======================================================================================================================
+
++--------------------------------------------------------------------------------------------------------------------+
+| nav                                                                                                                |
+| [t3: UNIFAST-TECH / DOC.04]                                                       [t3: REV. 2026.09 - USO INTERNO] |
++--------------------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------+
+| hero                                                                                                               |
+| [ico: logo-uf] [h3: UNIFAST TECH]                                                                                  |
+| [t3: INFRAESTRUTURA INTERNA DE PRODUTOS]                                                                           |
+|                                                                   +----------------------------------------------+ |
+|                                                                   | card                                         | |
+|                                                                   | [t3: FICHA TECNICA]                          | |
+|                                                                   | -------------------------------------------- | |
+|                                                                   | [t3: MODULOS ATIVOS]                [t2: 04] | |
+|                                                                   | [t3: EM DESENVOLVIMENTO]            [t2: 01] | |
+|                                                                   | [t3: NUCLEO DE IDENTIDADE]  [t2: UNIFASTIAM] | |
+|                                                                   | [t3: CANAL PRINCIPAL]         [t2: WHATSAPP] | |
+|                                                                   +----------------------------------------------+ |
+|                                                                                                                    |
+| [h1: A ENGENHARIA]                                                                                                 |
+| [h1: POR TRAS DA UNIFAST.]                                                                                         |
+|                                                                                                                    |
+| [t1: Identidade, dados, notas fiscais, clientes e jornada academica.]                                              |
+| [t1: Cinco sistemas que ja sustentam a operacao - documentados aqui]                                               |
+| [t1: como o que realmente sao: pecas de uma unica maquina.]                                                        |
++--------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------------------------------------+
+| section                                                                                                            |
+| [t3: 01 / ESQUEMA DE INTEGRACAO]                                               [t3: TODO ACESSO PASSA PELO NUCLEO] |
+|                                                                                                                    |
+| media                                                                                                              |
+| [t3: conectores em L ligam cada cartao ao nucleo U0]                                                               |
+|   +------------------------------+                                        +------------------------------+         |
+|   | card2              [btn3: +] |                                        | card2              [btn3: +] |         |
+|   | [ico: u1] [t3: U1]           |                                        | [ico: u2] [t3: U2]           |         |
+|   | [h3: FASTHUB]                |                                        | [h3: MONITORNOTES]           |         |
+|   | [t3: DADOS & DASHBOARDS]     |                                        | [t3: NOTAS FISCAIS]          |         |
+|   | [t3: EM PRODUCAO]            |                                        | [t3: EM PRODUCAO]            |         |
+|   +------------------------------+                                        +------------------------------+         |
+|                                                                                                                    |
+|                                                                                                                    |
+|   +------------------------------+   +--------------------------------+                                            |
+|   | card2              [btn3: +] |   | card3                [btn3: +] |                                            |
+|   | [ico: u4] [t3: U4]           |   |                                |                                            |
+|   | [h3: CAMPUZZ]                |   |     [ico: cadeado]             |                                            |
+|   | [t3: ACADEMICO & ENTREGA]    |   |                                |                                            |
+|   | [t3: EM PRODUCAO]            |   |     [t3: U0]                   |                                            |
+|   +------------------------------+   |     [h3: UNIFASTIAM]           |                                            |
+|                                      |     [t3: IDENTIDADE & ACESSO]  |                                            |
+|                                      +--------------------------------+                                            |
+|                                                                                                                    |
+|                                                                                                                    |
+|   +------------------------------+                                        +------------------------------+         |
+|   | card2              [btn3: +] |                                        | card4              [btn3: +] |         |
+|   | [ico: u3] [t3: U3]           |                                        | [ico: u5] [t3: U5]           |         |
+|   | [h3: LEADSHUG]               |                                        | [h3: DESIGN SYSTEM]          |         |
+|   | [t3: CRM & ATENDIMENTO]      |                                        | [t3: PADRONIZACAO VISUAL]    |         |
+|   | [t3: EM PRODUCAO]            |                                        | [t3: EM DESENVOLVIMENTO]     |         |
+|   +------------------------------+                                        +------------------------------+         |
+|                                                                                                                    |
+| [t3: + CADA CARTAO E CLICAVEL - ABRE A FICHA TECNICA COMPLETA DO SISTEMA]                                          |
++--------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------------------------------------+
+| section2                                                                                                           |
+| [t3: 02 / TRILHAS DA OPERACAO]                                           [t3: QUEM PASSA POR ONDE, E EM QUE ORDEM] |
+|                                                                                                                    |
+| media2                                                                                                             |
+|     [ico: leadshug]             [ico: monitornotes]         [ico: campuzz]              [ico: fasthub]             |
+|     [t3: LEADSHUG]              [t3: MONITORNOTES]          [t3: CAMPUZZ]               [t3: FASTHUB]              |
+|                                                                                                                    |
+|   [t3: 01 - TRILHA DO LEAD]                                                                                        |
+|     [ico: parada]                                           [ico: parada]                                          |
+|     [t3: Lead entra pelo                                    [t3: Vira aluno na                                     |
+|     [t3: WhatsApp]                                          [t3: jornada academica]                                |
+|                                                                                                                    |
+|   [t3: 02 - TRILHA DO EXPERT]                                                                                      |
+|                                                             [ico: parada]               [ico: parada]              |
+|                                                             [t3: Turma avanca e         [t3: Expert acompanha      |
+|                                                             [t3: gera dado]             [t3: o resultado]          |
+|                                                                                                                    |
+|   [t3: 03 - TRILHA DAS EQUIPES UNIFAST]                                                                            |
+|     [ico: parada]               [ico: parada]               [ico: parada]                                          |
+|     [t3: Atendimento &          [t3: Acompanha notas        [t3: Suporte                                           |
+|     [t3: CRM]                   [t3: fiscais]               [t3: academico]                                        |
+|                                                                                                                    |
+|   +--------------------------------------------------------------------------------------------------------------+ |
+|   | card5                                                                                                        | |
+|   | [ico: cadeado] [h3: UNIFASTIAM]                                             [ico: status] [t3: SEMPRE ATIVO] | |
+|   | [t3: IDENTIDADE E ACESSO VALIDADOS EM CADA PARADA ACIMA, EM TODAS AS TRILHAS]                                | |
+|   +--------------------------------------------------------------------------------------------------------------+ |
++--------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------------------------------------+
+| section3                                                                                                           |
+|                                            [btn2: FALE COM O TIME TECH]                                            |
+|                                         [t3: botao circular, borda dourada]                                        |
++--------------------------------------------------------------------------------------------------------------------+
+
+
+======================================================================================================================
+ESTADO 2 - FICHA ABERTA (overlay sobre section)                                             fonte: reference-ficha.png
+======================================================================================================================
+
++--------------------------------------------------------------------------------------------------------------------+
+| section  [t3: cartoes e conectores esmaecidos sob o overlay]                                                       |
+|                                                                                                                    |
+|   [t3: EXEMPLO - AO CLICAR EM QUALQUER SISTEMA, A FICHA COMPLETA ABRE ASSIM]                                       |
+|   [t3: linha pontilhada sai do [btn3: +] do cartao U1 ate a ficha]                                                 |
+|                                                                                                                    |
+|     +------------------------------------------------------------------------+                                     |
+|     | card6                                                                  |                                     |
+|     | [t3: FICHA - U1]                                      [btn3: x FECHAR] |                                     |
+|     | ---------------------------------------------------------------------- |                                     |
+|     | [ico: fasthub]  [h2: FASTHUB]                                          |                                     |
+|     |                 [t2: dados prontos pra decidir, nao pra]               |                                     |
+|     |                 [t2: garimpar]                                         |                                     |
+|     | ---------------------------------------------------------------------- |                                     |
+|     | [t3: ORIGEM]         [t3: ARMAZENA]        [t3: ENTREGA]               |                                     |
+|     | [t1: Databricks,]    [t1: Postgres, com]   [t1: Escopo no]             |                                     |
+|     | [t1: por polling]    [t1: dono]            [t1: servidor]              |                                     |
+|     | ---------------------------------------------------------------------- |                                     |
+|     | [ico: status] [t3: EM PRODUCAO]                                        |                                     |
+|     +------------------------------------------------------------------------+                                     |
++--------------------------------------------------------------------------------------------------------------------+

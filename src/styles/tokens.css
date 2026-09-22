@@ -1,0 +1,125 @@
+/* Design system da LP Unifast Tech.
+   Valores amostrados de design-systems/unifast-produtos/reference.png
+   (canvas 2880x4380 = 2x de 1440x2190). */
+
+:root {
+  /* superficies */
+  --bg: #060605;          /* fundo da pagina */
+  --surface: #0c0b09;     /* preenchimento de cartao */
+
+  /* linhas */
+  --grid: #161410;        /* malha tecnica de fundo */
+  --rule: #232019;        /* regua divisoria de secao */
+  --hairline: #3b3935;    /* borda de cartao neutro */
+
+  /* acentos */
+  --gold: #c5a566;        /* dourado principal */
+  --gold-dim: #7d6a45;    /* dourado apagado: molduras, cantos */
+
+  /* texto */
+  --ink: #f3efe6;         /* titulo e texto forte */
+  --verde: #7fae8a;       /* indicador de estado ativo */
+  --muted: #8f887a;       /* meta, rotulos, microtexto */
+
+  /* metrica */
+  --page-w: 1440px;       /* largura do canvas do mock */
+  --gutter: 64px;         /* margem lateral do conteudo */
+  --grid-cell: 40px;      /* passo da malha */
+  --grid-line: 0.5px;     /* 1px no canvas 2x da referencia */
+  --frame-inset: 27px;    /* recuo dos cantos da moldura */
+  --frame-arm: 23px;      /* comprimento do braco do canto */
+  --frame-weight: 2px;
+
+  /* Tipografia escolhida por comparacao de forma contra recortes da reference
+     (sobreposicao de pixels com caixa e tracking normalizados):
+       titulo  Roboto 900   IoU 0,67 - segundo colocado 0,64
+       corpo   Manrope 400  IoU 0,65 - segundo colocado 0,41
+       rotulos Space Mono   IoU 0,71 - segundo colocado 0,52
+     Sao aproximacoes: o mock pode usar fontes licenciadas fora do Google Fonts. */
+  --display: 'Roboto', system-ui, 'Segoe UI', sans-serif;
+  --sans: 'Manrope', system-ui, 'Segoe UI', sans-serif;
+  --mono: 'Space Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Classes utilitarias das tags tipadas do wireframe
+   (.h1 .h2 .h3 .t1 .t2 .t3 .btn .lnk) entram na etapa 3. */
+
+/* ---------- tags tipadas do wireframe ---------- */
+
+.h1 {
+  margin: 0;
+  font: 900 90.7px/92.5px var(--display);
+  letter-spacing: -0.0345em;
+  color: var(--ink);
+}
+
+.h2 {
+  margin: 0;
+  font: 700 26px/1.15 var(--display);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.h3 {
+  margin: 0;
+  font: 700 17.5px/1.2 var(--display);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.t1 {
+  margin: 0;
+  font: 400 17.9px/28px var(--sans);
+  letter-spacing: -0.004em;
+  color: var(--muted);
+}
+
+.t2 {
+  margin: 0;
+  font: 500 12px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.t3 {
+  margin: 0;
+  font: 400 11px/1.5 var(--mono);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- superficie de cartao ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+}

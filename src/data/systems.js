@@ -1,0 +1,101 @@
+/* Sistemas do esquema de integracao. A posicao vem da medicao da reference
+   (canvas 1440x2190): design-systems/unifast-produtos/reference.png */
+
+export const NUCLEO = {
+  id: 'u0',
+  code: 'U0',
+  name: 'UNIFASTIAM',
+  sub: 'IDENTIDADE & ACESSO',
+  icon: 'cadeado',
+  status: null,
+  box: { x: 615, y: 794, w: 211, h: 210 },
+  ficha: {
+    tagline: 'quem é você, e o que você pode abrir',
+    origem: 'Cadastro único',
+    armazena: 'Diretório próprio',
+    entrega: 'Token por sessao',
+  },
+}
+
+export const SISTEMAS = [
+  {
+    id: 'u1',
+    code: 'U1',
+    name: 'FASTHUB',
+    sub: 'DADOS & DASHBOARDS',
+    icon: 'grafico',
+    status: 'EM PRODUÇÃO',
+    state: 'producao',
+    box: { x: 170, y: 584, w: 260, h: 150 },
+    ficha: {
+      tagline: 'dados prontos pra decidir, não pra garimpar',
+      origem: 'Databricks, por polling',
+      armazena: 'Postgres, com dono',
+      entrega: 'Escopo no servidor',
+    },
+  },
+  {
+    id: 'u4',
+    code: 'U4',
+    name: 'CAMPUZZ',
+    sub: 'ACADÊMICO & ENTREGA',
+    icon: 'capelo',
+    status: 'EM PRODUÇÃO',
+    state: 'producao',
+    box: { x: 170, y: 824, w: 260, h: 150 },
+    ficha: {
+      tagline: 'a jornada do aluno, do primeiro acesso ao diploma',
+      origem: 'Matrícula e turmas',
+      armazena: 'Postgres, com dono',
+      entrega: 'Escopo no servidor',
+    },
+  },
+  {
+    id: 'u3',
+    code: 'U3',
+    name: 'LEADSHUG',
+    sub: 'CRM & ATENDIMENTO',
+    icon: 'balao',
+    status: 'EM PRODUÇÃO',
+    state: 'producao',
+    box: { x: 170, y: 1064, w: 260, h: 150 },
+    ficha: {
+      tagline: 'todo lead num lugar só, com histórico',
+      origem: 'WhatsApp e formulários',
+      armazena: 'Postgres, com dono',
+      entrega: 'Escopo no servidor',
+    },
+  },
+  {
+    id: 'u2',
+    code: 'U2',
+    name: 'MONITORNOTES',
+    sub: 'NOTAS FISCAIS',
+    icon: 'nota',
+    status: 'EM PRODUÇÃO',
+    state: 'producao',
+    box: { x: 1010, y: 684, w: 260, h: 150 },
+    ficha: {
+      tagline: 'nota emitida e conferida sem planilha no meio',
+      origem: 'Prefeituras, por polling',
+      armazena: 'Postgres, com dono',
+      entrega: 'Escopo no servidor',
+    },
+  },
+  {
+    id: 'u5',
+    code: 'U5',
+    name: 'DESIGN SYSTEM',
+    sub: 'PADRONIZAÇÃO VISUAL',
+    icon: 'grade',
+    status: 'EM DESENVOLVIMENTO',
+    state: 'desenvolvimento',
+    box: { x: 1010, y: 964, w: 260, h: 150 },
+    ficha: {
+      tagline: 'um só jeito de desenhar tela na Unifast',
+      origem: 'Biblioteca de componentes',
+      armazena: 'Repositório versionado',
+      entrega: 'Pacote consumido pelos apps',
+    },
+  },
+]
