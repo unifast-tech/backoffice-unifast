@@ -13,7 +13,7 @@ export const NUCLEO = {
     tagline: 'quem é você, e o que você pode abrir',
     origem: 'Cadastro único',
     armazena: 'Diretório próprio',
-    entrega: 'Token por sessao',
+    entrega: 'Token por sessão',
   },
 }
 

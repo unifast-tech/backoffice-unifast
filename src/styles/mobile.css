@@ -16,12 +16,6 @@
     padding-bottom: 28px;
   }
 
-  .ficha-tecnica {
-    position: static;
-    width: 100%;
-    margin-top: 30px;
-  }
-
   /* o titulo acompanha a largura da tela: 7,9vw mantem as duas linhas
      inteiras de 390px ate 1099px */
   .hero h1 {
@@ -238,13 +232,9 @@
   }
 
   /* ---------- ficha como painel ---------- */
-  .ficha-camada {
-    position: fixed;
-    inset: 0;
-    z-index: 40;
-    display: grid;
-    place-items: center;
-    padding: 24px;
+  .ficha-tecnica-ancora {
+    right: 18px;
+    bottom: 18px;
   }
 
   .ficha-fundo {
@@ -253,11 +243,7 @@
   }
 
   .ficha {
-    position: relative;
-    left: auto;
-    top: auto;
     width: 100%;
-    max-width: 432px;
     height: auto;
   }
 
@@ -274,9 +260,6 @@
     padding-top: 20px;
   }
 
-  .sistema--ativo {
-    z-index: auto;
-  }
 }
 
 /* ---------- celular ---------- */

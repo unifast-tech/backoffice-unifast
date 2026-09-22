@@ -72,6 +72,27 @@ O script `openrouter-img/scripts/generate_image.py` precisa de `uv` e de
 ícones foram traçados à mão em SVG a partir dos crops, em
 [`src/components/Icon.jsx`](src/components/Icon.jsx).
 
+## Comportamento da pagina
+
+O mock e um documento estatico; a pagina tem quatro comportamentos que nao
+vinham dele:
+
+- **Cabecalho de tela cheia.** `.hero` ocupa `100dvh` menos `--nav-h`. As
+  posicoes internas continuam as medidas na reference; o que mudou e o espaco
+  livre embaixo, onde fica a pista de rolagem.
+- **Revelacao ao rolar.** [`Revelavel`](src/components/Revelavel.jsx) envolve as
+  secoes abaixo do cabecalho. **Armadilha:** o estado final tem de ser
+  `transform: none`, nunca `translateY(0)`; qualquer transform remanescente
+  vira bloco de referencia dos filhos `position: fixed`. E enquanto a secao nao
+  foi revelada ela esta em `opacity: 0`, o que esconde a subarvore inteira.
+  Por isso a ficha do sistema e montada em `App.jsx`, fora das secoes: dentro
+  delas o escurecimento sumia junto.
+- **Cartao inteiro clicavel.** `.sistema` e um `<button>`; o `+` do canto e
+  decorativo. Com hover o cartao cresce e ganha halo difuso.
+- **Ficha tecnica em painel.** Saiu do canto do hero e virou
+  [`FichaTecnica`](src/sections/FichaTecnica.jsx), acionada pelo botao fixo no
+  canto inferior direito.
+
 ## Camada responsiva
 
 O mock só existe em desktop (1440px). Tudo em [`src/styles/`](src/styles/) exceto

@@ -59,6 +59,7 @@
    bloco de texto em x=232,5 com "U1" em y=629, nome em y=647 e sub em y=673;
    status com topo de maiusculas em y=713. */
 
+/* O cartao inteiro e o botao que abre a ficha. */
 .sistema {
   position: absolute;
   left: var(--x);
@@ -70,6 +71,32 @@
   justify-content: center;
   border: 1.5px solid var(--gold);
   padding: 0 19.5px 0 14.5px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+}
+
+/* Ao passar o mouse o cartao cresce e ganha um halo difuso, que tambem
+   levanta ele acima dos conectores. */
+.sistema:hover,
+.sistema:focus-visible {
+  transform: scale(1.045);
+  z-index: 5;
+  border-color: color-mix(in srgb, var(--gold) 100%, var(--ink) 25%);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gold) 30%, transparent),
+    0 16px 44px -10px color-mix(in srgb, var(--gold) 45%, transparent),
+    0 0 70px color-mix(in srgb, var(--gold) 20%, transparent);
+  outline: none;
+}
+
+.sistema:focus-visible {
+  border-color: var(--ink);
 }
 
 .sistema--desenvolvimento {
@@ -183,7 +210,6 @@
   right: -10.5px;
   width: 25px;
   height: 25px;
-  padding: 0;
   display: grid;
   place-items: center;
   border: 1.5px solid var(--gold);
@@ -191,7 +217,9 @@
   background: var(--bg);
   color: var(--gold);
   font: 400 14px/1 var(--mono);
-  cursor: pointer;
+  transition:
+    background 240ms ease,
+    color 240ms ease;
 }
 
 .sistema--desenvolvimento .sistema__mais {
@@ -199,8 +227,20 @@
   color: var(--gold-dim);
 }
 
-.sistema__mais:hover {
+.sistema:hover .sistema__mais,
+.sistema:focus-visible .sistema__mais {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sistema {
+    transition: box-shadow 240ms ease;
+  }
+
+  .sistema:hover,
+  .sistema:focus-visible {
+    transform: none;
+  }
 }

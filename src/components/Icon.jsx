@@ -95,6 +95,17 @@ const ICONES = {
     ),
   },
 
+  ficha: {
+    w: 28,
+    h: 34,
+    art: (
+      <>
+        <rect x="1" y="1" width="26" height="32" rx="2.5" {...T} />
+        <path d="M7 10 h14 M7 17 h14 M7 24 h9" {...T} strokeLinecap="round" />
+      </>
+    ),
+  },
+
   cadeado: {
     w: 42,
     h: 60,

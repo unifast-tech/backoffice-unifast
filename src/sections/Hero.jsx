@@ -1,38 +1,19 @@
 import Icon from '../components/Icon.jsx'
 import '../styles/hero.css'
 
-const FICHA = [
-  ['MÓDULOS ATIVOS', '04'],
-  ['EM DESENVOLVIMENTO', '01'],
-  ['NÚCLEO DE IDENTIDADE', 'UNIFASTIAM'],
-  ['CANAL PRINCIPAL', 'WHATSAPP'],
-]
-
 export default function Hero() {
   return (
     <section className="hero">
-      <div className="hero__topo">
-        <div className="hero__marca">
-          <span className="hero__logo">
-            <Icon name="logo-uf" />
-          </span>
-          <div>
-            <p className="h3 hero__marca-nome">UNIFAST TECH</p>
-            <p className="t3">INFRAESTRUTURA INTERNA DE PRODUTOS</p>
-          </div>
-        </div>
+      <div className="hero__fundo" aria-hidden="true" />
 
-        <aside className="card ficha-tecnica">
-          <p className="t3 ficha-tecnica__titulo">FICHA TÉCNICA</p>
-          <dl className="ficha-tecnica__linhas">
-            {FICHA.map(([rotulo, valor]) => (
-              <div className="ficha-tecnica__linha" key={rotulo}>
-                <dt className="t3">{rotulo}</dt>
-                <dd className="t2">{valor}</dd>
-              </div>
-            ))}
-          </dl>
-        </aside>
+      <div className="hero__marca">
+        <span className="hero__logo">
+          <Icon name="logo-uf" />
+        </span>
+        <div>
+          <p className="h3 hero__marca-nome">UNIFAST TECH</p>
+          <p className="t3">INFRAESTRUTURA INTERNA DE PRODUTOS</p>
+        </div>
       </div>
 
       <h1 className="h1">
@@ -47,6 +28,11 @@ export default function Hero() {
         Cinco sistemas que já sustentam a operação &mdash; documentados aqui{' '}
         <br />
         como o que realmente são: peças de uma única máquina.
+      </p>
+
+      <p className="t3 hero__rolagem" aria-hidden="true">
+        <span className="hero__rolagem-linha" />
+        ROLE PARA O ESQUEMA
       </p>
     </section>
   )

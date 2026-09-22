@@ -1,5 +1,4 @@
 import Icon from '../components/Icon.jsx'
-import Ficha from './Ficha.jsx'
 import { SISTEMAS, NUCLEO } from '../data/systems.js'
 import '../styles/integration.css'
 
@@ -33,9 +32,9 @@ const NOS = [
   [920, 1039], [1000, 1039],
 ].map(([x, y]) => ({ x: x - OX, y: y - OY }))
 
-export default function Integration({ aberto, onAbrir, onFechar }) {
+export default function Integration({ aberto, onAbrir }) {
   return (
-    <section className="secao secao--integracao">
+    <section className="secao secao--integracao" id="esquema">
       <div className="secao__cabecalho">
         <span className="t3">01 / ESQUEMA DE INTEGRA&Ccedil;&Atilde;O</span>
         <span className="t3">TODO ACESSO PASSA PELO N&Uacute;CLEO</span>
@@ -76,8 +75,11 @@ export default function Integration({ aberto, onAbrir, onFechar }) {
         {TODOS.map((s) => {
           const b = rel(s.box)
           return (
-            <article
+            <button
+              type="button"
               key={s.id}
+              onClick={() => onAbrir(s)}
+              aria-label={`Abrir ficha de ${s.name}`}
               className={`card sistema sistema--${s.state || 'nucleo'}${
                 aberto?.id === s.id ? ' sistema--ativo' : ''
               }`}
@@ -88,14 +90,9 @@ export default function Integration({ aberto, onAbrir, onFechar }) {
                 '--h': `${b.h}px`,
               }}
             >
-              <button
-                type="button"
-                className="sistema__mais"
-                onClick={() => onAbrir(s)}
-                aria-label={`Abrir ficha de ${s.name}`}
-              >
+              <span className="sistema__mais" aria-hidden="true">
                 +
-              </button>
+              </span>
 
               <div className="sistema__corpo">
                 <span className="sistema__ico">
@@ -109,11 +106,9 @@ export default function Integration({ aberto, onAbrir, onFechar }) {
               </div>
 
               {s.status && <p className="t3 sistema__status">{s.status}</p>}
-            </article>
+            </button>
           )
         })}
-
-        <Ficha sistema={aberto} onFechar={onFechar} />
       </div>
 
       <p className="t3 secao__nota">

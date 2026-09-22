@@ -1,0 +1,98 @@
+/* A ficha tecnica saiu do canto do hero e virou painel acionado por um botao
+   fixo no canto inferior direito. As medidas internas do card continuam as
+   da reference: 332px de largura, cabecalho de 34px e linhas de 39,25px. */
+
+.ficha-tecnica-ancora {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.ficha-tecnica__gatilho {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--gold);
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ficha-tecnica__gatilho:hover,
+.ficha-tecnica__gatilho[aria-expanded='true'] {
+  background: var(--gold);
+  color: var(--bg);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--gold) 35%, transparent);
+}
+
+.ficha-tecnica {
+  width: min(332px, calc(100vw - 56px));
+  padding: 0;
+  animation: ficha-sobe 180ms ease-out;
+}
+
+@keyframes ficha-sobe {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.ficha-tecnica__titulo {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 16px 2.5px;
+  border-bottom: 1px solid var(--hairline);
+  letter-spacing: 0.236em;
+  color: var(--gold);
+}
+
+.ficha-tecnica__linhas {
+  margin: 0;
+  padding: 11px 16px 0;
+}
+
+.ficha-tecnica__linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 39.25px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ficha-tecnica__linha:last-child {
+  border-bottom: 0;
+}
+
+.ficha-tecnica__linha dt,
+.ficha-tecnica__linha dd {
+  margin: 0;
+}
+
+.ficha-tecnica__linha dt {
+  letter-spacing: 0.053em;
+}
+
+.ficha-tecnica__linha dd {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ficha-tecnica {
+    animation: none;
+  }
+}

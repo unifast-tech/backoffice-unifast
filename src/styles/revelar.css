@@ -1,0 +1,22 @@
+/* Entrada das secoes conforme a pagina rola. */
+
+.revelavel {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 620ms ease-out,
+    transform 620ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.revelavel--visivel {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revelavel {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,4 +1,7 @@
+/* acima da imagem de fundo do cabecalho, que sobe ate o topo da pagina */
 .nav {
+  position: relative;
+  z-index: 1;
   padding-top: 26px;
 }
 

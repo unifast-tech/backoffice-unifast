@@ -5,6 +5,9 @@ import Hero from './sections/Hero.jsx'
 import Integration from './sections/Integration.jsx'
 import Trails from './sections/Trails.jsx'
 import Cta from './sections/Cta.jsx'
+import Ficha from './sections/Ficha.jsx'
+import Revelavel from './components/Revelavel.jsx'
+import FichaTecnica from './sections/FichaTecnica.jsx'
 import './styles/page.css'
 
 /* ?ficha=u1 abre a ficha daquele sistema direto no carregamento, para
@@ -16,6 +19,7 @@ function fichaDaUrl() {
 
 export default function App() {
   const [aberto, setAberto] = useState(fichaDaUrl)
+
 
   return (
     <div className="page">
@@ -29,10 +33,19 @@ export default function App() {
       <div className="shell">
         <Nav />
         <Hero />
-        <Integration aberto={aberto} onAbrir={setAberto} onFechar={() => setAberto(null)} />
-        <Trails />
-        <Cta />
+        <Revelavel>
+          <Integration aberto={aberto} onAbrir={setAberto} />
+        </Revelavel>
+        <Revelavel>
+          <Trails />
+        </Revelavel>
+        <Revelavel>
+          <Cta />
+        </Revelavel>
       </div>
+
+      <Ficha sistema={aberto} onFechar={() => setAberto(null)} />
+      <FichaTecnica />
     </div>
   )
 }

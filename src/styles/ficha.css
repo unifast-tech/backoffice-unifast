@@ -2,10 +2,20 @@
    borda dourada de 2px. Separadores internos em y=674 (toda a largura) e
    y=777,5 (recuado 22,5px). */
 
+/* Montada fora das secoes: dentro delas a animacao de entrada (opacity 0)
+   escondia tambem o escurecimento. Fica centrada na viewport.
+
+   Com o painel centrado na tela, o cartao clicado nao fica mais aceso: ele
+   escurece junto com o resto. Manter o cartao aceso so fazia sentido quando o
+   painel nascia ancorado no proprio diagrama; centrado, ele se sobrepunha ao
+   painel. O botao flutuante da ficha tecnica fica em 60, abaixo do
+   escurecimento. */
 .ficha-camada {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
 
 /* A reference escurece a pagina inteira, nao so o diagrama. Opacidade de 83%
@@ -13,28 +23,24 @@
 .ficha-fundo {
   position: fixed;
   inset: 0;
+  z-index: 65;
   border: 0;
   padding: 0;
   background: color-mix(in srgb, var(--bg) 78%, transparent);
   cursor: pointer;
 }
 
-/* O cartao clicado continua legivel acima do escurecimento, com o botao
-   + preenchido, como na reference. */
-.sistema--ativo {
-  z-index: 11;
-}
-
+/* O + do cartao aberto continua preenchido, como na reference. */
 .sistema--ativo .sistema__mais {
   background: var(--gold);
   color: var(--bg);
 }
 
 .ficha {
-  position: absolute;
-  left: 455px;
-  top: 67px;
+  position: relative;
+  z-index: 75;
   width: 432px;
+  max-width: 100%;
   height: 332px;
   display: flex;
   flex-direction: column;

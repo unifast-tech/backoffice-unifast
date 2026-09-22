@@ -26,6 +26,7 @@
   --gutter: 64px;         /* margem lateral do conteudo */
   --grid-cell: 40px;      /* passo da malha */
   --grid-line: 0.5px;     /* 1px no canvas 2x da referencia */
+  --nav-h: 63px;          /* altura da barra do topo, usada pelo hero */
   --frame-inset: 27px;    /* recuo dos cantos da moldura */
   --frame-arm: 23px;      /* comprimento do braco do canto */
   --frame-weight: 2px;
