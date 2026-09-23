@@ -1,0 +1,243 @@
+/* Telas de entrar e criar conta. Estrutura da referencia de login (cartao
+   central, provedores, "ou", e-mail, avancar, troca de tela, rodape) com a
+   linguagem da LP: fundo com malha e cantos, dourado na acao principal,
+   cinza nas secundarias, rotulos em mono. */
+
+.acesso {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---- barra do topo, como a meta do nav da LP ---- */
+.acesso__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  width: var(--page-w);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 26px var(--gutter) 0;
+}
+
+.acesso__topo .t3 {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.acesso__voltar {
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.acesso__voltar:hover,
+.acesso__voltar:focus-visible {
+  color: var(--ink);
+}
+
+/* ---- cartao central ---- */
+/* flex, e nao grid com place-items: num grid a largura de 460px do cartao
+   dimensiona a propria coluna e ele vaza da tela no celular */
+.acesso__centro {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px 56px;
+}
+
+.acesso__cartao {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 36px 34px 26px;
+  border-color: var(--gold-dim);
+}
+
+.acesso__marca {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.acesso__logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: #000;
+}
+
+.acesso__nome {
+  font: 900 34px/1 var(--display);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.acesso__titulo {
+  margin: 12px 0 26px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+}
+
+/* ---- provedores ---- */
+.acesso__provedores {
+  display: grid;
+  gap: 10px;
+}
+
+.acesso .btn {
+  width: 100%;
+  gap: 12px;
+  font-size: 11.5px;
+}
+
+.acesso .btn:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+/* ---- "ou" e "ainda nao tem conta?" com filetes dos dois lados ---- */
+.acesso__divisor {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+  font: 400 12.5px/1 var(--sans);
+  color: var(--muted);
+}
+
+.acesso__divisor::before,
+.acesso__divisor::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+/* ---- e-mail ---- */
+.acesso__rotulo {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+.acesso__campo {
+  position: relative;
+}
+
+.acesso__campo input {
+  width: 100%;
+  height: 48px;
+  padding: 0 44px 0 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  background: var(--bg);
+  font: 400 15px/1 var(--sans);
+  color: var(--ink);
+  transition: border-color 160ms ease;
+}
+
+.acesso__campo input::placeholder {
+  color: color-mix(in srgb, var(--muted) 75%, var(--bg));
+}
+
+.acesso__campo input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 18%, transparent);
+}
+
+.acesso__campo-ico {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* erro: borda de 2px, cor e texto, nao so a cor */
+.acesso__campo.is-erro input {
+  border: 2px solid #d9695f;
+}
+
+.acesso__erro {
+  margin: 8px 0 0;
+  font: 400 13px/1.4 var(--sans);
+  color: #e58a80;
+}
+
+.acesso__erro::before {
+  content: '! ';
+  font-weight: 700;
+}
+
+.acesso__avancar {
+  margin-top: 18px;
+}
+
+.acesso__aviso {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--gold-dim);
+  border-radius: 2px;
+  font: 400 13px/1.5 var(--sans);
+  color: var(--ink);
+}
+
+/* ---- rodape ---- */
+.acesso__rodape {
+  margin-top: 26px;
+  text-align: center;
+  font: 400 11px/1.6 var(--sans);
+  color: var(--muted);
+}
+
+.acesso__rodape p {
+  margin: 0;
+}
+
+.acesso__links {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 4px !important;
+}
+
+.acesso__links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.acesso__links a:hover,
+.acesso__links a:focus-visible {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 599px) {
+  .acesso__topo {
+    padding: 22px 22px 0;
+  }
+
+  .acesso__topo .t3 {
+    font-size: 11px;
+  }
+
+  .acesso__centro {
+    padding: 28px 16px 40px;
+  }
+
+  .acesso__cartao {
+    padding: 28px 20px 22px;
+  }
+}

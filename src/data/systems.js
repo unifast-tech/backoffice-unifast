@@ -469,7 +469,8 @@ export const SISTEMAS = [
       ecossistema:
         'É onde a conversa com o cliente acontece. Outros sistemas falam com ele por uma ' +
         'API pública, com contrato estável; hoje o parceiro é o Campuzz, cuja área de ' +
-        'Receita se apoia no LeadsHug.',
+        'Receita se apoia no LeadsHug. O expert também pode contratar o LeadsHug para ' +
+        'o próprio atendimento, se quiser.',
       integracoes: [
         {
           sistema: 'Campuzz',

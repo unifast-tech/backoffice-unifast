@@ -3,7 +3,10 @@
 .page {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  /* clip, e nao hidden: corta o que sangra (fundo do hero, circulo da
+     chamada) sem virar conteiner de rolagem, o que quebraria o sticky da
+     secao de produtos */
+  overflow: clip;
   background-color: var(--bg);
   background-image:
     repeating-linear-gradient(

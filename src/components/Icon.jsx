@@ -106,6 +106,17 @@ const ICONES = {
     ),
   },
 
+  envelope: {
+    w: 20,
+    h: 16,
+    art: (
+      <>
+        <rect x="1" y="1" width="18" height="14" rx="2" {...T} strokeWidth="1.5" />
+        <path d="M1.5 2.5 L10 9 L18.5 2.5" {...T} strokeWidth="1.5" strokeLinecap="round" />
+      </>
+    ),
+  },
+
   cadeado: {
     w: 42,
     h: 60,

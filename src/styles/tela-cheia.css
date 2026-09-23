@@ -1,0 +1,156 @@
+/* Foto em tela cheia sobre a pagina escurecida. Acima de tudo: ficha (70) e
+   botao da ficha tecnica (60). */
+
+.tela-cheia {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  place-items: center;
+  padding: 0 88px 32px;
+  /* fundo solido: numa galeria, a pagina por tras so distrai */
+  background: var(--bg);
+  touch-action: pan-y;
+  animation: tela-cheia-entra 180ms ease-out;
+}
+
+@keyframes tela-cheia-entra {
+  from {
+    opacity: 0;
+  }
+}
+
+.tela-cheia__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+}
+
+.tela-cheia__topo .t3 {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.tela-cheia__fechar {
+  flex: none;
+  white-space: nowrap;
+  border: 0;
+  padding: 8px 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tela-cheia__fechar:hover,
+.tela-cheia__fechar:focus-visible {
+  color: var(--ink);
+  outline: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* a foto inteira, sem corte, no maior tamanho que couber */
+.tela-cheia__foto {
+  max-width: 100%;
+  max-height: calc(100dvh - 96px);
+  object-fit: contain;
+  border: 1px solid var(--hairline);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.tela-cheia__seta {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  transform: translateY(-50%);
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  background: var(--surface);
+  font: 400 26px/1 var(--mono);
+  color: var(--gold);
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.tela-cheia__seta:hover,
+.tela-cheia__seta:focus-visible {
+  background: var(--gold);
+  color: var(--bg);
+  outline: none;
+}
+
+.tela-cheia__seta--ant {
+  left: 20px;
+}
+
+.tela-cheia__seta--prox {
+  right: 20px;
+}
+
+/* no celular as setas descem para o pe e a foto usa a largura toda */
+@media (max-width: 599px) {
+  .tela-cheia {
+    padding: 0 12px 84px;
+  }
+
+  .tela-cheia__foto {
+    max-height: calc(100dvh - 180px);
+  }
+
+  /* titulo e contador numa linha, legenda na de baixo */
+  .tela-cheia__topo {
+    height: auto;
+    padding: 18px 0 14px;
+    gap: 12px;
+  }
+
+  .tela-cheia__topo .t3 {
+    font-size: 10.5px;
+  }
+
+  /* especificidade maior: a regra base da legenda vem depois no arquivo */
+  .tela-cheia .tela-cheia__legenda {
+    display: block;
+    margin: 6px 0 0;
+    padding: 0;
+    border: 0;
+    font-size: 12px;
+  }
+
+  .tela-cheia__seta {
+    top: auto;
+    bottom: 18px;
+    transform: none;
+  }
+
+  .tela-cheia__seta--ant {
+    left: calc(50% - 64px);
+  }
+
+  .tela-cheia__seta--prox {
+    right: calc(50% - 64px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tela-cheia {
+    animation: none;
+  }
+}
+
+.tela-cheia__legenda {
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px solid var(--hairline);
+  color: var(--ink);
+}

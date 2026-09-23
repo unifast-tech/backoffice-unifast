@@ -165,11 +165,19 @@
   .trilha {
     position: relative;
     top: auto;
+    height: auto;
     margin-bottom: 30px;
+  }
+
+  /* sem mouse para destacar no celular */
+  .trilhas--foco .trilha:not(.is-foco) {
+    opacity: 1;
   }
 
   .trilha__rotulo {
     position: static;
+    flex-direction: column;
+    gap: 4px;
     margin-bottom: 14px;
   }
 
@@ -177,42 +185,58 @@
     position: relative;
     left: auto;
     top: auto;
+    width: auto;
+    max-width: none;
     transform: none;
-    white-space: normal;
-    padding: 0 0 14px 26px;
+    text-align: left;
+    padding: 0 0 16px 32px;
     font-size: 13px;
     line-height: 19px;
   }
 
-  /* anel da parada e o trecho de linha ate a proxima */
+  /* anel da parada, com o numero da ordem (ou + na opcional) */
   .trilha__legenda::before {
-    content: '';
+    content: attr(data-n);
     position: absolute;
     left: 0;
-    top: 4px;
-    width: 11px;
-    height: 11px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
     border: 1.5px solid var(--gold);
     border-radius: 50%;
     background: var(--bg);
+    font: 700 10px/1 var(--mono);
+    color: var(--gold);
   }
 
+  .trilha__legenda--opcional::before {
+    border-style: dashed;
+    border-color: var(--gold-dim);
+    font-weight: 400;
+    color: var(--gold-dim);
+  }
+
+  /* trecho ate a proxima parada; ate a opcional, tracejado */
   .trilha__legenda:not(:last-child)::after {
     content: '';
     position: absolute;
-    left: 5px;
-    top: 15px;
+    left: 9.25px;
+    top: 20px;
     bottom: 0;
     width: 1.5px;
     background: var(--gold);
   }
 
+  .trilha__legenda:has(+ .trilha__legenda--opcional)::after {
+    background: repeating-linear-gradient(to bottom, var(--gold-dim) 0 4px, transparent 4px 8px);
+  }
+
   .trilha__coluna-nome {
-    display: block;
-    margin-bottom: 3px;
-    font: 400 10px/1.4 var(--mono);
-    letter-spacing: 0.13em;
-    color: var(--gold);
+    justify-content: flex-start;
+    font-size: 10px;
   }
 
   /* ---------- selo e chamada ---------- */
@@ -268,6 +292,20 @@
     padding-top: 20px;
   }
 
+  /* ---------- produtos: fotos em cima, texto embaixo ---------- */
+  .secao--produtos {
+    padding-top: 48px;
+  }
+
+  .produtos__vitrine {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  /* empilhado, a galeria nao fica fixa: ocuparia a tela toda */
+  .produtos__galeria {
+    position: static;
+  }
 }
 
 /* ---------- celular ---------- */
@@ -349,6 +387,21 @@
 
   .page .ficha__casos > div {
     grid-template-columns: 1fr;
+  }
+
+  /* no celular os botoes ocupam a largura toda */
+  .page .hero__acoes {
+    width: 100%;
+  }
+
+  .page .produtos__nome {
+    font-size: 26px;
+  }
+
+  .page .produtos__opcao {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 10px;
   }
 
   .page .btn2 {

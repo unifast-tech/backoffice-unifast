@@ -31,6 +31,36 @@ mouse ele cresce e ganha um halo.
 A ficha técnica com os números dos módulos fica no botão redondo do canto
 inferior direito, presente em toda a página.
 
+## Fotos dos produtos
+
+A seção "Os produtos por dentro" mostra as telas de cada sistema num
+carrossel. Para adicionar fotos, solte os arquivos (`.png`, `.jpg`, `.webp`
+ou `.avif`) na pasta do produto, sem mexer em código:
+
+```
+src/assets/produtos/accountzz/
+src/assets/produtos/metriczz/
+src/assets/produtos/uninotas/
+src/assets/produtos/leadshug/
+src/assets/produtos/campuzz/
+src/assets/produtos/design-system/
+```
+
+A ordem do carrossel segue o nome do arquivo: use `01.png`, `02.png`… Sem
+fotos, o produto mostra "as telas chegam em breve". As fotos aparecem
+inteiras, sem corte, numa moldura 16:10.
+
+## Deploy (Railway)
+
+O [`railway.json`](railway.json) já diz ao Railway o que fazer: `npm run build`
+e depois `npm start`, que sobe o `serve` servindo a pasta `dist` na porta que
+o Railway define em `PORT`. O `-s` do `serve` devolve o `index.html` para
+qualquer caminho, e é isso que faz `/entrar` e `/cadastro` funcionarem. Node
+22.12 ou mais novo (o Vite 8 exige).
+
+Para testar igual à produção na sua máquina: `npm run build` e `npm start`
+(abre em http://localhost:3000).
+
 ## Parâmetro de URL
 
 `?ficha=u1` abre a ficha daquele sistema já no carregamento, centrada na tela,

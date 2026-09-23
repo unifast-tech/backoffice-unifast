@@ -4,6 +4,7 @@ import Nav from './sections/Nav.jsx'
 import Hero from './sections/Hero.jsx'
 import Integration from './sections/Integration.jsx'
 import Trails from './sections/Trails.jsx'
+import Produtos from './sections/Produtos.jsx'
 import Cta from './sections/Cta.jsx'
 import Ficha from './sections/Ficha.jsx'
 import Revelavel from './components/Revelavel.jsx'
@@ -51,7 +52,10 @@ export default function App() {
           <Integration aberto={aberto} onAbrir={setAberto} />
         </Revelavel>
         <Revelavel>
-          <Trails />
+          <Trails onAbrir={setAberto} />
+        </Revelavel>
+        <Revelavel>
+          <Produtos />
         </Revelavel>
         <Revelavel>
           <Cta />
