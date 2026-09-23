@@ -1,7 +1,10 @@
-# LP Unifast — Backoffice
+# LP UniFast — Backoffice
 
-Landing page dos produtos Unifast, recriada a partir de mocks de interface com a
+Landing page dos produtos UniFast, recriada a partir de mocks de interface com a
 skill **`img-to-html`** (repo `rtadewald/skills`), instalada em `.claude/skills/`.
+
+**Grafia da marca: `UniFast`** (F maiúsculo) em todo texto corrido. Títulos em
+caixa alta seguem `UNIFAST`; slugs e nomes técnicos seguem `unifast`.
 
 ## Skills instaladas
 
@@ -60,6 +63,10 @@ public/assets/{id}.png        # mídias finais, servidas em /assets/{id}.png
 - **Assets** vão em `public/assets/` e são referenciados por path absoluto
   (`/assets/{id}.png`), nunca por import relativo. Os crops ficam em
   `design-systems/<slug>/assets/crops/` e não entram no bundle.
+  **Exceção:** as fotos dos produtos ficam em `src/assets/produtos/<pasta>/`,
+  porque o carrossel as descobre com `import.meta.glob` (em `public/` o site
+  não tem como listar a pasta). A pasta é o nome do sistema em minúsculas com
+  hífen (`design-system`); a ordem é a do nome do arquivo.
 - **Fontes** via `<link>` do Google Fonts no `index.html` da raiz, ou
   `@font-face` em `tokens.css`.
 - Verificação de cada gate: `npm run dev` e comparar no browser com a reference,
@@ -91,7 +98,85 @@ vinham dele:
   decorativo. Com hover o cartao cresce e ganha halo difuso.
 - **Ficha tecnica em painel.** Saiu do canto do hero e virou
   [`FichaTecnica`](src/sections/FichaTecnica.jsx), acionada pelo botao fixo no
-  canto inferior direito.
+  canto inferior direito. As contagens vem de `systems.js`, nao sao fixas.
+- **Ficha do sistema como modal.** A URL acompanha a ficha aberta
+  (`?ficha=u1`, via `replaceState`). Enquanto ela esta aberta, `.shell` e o
+  botao da ficha tecnica ficam `inert`, a rolagem trava e o foco vai para o
+  "FECHAR"; ao fechar, volta ao cartao. **Armadilha:** `.ficha-camada` precisa
+  de `z-index` proprio. `position: fixed` cria contexto de empilhamento, e sem
+  ele o nav e o botao flutuante aparecem acesos por cima do escurecimento.
+- **Ficha curta + ficha completa.** O formato esta documentado no topo de
+  [`systems.js`](src/data/systems.js): versao curta sempre visivel e ficha
+  completa ao expandir, na ordem fixa: visao geral, problema, funcoes, casos,
+  evolucao, ecossistema, fluxo(s), monitoramento, seguranca, integracoes,
+  tecnologia, estagio, papel. Os opcionais so aparecem se preenchidos. O que
+  ainda nao existe (fluxo planejado, casos pendentes, ligacao ao nucleo) sai
+  tracejado. `fonte` marca conteudo que nao veio do repositorio (Campuzz,
+  Design System). A ficha do mock (ORIGEM / ARMAZENA / ENTREGA) foi aposentada
+  quando o ultimo sistema migrou.
+  Status sai sempre de `ESTADOS` + `state`, com cor via `.estado--<state>`:
+  nunca escreva o status do nucleo a mao (ja esteve "SEMPRE ATIVO" sem estar).
+  `NUCLEO.conectado` controla os fios do esquema: `false` deixa todos
+  tracejados e mostra a legenda "ligacao prevista". Vire para `true` quando o
+  primeiro sistema (Metriczz, antigo FastHub Resultados) estiver de fato ligado.
+- **Trilhas com ordem e desvios.** Em [`trails.js`](src/data/trails.js) as
+  paradas vem na ordem em que a pessoa passa: o SVG numera cada uma e poe uma
+  seta por trecho. Parada `opcional` (ex.: o expert contratar o LeadsHug) sai
+  tracejada, sem numero, ligada a parada mais proxima. Passar o mouse numa
+  trilha apaga as outras; os icones das colunas abrem a ficha do sistema.
+- **Os produtos por dentro (seção 03).** [`Produtos`](src/sections/Produtos.jsx):
+  filtro de um sistema por vez numa linha única em toda a largura (rola para o
+  lado se não couber) e [`Carrossel`](src/components/Carrossel.jsx) de fotos à
+  esquerda, os dois fixos (`sticky`; a galeria gruda em `--filtro-h` abaixo do
+  filtro) enquanto a ficha **inteira** rola à direita: ficha curta mais [`FichaCompleta`](src/components/FichaCompleta.jsx),
+  o mesmo componente que o modal usa ao expandir. Trocar de produto no meio da
+  leitura volta ao começo do texto. **Armadilha:** o `.page` usa
+  `overflow: clip`; com `hidden` ele vira contêiner de rolagem e o sticky para
+  de funcionar. No celular a galeria deixa de ser fixa. O carrossel passa
+  sozinho a cada 5s **sempre** (decisão do usuário: não para com mouse, foco
+  nem "reduzir movimento", que só tira o fade); o único jeito de parar é o
+  botão de pausar, que a WCAG 2.2.2 exige. Clicar na foto abre a
+  [`TelaCheia`](src/components/TelaCheia.jsx) (portal no body, `#root` inert,
+  setas, teclado, deslizar o dedo, Esc ou clique fora fecha) e, ao fechar, o
+  carrossel segue da foto vista. O nome do arquivo vira legenda, exceto nomes
+  genéricos ("Captura de tela…"). Sem fotos, mostra o ícone e "as telas
+  chegam em breve". **Armadilha:** carrossel
+  e texto são irmãos e cada um tem `key` por sistema; as duas keys precisam
+  ser diferentes (`fotos-u1`, `texto-u1`), senão o carrossel não reinicia.
+- **Botões de acesso no cabeçalho.** "Entrar" (`.btn--ouro`) e "Criar conta"
+  (`.btn--cinza`), um abaixo do outro, definidos em `tokens.css`. Levam às
+  telas de acesso.
+
+## Telas de acesso (`/entrar` e `/cadastro`)
+
+[`Acesso`](src/paginas/Acesso.jsx), um componente para as duas telas
+(`modo="entrar" | "cadastro"`), com a estrutura de uma tela de login comum
+(provedores, "ou", e-mail, avançar, troca de tela, rodapé) na linguagem da
+LP. **Só o front:** o e-mail é validado, mas avançar ou usar um provedor só
+mostra que o acesso pelo Accountzz ainda não está disponível.
+
+- **Rotas sem biblioteca.** [`main.jsx`](src/main.jsx) escolhe a tela pelo
+  `location.pathname`; qualquer outro caminho mostra a LP. Em produção o
+  servidor precisa devolver o `index.html` para qualquer caminho (o Vite já
+  faz isso em dev e em preview). Quando o backoffice crescer, é a hora de
+  trocar por um roteador.
+- **Configuração em [`links.js`](src/data/links.js):** rotas de acesso,
+  `DOMINIOS_UNIFAST` (hoje `unifast.com.br`: o cadastro só aceita e-mail
+  desse domínio; o login aceita qualquer e-mail válido), links do rodapé (`null` esconde o link até a
+  página existir) e o WhatsApp do time tech, que a chamada da LP também usa.
+- Logos de Google, Microsoft e Apple ficam em
+  [`Marcas.jsx`](src/components/Marcas.jsx), nas cores das marcas, fora do
+  `Icon.jsx`.
+- **Armadilha:** o `.acesso__centro` é flex. Com grid e `place-items`, a
+  largura do cartão dimensiona a coluna e ele vaza da tela no celular (o
+  `overflow: clip` do `.page` esconde a rolagem, então o teste de rolagem
+  horizontal não pega).
+- **Diagrama e trilhas escalam por igual.** Os dois blocos sao desenhados em
+  1312px (SVG + cartoes em px) e [`useEscala`](src/components/useEscala.js)
+  grava `--k` = largura disponivel / 1312; o CSS aplica `scale(var(--k))`.
+  **Nao** volte a esticar so o SVG com `preserveAspectRatio="none"`: os fios
+  deixam de encostar nos cartoes em qualquer largura diferente de 1312px de
+  conteudo, inclusive 1440 com barra de rolagem.
 
 ## Camada responsiva
 

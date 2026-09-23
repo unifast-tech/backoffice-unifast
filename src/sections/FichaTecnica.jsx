@@ -1,15 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import Icon from '../components/Icon.jsx'
+import { SISTEMAS, NUCLEO } from '../data/systems.js'
 import '../styles/ficha-tecnica.css'
 
+/* Contagens derivadas de systems.js: mudar o estado de um sistema la atualiza
+   a ficha sozinha. */
+const contar = (estado) =>
+  String(SISTEMAS.filter((s) => s.state === estado).length).padStart(2, '0')
+
 const LINHAS = [
-  ['MÓDULOS ATIVOS', '04'],
-  ['EM DESENVOLVIMENTO', '01'],
-  ['NÚCLEO DE IDENTIDADE', 'UNIFASTIAM'],
+  ['MÓDULOS ATIVOS', contar('producao')],
+  ['EM DESENVOLVIMENTO', contar('desenvolvimento')],
+  ['NÚCLEO DE IDENTIDADE', NUCLEO.name],
   ['CANAL PRINCIPAL', 'WHATSAPP'],
 ]
 
-export default function FichaTecnica() {
+export default function FichaTecnica({ inerte = false }) {
   const [aberta, setAberta] = useState(false)
   const caixa = useRef(null)
 
@@ -30,7 +36,7 @@ export default function FichaTecnica() {
   }, [aberta])
 
   return (
-    <div className="ficha-tecnica-ancora" ref={caixa}>
+    <div className="ficha-tecnica-ancora" ref={caixa} inert={inerte}>
       {aberta && (
         <aside className="card ficha-tecnica" role="dialog" aria-label="Ficha técnica">
           <p className="t3 ficha-tecnica__titulo">FICHA TÉCNICA</p>

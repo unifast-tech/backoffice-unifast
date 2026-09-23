@@ -103,6 +103,24 @@
   margin-top: 11px;
 }
 
+/* entrar e criar conta, um abaixo do outro, logo abaixo da chamada: ocupam
+   o vazio do cabecalho de tela cheia e ficam com a mesma largura */
+.hero__acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 300px;
+  max-width: 100%;
+  margin-top: 36px;
+  /* folga minima ate a pista de rolagem em telas baixas (1366x680) */
+  margin-bottom: 32px;
+}
+
+.hero__acoes .btn {
+  min-height: 54px;
+  font-size: 13px;
+}
+
 /* ---- pista de rolagem ----
    Um cabecalho de tela cheia nao avisa que ha mais abaixo; esta linha avisa. */
 .hero__rolagem {

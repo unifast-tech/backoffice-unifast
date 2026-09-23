@@ -1,0 +1,221 @@
+/* Carrossel de fotos: moldura 16:10, fotos inteiras (contain) sobre a
+   superficie, porque sao telas de sistema e cortar as bordas esconde a UI. */
+
+.carrossel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--gold);
+  border-radius: 4px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.carrossel__palco {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+
+.carrossel__foto {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  /* as fotos ficam empilhadas: so a atual recebe clique, senao o clique cai
+     na ultima da pilha, invisivel */
+  pointer-events: none;
+  transition: opacity 600ms ease;
+}
+
+.carrossel__foto.is-atual {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* a foto inteira e o botao que abre a tela cheia */
+.carrossel__ampliar {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.carrossel__ampliar:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -4px;
+}
+
+.carrossel__foto img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+}
+
+.carrossel__dica {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 5px 9px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.carrossel__ampliar:hover .carrossel__dica,
+.carrossel__ampliar:focus-visible .carrossel__dica {
+  opacity: 1;
+}
+
+/* no toque nao ha hover: a dica fica sempre a vista */
+@media (hover: none) {
+  .carrossel__dica {
+    opacity: 1;
+  }
+}
+
+/* ---- controles ---- */
+.carrossel__controles {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--hairline);
+}
+
+.carrossel__botao {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: none;
+  font: 400 14px/1 var(--mono);
+  color: var(--gold);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.carrossel__botao:hover,
+.carrossel__botao:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.carrossel__pontos {
+  display: flex;
+  gap: 6px;
+  margin: 0 6px;
+}
+
+.carrossel__ponto {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* o alvo e 18px, o ponto desenhado e menor */
+.carrossel__ponto::before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 7px;
+  margin: auto;
+  border: 1px solid var(--gold-dim);
+  transition:
+    background 160ms ease,
+    width 200ms ease;
+}
+
+.carrossel__ponto.is-atual::before {
+  width: 16px;
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+.carrossel__ponto:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.carrossel__contador {
+  margin-left: auto;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* barra fina que enche ate a proxima foto */
+.carrossel__progresso {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--gold);
+  transform-origin: left center;
+  animation: carrossel-progresso 5000ms linear forwards;
+}
+
+@keyframes carrossel-progresso {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ---- sem fotos ainda ---- */
+.carrossel--vazio {
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  border-style: dashed;
+  border-color: var(--gold-dim);
+  text-align: center;
+}
+
+.carrossel--vazio .t3 {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carrossel__foto {
+    transition: none;
+  }
+
+  .carrossel__progresso {
+    animation: none;
+  }
+}
+
+/* legenda vinda do nome do arquivo, antes do contador */
+.carrossel__contador {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.carrossel__legenda {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+}

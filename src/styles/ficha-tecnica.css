@@ -91,6 +91,12 @@
   font-weight: 500;
 }
 
+@media print {
+  .ficha-tecnica-ancora {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ficha-tecnica {
     animation: none;
