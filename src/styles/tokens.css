@@ -1,4 +1,4 @@
-/* Design system da LP Unifast Tech.
+/* Design system da LP UniFast Tech.
    Valores amostrados de design-systems/unifast-produtos/reference.png
    (canvas 2880x4380 = 2x de 1440x2190). */
 
@@ -52,6 +52,9 @@
 
 html {
   background: var(--bg);
+  /* reserva o espaco da barra de rolagem: quando a ficha trava a rolagem, a
+     barra some e a pagina nao pula para o lado */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -115,6 +118,36 @@ svg {
   letter-spacing: 0.17em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+/* ---------- estado do sistema ----------
+   `.estado--<state>` define --cor-estado; o texto e o `.ponto` dentro dele
+   herdam. Usado no cartao, na ficha e no selo do nucleo. */
+
+.estado--producao {
+  --cor-estado: var(--verde);
+}
+
+.estado--entregue {
+  --cor-estado: var(--verde);
+}
+
+.estado--desenvolvimento {
+  --cor-estado: var(--muted);
+}
+
+.estado--planejamento {
+  --cor-estado: var(--gold);
+}
+
+.ponto {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--cor-estado, var(--verde));
+  vertical-align: middle;
 }
 
 /* ---------- superficie de cartao ---------- */

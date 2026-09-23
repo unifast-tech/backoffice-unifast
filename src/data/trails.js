@@ -1,12 +1,14 @@
 /* Trilhas da operacao. As colunas sao as 4 do grid de conteudo:
    centros medidos em x = 228, 556, 884, 1212 (CSS). */
 
-export const COLUNAS = [
-  { id: 'leadshug', label: 'LEADSHUG', icon: 'balao' },
-  { id: 'monitornotes', label: 'MONITORNOTES', icon: 'nota' },
-  { id: 'campuzz', label: 'CAMPUZZ', icon: 'capelo' },
-  { id: 'fasthub', label: 'FASTHUB', icon: 'grafico' },
-]
+import { SISTEMAS } from './systems.js'
+
+/* Nome e icone de cada coluna vem do sistema correspondente em systems.js,
+   para nao divergirem do esquema de integracao. */
+export const COLUNAS = ['u3', 'u2', 'u4', 'u1'].map((id) => {
+  const s = SISTEMAS.find((sis) => sis.id === id)
+  return { id, label: s.name, icon: s.icon }
+})
 
 export const TRILHAS = [
   {

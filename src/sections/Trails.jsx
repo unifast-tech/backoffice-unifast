@@ -1,5 +1,8 @@
+import { useRef } from 'react'
 import Icon from '../components/Icon.jsx'
+import useEscala from '../components/useEscala.js'
 import { COLUNAS, TRILHAS } from '../data/trails.js'
+import { NUCLEO } from '../data/systems.js'
 import '../styles/trails.css'
 
 /* Origem do bloco na pagina: (64, 1376). Colunas centradas em x = 164, 492, 820, 1148
@@ -10,6 +13,9 @@ const VB = { w: 1312, h: 470 }
 const R = 7.5
 
 export default function Trails() {
+  const trilhas = useRef(null)
+  useEscala(trilhas, VB.w)
+
   return (
     <section className="secao secao--trilhas">
       <div className="secao__cabecalho">
@@ -17,7 +23,7 @@ export default function Trails() {
         <span className="t3">QUEM PASSA POR ONDE, E EM QUE ORDEM</span>
       </div>
 
-      <div className="trilhas">
+      <div className="trilhas" ref={trilhas}>
         <svg
           className="trilhas__malha"
           viewBox={`0 0 ${VB.w} ${VB.h}`}
@@ -74,13 +80,13 @@ export default function Trails() {
       <div className="card selo-iam">
         <Icon name="cadeado" escala={0.762} />
         <div className="selo-iam__texto">
-          <p className="h3">UNIFASTIAM</p>
+          <p className="h3">{NUCLEO.name}</p>
           <p className="t3">
-            IDENTIDADE E ACESSO VALIDADOS EM CADA PARADA ACIMA, EM TODAS AS TRILHAS
+            CAMADA ÚNICA DE IDENTIDADE E ACESSO PARA CADA PARADA ACIMA, EM TODAS AS TRILHAS
           </p>
         </div>
-        <p className="t3 selo-iam__estado">
-          <span className="ponto" /> SEMPRE ATIVO
+        <p className={`t3 selo-iam__estado estado--${NUCLEO.state}`}>
+          <span className="ponto" /> {NUCLEO.status}
         </p>
       </div>
     </section>

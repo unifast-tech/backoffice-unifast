@@ -23,11 +23,10 @@ export default function Hero() {
       </h1>
 
       <p className="t1 hero__linha-fina">
-        Identidade, dados, notas fiscais, clientes e jornada acadêmica.{' '}
+        Sistemas que trabalham juntos para fazer a UniFast acontecer.{' '}
         <br />
-        Cinco sistemas que já sustentam a operação &mdash; documentados aqui{' '}
-        <br />
-        como o que realmente são: peças de uma única máquina.
+        Conheça as soluções por trás da operação e acesse tudo{' '}
+        <br />a partir de um único lugar.
       </p>
 
       <p className="t3 hero__rolagem" aria-hidden="true">

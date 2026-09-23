@@ -1,7 +1,10 @@
-# LP Unifast — Backoffice
+# LP UniFast — Backoffice
 
-Landing page dos produtos Unifast, recriada a partir de mocks de interface com a
+Landing page dos produtos UniFast, recriada a partir de mocks de interface com a
 skill **`img-to-html`** (repo `rtadewald/skills`), instalada em `.claude/skills/`.
+
+**Grafia da marca: `UniFast`** (F maiúsculo) em todo texto corrido. Títulos em
+caixa alta seguem `UNIFAST`; slugs e nomes técnicos seguem `unifast`.
 
 ## Skills instaladas
 
@@ -91,7 +94,33 @@ vinham dele:
   decorativo. Com hover o cartao cresce e ganha halo difuso.
 - **Ficha tecnica em painel.** Saiu do canto do hero e virou
   [`FichaTecnica`](src/sections/FichaTecnica.jsx), acionada pelo botao fixo no
-  canto inferior direito.
+  canto inferior direito. As contagens vem de `systems.js`, nao sao fixas.
+- **Ficha do sistema como modal.** A URL acompanha a ficha aberta
+  (`?ficha=u1`, via `replaceState`). Enquanto ela esta aberta, `.shell` e o
+  botao da ficha tecnica ficam `inert`, a rolagem trava e o foco vai para o
+  "FECHAR"; ao fechar, volta ao cartao. **Armadilha:** `.ficha-camada` precisa
+  de `z-index` proprio. `position: fixed` cria contexto de empilhamento, e sem
+  ele o nav e o botao flutuante aparecem acesos por cima do escurecimento.
+- **Ficha curta + ficha completa.** O formato esta documentado no topo de
+  [`systems.js`](src/data/systems.js): versao curta sempre visivel e ficha
+  completa ao expandir, na ordem fixa: visao geral, problema, funcoes, casos,
+  evolucao, ecossistema, fluxo(s), monitoramento, seguranca, integracoes,
+  tecnologia, estagio, papel. Os opcionais so aparecem se preenchidos. O que
+  ainda nao existe (fluxo planejado, casos pendentes, ligacao ao nucleo) sai
+  tracejado. `fonte` marca conteudo que nao veio do repositorio (Campuzz,
+  Design System). A ficha do mock (ORIGEM / ARMAZENA / ENTREGA) foi aposentada
+  quando o ultimo sistema migrou.
+  Status sai sempre de `ESTADOS` + `state`, com cor via `.estado--<state>`:
+  nunca escreva o status do nucleo a mao (ja esteve "SEMPRE ATIVO" sem estar).
+  `NUCLEO.conectado` controla os fios do esquema: `false` deixa todos
+  tracejados e mostra a legenda "ligacao prevista". Vire para `true` quando o
+  primeiro sistema (Metriczz, antigo FastHub Resultados) estiver de fato ligado.
+- **Diagrama e trilhas escalam por igual.** Os dois blocos sao desenhados em
+  1312px (SVG + cartoes em px) e [`useEscala`](src/components/useEscala.js)
+  grava `--k` = largura disponivel / 1312; o CSS aplica `scale(var(--k))`.
+  **Nao** volte a esticar so o SVG com `preserveAspectRatio="none"`: os fios
+  deixam de encostar nos cartoes em qualquer largura diferente de 1312px de
+  conteudo, inclusive 1440 com barra de rolagem.
 
 ## Camada responsiva
 

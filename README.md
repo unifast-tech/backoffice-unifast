@@ -1,4 +1,4 @@
-# LP Unifast — landing page dos produtos
+# LP UniFast — landing page dos produtos
 
 React + Vite. A interface é recriada a partir de mocks com a skill
 [`img-to-html`](.claude/skills/img-to-html/SKILL.md).

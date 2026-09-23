@@ -13,6 +13,15 @@
   transform: none;
 }
 
+/* Na impressao ou no PDF, secoes ainda nao roladas sairiam em branco. */
+@media print {
+  .revelavel {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .revelavel {
     opacity: 1;

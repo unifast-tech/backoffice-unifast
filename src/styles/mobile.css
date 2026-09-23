@@ -54,7 +54,10 @@
   /* ---------- diagrama empilhado ---------- */
   .diagrama {
     position: relative;
+    width: auto;
     height: auto;
+    margin-bottom: 0;
+    transform: none;
     margin-top: 26px;
     padding-left: 38px;
     display: flex;
@@ -133,9 +136,11 @@
     margin-top: 0;
   }
 
-  .sistema__status {
+  .sistema__status,
+  .sistema--nucleo .sistema__status {
     position: static;
     margin-top: 14px;
+    text-align: left;
   }
 
   .sistema__mais {
@@ -145,7 +150,10 @@
 
   /* ---------- trilhas como linha do tempo ---------- */
   .trilhas {
+    width: auto;
     height: auto;
+    margin-bottom: 0;
+    transform: none;
     margin-top: 26px;
   }
 
@@ -339,8 +347,8 @@
     gap: 16px;
   }
 
-  .page .ficha__tagline {
-    max-width: none;
+  .page .ficha__casos > div {
+    grid-template-columns: 1fr;
   }
 
   .page .btn2 {

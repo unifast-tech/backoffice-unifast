@@ -1,4 +1,6 @@
+import { useRef } from 'react'
 import Icon from '../components/Icon.jsx'
+import useEscala from '../components/useEscala.js'
 import { SISTEMAS, NUCLEO } from '../data/systems.js'
 import '../styles/integration.css'
 
@@ -20,6 +22,10 @@ function pernas(b) {
 }
 
 const TODOS = [...SISTEMAS, NUCLEO]
+
+/* Enquanto nenhum sistema estiver ligado ao nucleo, todos os fios sao
+   tracejados: o esquema mostra a ligacao prevista, nao uma que ja existe. */
+const FIO = NUCLEO.conectado ? 'fio' : 'fio fio--tracejado'
 const PERNAS = TODOS.map((s) => pernas(rel(s.box))).flat()
 
 /* Nos quadrados de 9px, centrados. */
@@ -33,6 +39,9 @@ const NOS = [
 ].map(([x, y]) => ({ x: x - OX, y: y - OY }))
 
 export default function Integration({ aberto, onAbrir }) {
+  const diagrama = useRef(null)
+  useEscala(diagrama, VB.w)
+
   return (
     <section className="secao secao--integracao" id="esquema">
       <div className="secao__cabecalho">
@@ -40,7 +49,7 @@ export default function Integration({ aberto, onAbrir }) {
         <span className="t3">TODO ACESSO PASSA PELO N&Uacute;CLEO</span>
       </div>
 
-      <div className="diagrama">
+      <div className="diagrama" ref={diagrama}>
         <svg
           className="diagrama__malha"
           viewBox={`0 0 ${VB.w} ${VB.h}`}
@@ -50,10 +59,10 @@ export default function Integration({ aberto, onAbrir }) {
           {/* barramento esquerdo e ramais dos tres cartoes da coluna */}
           <path
             d="M453.5 103.5 V576 M379.5 99 H451 M379.5 339 H547 M379.5 579 H451"
-            className="fio"
+            className={FIO}
           />
           {/* nucleo para o barramento direito, e dele ate o MONITORNOTES */}
-          <path d="M764.5 339 H858 M856 203.5 V339.5 M860.5 199 H932" className="fio" />
+          <path d="M764.5 339 H858 M856 203.5 V339.5 M860.5 199 H932" className={FIO} />
           {/* ligacao tracejada do nucleo ate o DESIGN SYSTEM */}
           <path d="M856 364 V476 M860.5 479 H926" className="fio fio--tracejado" />
 
@@ -80,9 +89,9 @@ export default function Integration({ aberto, onAbrir }) {
               key={s.id}
               onClick={() => onAbrir(s)}
               aria-label={`Abrir ficha de ${s.name}`}
-              className={`card sistema sistema--${s.state || 'nucleo'}${
-                aberto?.id === s.id ? ' sistema--ativo' : ''
-              }`}
+              className={`card sistema sistema--${s.state}${
+                s === NUCLEO ? ' sistema--nucleo' : ''
+              }${aberto?.id === s.id ? ' sistema--ativo' : ''}`}
               style={{
                 '--x': `${b.x}px`,
                 '--y': `${b.y}px`,
@@ -114,6 +123,13 @@ export default function Integration({ aberto, onAbrir }) {
       <p className="t3 secao__nota">
         + CADA CART&Atilde;O &Eacute; CLIC&Aacute;VEL &mdash; ABRE A FICHA T&Eacute;CNICA COMPLETA DO SISTEMA
       </p>
+      {!NUCLEO.conectado && (
+        <p className="t3 secao__nota secao__nota--legenda">
+          <span className="legenda__tracejado" aria-hidden="true" />
+          LIGA&Ccedil;&Atilde;O PREVISTA &mdash; O N&Uacute;CLEO J&Aacute; FOI ENTREGUE, OS SISTEMAS
+          AINDA V&Atilde;O SE CONECTAR A ELE
+        </p>
+      )}
     </section>
   )
 }

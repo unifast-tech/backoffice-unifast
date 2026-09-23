@@ -13,6 +13,10 @@
 .ficha-camada {
   position: fixed;
   inset: 0;
+  /* `position: fixed` ja cria contexto de empilhamento: sem z-index aqui a
+     camada inteira fica no nivel 0 e o nav (1) e o botao da ficha tecnica (60)
+     aparecem acesos por cima do escurecimento. */
+  z-index: 70;
   display: grid;
   place-items: center;
   padding: 24px;
@@ -106,15 +110,6 @@
   letter-spacing: -0.01em;
 }
 
-.ficha__tagline {
-  margin: 1.5px 0 0;
-  max-width: 224px;
-  font: italic 400 12.8px/16.5px var(--sans);
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--muted);
-}
-
 .ficha__specs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -143,13 +138,384 @@
   padding: 0 22.5px 22px;
 }
 
-.ficha__rodape p {
-  margin: 0;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--verde);
+/* ---------- ficha no formato novo ----------
+   Versao curta (resumo + STATUS / CATEGORIA / TIPO) que se expande na ficha
+   completa. Nao tem medida no mock: segue as proporcoes da ficha antiga, mais
+   larga para texto corrido, e rola por dentro quando passa da altura da tela. */
+
+.ficha--nova {
+  width: 480px;
+  height: auto;
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.ficha__rodape .ponto {
-  background: var(--verde);
+.ficha--completa {
+  width: 640px;
+}
+
+/* dentro de um flex com rolagem os filhos encolheriam em vez de rolar */
+.ficha--nova > * {
+  flex-shrink: 0;
+}
+
+/* o FECHAR fica sempre a vista enquanto a ficha completa rola */
+.ficha--nova .ficha__topo {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface);
+}
+
+.ficha--nova .ficha__identidade {
+  height: auto;
+  align-items: center;
+  padding-bottom: 18px;
+}
+
+.ficha--nova .ficha__nome {
+  margin-top: 0;
+}
+
+.ficha__subtitulo {
+  margin: 5px 0 0;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+
+.ficha__resumo {
+  margin: 0 22.5px;
+  padding-bottom: 20px;
+  font: 400 14px/21.5px var(--sans);
+  color: var(--ink);
+}
+
+.ficha--nova .ficha__specs {
+  padding-top: 18px;
+}
+
+/* ponto alinhado a primeira linha: "EM DESENVOLVIMENTO" quebra em duas */
+.ficha__estado {
+  display: flex;
+  align-items: flex-start;
+  color: var(--cor-estado);
+}
+
+.ficha__estado .ponto {
+  flex: none;
+  margin-top: 6.25px;
+}
+
+.ficha__rodape--acao {
+  margin-top: 0;
+  padding: 20px 22.5px 22px;
+}
+
+.ficha__expandir {
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  background: none;
+  padding: 9px 14px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.ficha__expandir:hover,
+.ficha__expandir:focus-visible {
+  background: var(--gold);
+  color: var(--bg);
+  outline: none;
+}
+
+/* ---- ficha completa ---- */
+.ficha__completa {
+  margin: 22px 22.5px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.ficha__bloco {
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--hairline);
+}
+
+.ficha__bloco:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ficha__rotulo {
+  margin: 0 0 9px;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+
+.ficha__texto {
+  margin: 0;
+  font: 400 13.5px/21px var(--sans);
+  color: color-mix(in srgb, var(--ink) 80%, var(--bg));
+}
+
+.ficha__funcoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha__funcoes li {
+  position: relative;
+  padding-left: 15px;
+  font: 400 13px/19px var(--sans);
+  color: color-mix(in srgb, var(--ink) 80%, var(--bg));
+}
+
+/* marcador: quadradinho dourado, o mesmo dos nos do diagrama */
+.ficha__funcoes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--gold);
+}
+
+.ficha__integracoes {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha__integracoes li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 9px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+}
+
+.ficha__integracao {
+  font: 400 12px/1.4 var(--mono);
+  color: var(--ink);
+}
+
+.ficha__seta {
+  color: var(--gold);
+}
+
+.ficha__nota {
+  padding: 2px 7px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 2px;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+/* frase de chamada acima do resumo (opcional) */
+.ficha__chamada {
+  margin: 0 22.5px 8px;
+  font: 700 17px/1.3 var(--display);
+  letter-spacing: -0.005em;
+  color: var(--gold);
+}
+
+.ficha__texto + .ficha__texto {
+  margin-top: 10px;
+}
+
+/* ---- fluxo de dados: cada etapa numa caixa, setas entre elas ---- */
+.ficha__fluxo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 30px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha__fluxo li {
+  position: relative;
+  padding: 6px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  font: 400 12px/1.4 var(--mono);
+  color: var(--ink);
+}
+
+.ficha__fluxo li:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  top: 50%;
+  right: -21px;
+  transform: translateY(-50%);
+  color: var(--gold);
+}
+
+/* descricao da integracao ocupa a linha de baixo inteira */
+.ficha__integracao-desc {
+  flex-basis: 100%;
+  font: 400 12.5px/18px var(--sans);
+  color: var(--muted);
+}
+
+/* ---- tecnologia ---- */
+.ficha__tecnologia {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px 18px;
+  margin: 0;
+}
+
+.ficha__tecnologia dt {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.ficha__tecnologia dd {
+  margin: 4px 0 0;
+  font: 400 12.5px/1.4 var(--mono);
+  color: var(--ink);
+}
+
+.ficha__texto + .ficha__funcoes {
+  margin-top: 12px;
+}
+
+/* ---- casos (ex.: tipos de erro): nome forte + descricao ---- */
+.ficha__casos {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.ficha__casos > div {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 4px 16px;
+  padding-left: 12px;
+  border-left: 2px solid var(--gold);
+}
+
+.ficha__casos dt {
+  font: 700 12px/19px var(--mono);
+  color: var(--ink);
+}
+
+.ficha__casos dd {
+  margin: 0;
+  font: 400 13px/19px var(--sans);
+  color: color-mix(in srgb, var(--ink) 80%, var(--bg));
+}
+
+/* ---- fluxos (atual / planejado) ---- */
+.ficha__fluxo-grupo + .ficha__fluxo-grupo {
+  margin-top: 14px;
+}
+
+.ficha__fluxo-rotulo {
+  margin: 0 0 8px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.ficha__fluxo-rotulo.is-planejado {
+  color: var(--gold);
+}
+
+.ficha__fluxo--planejado li {
+  border-style: dashed;
+  border-color: var(--gold-dim);
+}
+
+.ficha__caso-num {
+  margin-right: 8px;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+/* recursos de uma area, em etiquetas */
+.ficha__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha__tags li {
+  padding: 3px 8px;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  font: 400 11.5px/1.4 var(--sans);
+  color: color-mix(in srgb, var(--ink) 85%, var(--bg));
+}
+
+/* casos com recursos pedem mais respiro entre si */
+.ficha__casos:has(.ficha__tags) {
+  gap: 18px;
+}
+
+/* de onde veio o conteudo, quando nao foi do repositorio */
+.ficha__fonte {
+  margin: 0;
+  padding: 16px 0 0;
+  font-size: 9.5px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--muted);
+}
+
+/* sistema da UniFast que entrega aquela area (Campuzz) */
+.ficha__via {
+  display: block;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 2px 7px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 2px;
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+/* o que o proprio sistema faz: etiqueta preenchida, para contrastar com o
+   contorno das areas que vem de outro sistema */
+.ficha__via--proprio {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* texto de abertura antes de uma lista de casos */
+.ficha__texto--abre {
+  margin-bottom: 12px;
+}
+
+/* o que ainda falta: tracejado, a mesma linguagem do que e planejado */
+.ficha__casos--pendente > div {
+  border-left-style: dashed;
+  border-left-color: var(--gold-dim);
 }

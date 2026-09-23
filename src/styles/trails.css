@@ -5,10 +5,15 @@
   padding-top: 64.5px;
 }
 
+/* Mesma escala uniforme do diagrama de integracao (ver integration.css). */
 .trilhas {
   position: relative;
+  width: 1312px;
   height: 470px;
   margin-top: 22.5px;
+  margin-bottom: calc((var(--k, 1) - 1) * 470px);
+  transform: scale(var(--k, 1));
+  transform-origin: 0 0;
 }
 
 .trilhas__malha {
@@ -137,15 +142,5 @@
   margin: 0 0 0 auto;
   font-size: 11px;
   letter-spacing: 0.0935em;
-  color: var(--verde);
-}
-
-.ponto {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: 7px;
-  border-radius: 50%;
-  background: var(--verde);
-  vertical-align: middle;
+  color: var(--cor-estado, var(--verde));
 }
