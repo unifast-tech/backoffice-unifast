@@ -519,3 +519,30 @@
   border-left-style: dashed;
   border-left-color: var(--gold-dim);
 }
+
+/* proximos passos: lista numerada, em ordem */
+.ficha__passos {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: passo;
+}
+
+.ficha__passos li {
+  position: relative;
+  padding-left: 30px;
+  font: 400 13.5px/21px var(--sans);
+  color: color-mix(in srgb, var(--ink) 85%, var(--bg));
+  counter-increment: passo;
+}
+
+.ficha__passos li::before {
+  content: counter(passo, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font: 700 11px/19px var(--mono);
+  color: var(--gold);
+}

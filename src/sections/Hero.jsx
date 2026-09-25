@@ -1,5 +1,4 @@
 import Icon from '../components/Icon.jsx'
-import { CADASTRO_URL, LOGIN_URL } from '../data/links.js'
 import '../styles/hero.css'
 
 export default function Hero() {
@@ -29,15 +28,6 @@ export default function Hero() {
         Conheça as soluções por trás da operação e acesse tudo{' '}
         <br />a partir de um único lugar.
       </p>
-
-      <div className="hero__acoes">
-        <a className="btn btn--ouro" href={LOGIN_URL}>
-          ENTRAR
-        </a>
-        <a className="btn btn--cinza" href={CADASTRO_URL}>
-          CRIAR CONTA
-        </a>
-      </div>
 
       <p className="t3 hero__rolagem" aria-hidden="true">
         <span className="hero__rolagem-linha" />

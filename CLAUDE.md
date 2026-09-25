@@ -118,7 +118,15 @@ vinham dele:
   nunca escreva o status do nucleo a mao (ja esteve "SEMPRE ATIVO" sem estar).
   `NUCLEO.conectado` controla os fios do esquema: `false` deixa todos
   tracejados e mostra a legenda "ligacao prevista". Vire para `true` quando o
-  primeiro sistema (Metriczz, antigo FastHub Resultados) estiver de fato ligado.
+  primeiro sistema (Metriczz ou UniNotas) estiver de fato ligado.
+- **Checkpoints de status.** Os status seguem o checkpoint do time (o ultimo
+  e de 25/09/2026). A cada checkpoint: atualize `CHECKPOINT` em
+  [`systems.js`](src/data/systems.js), o `state`/`status`, `statusDetalhe` e
+  `proximosPassos` de cada sistema citado, e marque `checkpoint: true` nele (o
+  estagio da ficha passa a dizer "CHECKPOINT <data>"). Sistemas fora do
+  checkpoint (hoje Campuzz e Design System) ficam sem a marca. `AVANCADO`
+  (dourado) e "falta um passo para a entrega"; so `producao` conta como
+  modulo ativo na ficha tecnica.
 - **Trilhas com ordem e desvios.** Em [`trails.js`](src/data/trails.js) as
   paradas vem na ordem em que a pessoa passa: o SVG numera cada uma e poe uma
   seta por trecho. Parada `opcional` (ex.: o expert contratar o LeadsHug) sai
@@ -143,9 +151,12 @@ vinham dele:
   chegam em breve". **Armadilha:** carrossel
   e texto são irmãos e cada um tem `key` por sistema; as duas keys precisam
   ser diferentes (`fotos-u1`, `texto-u1`), senão o carrossel não reinicia.
-- **Botões de acesso no cabeçalho.** "Entrar" (`.btn--ouro`) e "Criar conta"
-  (`.btn--cinza`), um abaixo do outro, definidos em `tokens.css`. Levam às
-  telas de acesso.
+- **Botões de acesso no cabeçalho: retirados por enquanto** (decisão do
+  usuário em 25/09/2026). As telas `/entrar` e `/cadastro` continuam
+  funcionando pelo endereço, sem link na LP. Para voltar: dois `<a>` com
+  `.btn--ouro` e `.btn--cinza` (definidos em `tokens.css`) apontando para
+  `LOGIN_URL` e `CADASTRO_URL`, logo abaixo de `.hero__linha-fina` (ver o
+  commit `bde9554`).
 
 ## Telas de acesso (`/entrar` e `/cadastro`)
 

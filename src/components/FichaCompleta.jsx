@@ -1,3 +1,4 @@
+import { CHECKPOINT } from '../data/systems.js'
 import '../styles/ficha.css'
 
 /* Ficha completa, na ordem fixa: visao geral, problema, funcoes, casos,
@@ -5,7 +6,7 @@ import '../styles/ficha.css'
    tecnologia, estagio, papel. Blocos sem conteudo sao omitidos.
    Usada no modal da ficha (ao expandir) e na secao Os produtos por dentro,
    onde aparece sempre aberta. As classes vivem em ficha.css. */
-export default function FichaCompleta({ id, name, ficha }) {
+export default function FichaCompleta({ id, name, ficha, checkpoint = false }) {
   /* um fluxo so ou uma lista deles (atual / planejado) */
   const fluxos = emLista(ficha.fluxo)
   /* um grupo de casos ou varios (ex.: de onde vem, o que falta) */
@@ -127,7 +128,22 @@ export default function FichaCompleta({ id, name, ficha }) {
         </section>
       )}
 
-      <Bloco rotulo="ESTÁGIO ATUAL" texto={ficha.statusDetalhe} />
+      <Bloco
+        rotulo={checkpoint ? `ESTÁGIO ATUAL · CHECKPOINT ${CHECKPOINT}` : 'ESTÁGIO ATUAL'}
+        texto={ficha.statusDetalhe}
+      />
+
+      {emLista(ficha.proximosPassos).length > 0 && (
+        <section className="ficha__bloco">
+          <h3 className="t3 ficha__rotulo">PRÓXIMOS PASSOS</h3>
+          <ol className="ficha__passos">
+            {emLista(ficha.proximosPassos).map((p) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ol>
+        </section>
+      )}
+
       <Bloco rotulo="PAPEL NO ECOSSISTEMA" texto={ficha.papel} />
 
       {ficha.fonte && <p className="t3 ficha__fonte">FONTE: {ficha.fonte}</p>}

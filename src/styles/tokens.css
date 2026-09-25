@@ -132,6 +132,12 @@ svg {
   --cor-estado: var(--verde);
 }
 
+/* avancado: quase entregue, falta um passo; dourado, entre o verde de quem
+   ja esta no ar e o cinza de quem ainda esta sendo feito */
+.estado--avancado {
+  --cor-estado: var(--gold);
+}
+
 .estado--desenvolvimento {
   --cor-estado: var(--muted);
 }

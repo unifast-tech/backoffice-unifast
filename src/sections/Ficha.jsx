@@ -90,7 +90,14 @@ export default function Ficha({ sistema, onFechar }) {
           </div>
         </dl>
 
-        {completa && <FichaCompleta id={idCompleta} name={name} ficha={ficha} />}
+        {completa && (
+          <FichaCompleta
+            id={idCompleta}
+            name={name}
+            ficha={ficha}
+            checkpoint={sistema.checkpoint}
+          />
+        )}
 
         <footer className="ficha__rodape ficha__rodape--acao">
           <button

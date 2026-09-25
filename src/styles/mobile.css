@@ -389,11 +389,6 @@
     grid-template-columns: 1fr;
   }
 
-  /* no celular os botoes ocupam a largura toda */
-  .page .hero__acoes {
-    width: 100%;
-  }
-
   .page .produtos__nome {
     font-size: 26px;
   }
