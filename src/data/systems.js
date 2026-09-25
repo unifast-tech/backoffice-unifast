@@ -6,9 +6,14 @@
 export const ESTADOS = {
   producao: 'EM PRODUÇÃO',
   entregue: 'ENTREGUE',
+  avancado: 'AVANÇADO',
   desenvolvimento: 'EM DESENVOLVIMENTO',
   planejamento: 'EM PLANEJAMENTO',
 }
+
+/* Data do ultimo checkpoint de status. Os sistemas com `checkpoint` mostram
+   essa data no estagio da ficha; atualize os dois juntos a cada checkpoint. */
+export const CHECKPOINT = '25/09/2026'
 
 /* Ficha no formato fixo (vale para todos os sistemas conforme forem migrando):
      subtitulo, tagline?, resumo, categoria, tipo
@@ -30,17 +35,20 @@ export const ESTADOS = {
    fluxo?: um fluxo { etapas[], texto? } ou lista deles com { rotulo,
      planejado? }; o planejado aparece tracejado, como no esquema.
    integracoes[]: { sistema, descricao?, nota?, converge? } -- converge: true
-   desenha "sistema -> este" (quem esta migrando para ele). */
+   desenha "sistema -> este" (quem esta migrando para ele).
+   proximosPassos?: string ou lista; vem logo depois do estagio atual.
+   `checkpoint: true` no sistema: o estagio diz "CHECKPOINT <CHECKPOINT>". */
 export const NUCLEO = {
   id: 'u0',
   code: 'U0',
   name: 'ACCOUNTZZ',
   sub: 'IDENTIDADE & SEGURANÇA',
   icon: 'cadeado',
-  status: ESTADOS.entregue,
-  state: 'entregue',
-  /* Pronto desde 23/09/2026, mas nenhum sistema foi ligado a ele ainda: os
-     fios do esquema ficam tracejados enquanto for false. */
+  status: ESTADOS.avancado,
+  state: 'avancado',
+  checkpoint: true,
+  /* API funcional, mas nenhum sistema foi ligado a ele ainda: os fios do
+     esquema ficam tracejados enquanto for false. */
   conectado: false,
   box: { x: 615, y: 794, w: 211, h: 210 },
   ficha: {
@@ -53,7 +61,7 @@ export const NUCLEO = {
     tipo: 'Serviço central',
 
     visaoGeral:
-      'O Accountzz é o serviço central de identidade e acesso do ecossistema ' +
+      'O Accountzz (Órbita UniFast) é o serviço central de identidade e acesso do ecossistema ' +
       'UniFast. Ele foi projetado para unificar autenticação, usuários, vínculos ' +
       'organizacionais e permissões entre os diferentes sistemas da empresa.',
     problema:
@@ -77,7 +85,8 @@ export const NUCLEO = {
       'donos das próprias regras de negócio; o Accountzz informa quem é o usuário, ' +
       'a qual organização pertence e quais capacidades tem naquele contexto.',
     integracoes: [
-      { sistema: 'Metriczz', nota: 'primeiro a convergir', converge: true },
+      { sistema: 'Metriczz', nota: 'próxima conexão', converge: true },
+      { sistema: 'UniNotas', nota: 'próxima conexão', converge: true },
       { sistema: 'Gateway UniFast', converge: true },
       { sistema: 'LeadsHug', converge: true },
       {
@@ -88,8 +97,10 @@ export const NUCLEO = {
       },
     ],
     statusDetalhe:
-      'Entregue em 23/09/2026 e pronto para uso. Ainda não está conectado aos ' +
-      'demais sistemas: a convergência começa pelo Metriczz.',
+      'API funcionando, com a documentação pronta para uso. Ainda não está ' +
+      'conectado a nenhum sistema; podem surgir ajustes e demandas nas primeiras ' +
+      'conexões.',
+    proximosPassos: ['Conectar o Metriczz', 'Conectar o UniNotas'],
     papel: 'Serviço central de autenticação e autorização da UniFast.',
   },
 }
@@ -103,6 +114,7 @@ export const SISTEMAS = [
     icon: 'grafico',
     status: ESTADOS.desenvolvimento,
     state: 'desenvolvimento',
+    checkpoint: true,
     box: { x: 170, y: 584, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Dashboards, métricas e inteligência de dados da UniFast',
@@ -143,18 +155,26 @@ export const SISTEMAS = [
           'veem somente os produtores, produtos e dados do próprio escopo.',
       ],
       fluxo: {
-        etapas: ['Databricks', 'API Metriczz', 'Banco de dados', 'Dashboards'],
+        etapas: ['Pipeline Routerfy', 'Dados crus', 'Dados processados', 'API Metriczz', 'Dashboards'],
         texto:
-          'O Databricks é a fonte de leitura dos dados analíticos. A API processa e ' +
-          'organiza essas informações, aplica as regras de acesso e entrega o ' +
-          'resultado para a interface.',
+          'A estrutura segue o modelo medalhão: os dados entram crus e são processados ' +
+          'depois. A pipeline do Routerfy é a primeira fonte, e outras entram ao longo ' +
+          'do tempo. A API organiza as informações, aplica as regras de acesso e ' +
+          'entrega o resultado para a interface.',
       },
       seguranca:
         'Feito para isolar as informações entre usuários e organizações. As ' +
         'permissões são aplicadas pela API antes de os dados chegarem à interface, ' +
         'sem depender só do frontend: cada usuário recebe somente os dados do seu escopo.',
       integracoes: [
-        { sistema: 'Databricks', descricao: 'Fonte analítica dos dados e indicadores.' },
+        {
+          sistema: 'Routerfy',
+          descricao: 'Pipeline de dados que já alimenta a nova estrutura.',
+        },
+        {
+          sistema: 'Databricks',
+          descricao: 'Onde os dados eram tratados até agora; em migração para a nova estrutura.',
+        },
         {
           sistema: 'Gateway UniFast',
           descricao: 'Núcleo transacional: cadastros, tenancy, checkout e eventos.',
@@ -169,13 +189,21 @@ export const SISTEMAS = [
         ['Backend', 'NestJS'],
         ['Banco de dados', 'PostgreSQL'],
         ['ORM', 'Prisma'],
-        ['Fonte analítica', 'Databricks'],
+        ['Dados', 'Arquitetura medalhão (migrando do Databricks)'],
         ['Infraestrutura', 'Railway'],
       ],
-      statusDetalhe:
-        'Frontend, API e banco de dados funcionando, com ambiente publicado em stage. ' +
-        'A integração definitiva com a fonte real depende da liberação das views e ' +
-        'credenciais no Databricks.',
+      statusDetalhe: [
+        'A etapa inicial é a mais complexa: migrar tudo o que era feito no Databricks ' +
+          'para uma nova estrutura de dados, mantendo o modelo medalhão, com ingestão ' +
+          'de dados crus e processamento posterior.',
+        'A pipeline do Routerfy já está gerando dados, e com eles já dá para construir ' +
+          'os primeiros gráficos e dashboards; outras fontes entram ao longo do tempo.',
+      ],
+      proximosPassos: [
+        'Criar a interface dos primeiros gráficos',
+        'Autenticar pelo Accountzz para liberar o MVP',
+        'Depois do MVP, priorizar quais dados conectar',
+      ],
       papel: 'Central de métricas, relatórios e dashboards da UniFast.',
     },
   },
@@ -312,10 +340,11 @@ export const SISTEMAS = [
     name: 'LEADSHUG',
     sub: 'CRM & ATENDIMENTO',
     icon: 'balao',
-    /* o produto novo roda em stage; os dois sistemas de origem seguem em
-       producao ate serem cobertos por ele */
+    /* em reconstrucao; os dois sistemas de origem seguem em producao ate
+       serem cobertos por ele */
     status: ESTADOS.desenvolvimento,
     state: 'desenvolvimento',
+    checkpoint: true,
     box: { x: 170, y: 1064, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Central de relacionamento com o cliente da UniFast',
@@ -482,10 +511,17 @@ export const SISTEMAS = [
           descricao: 'Evolution/Baileys, pareado por QR, com controle de ritmo.',
         },
       ],
-      statusDetalhe:
-        'O núcleo novo roda em stage. Hoje substitui uma das três ferramentas pela metade; ' +
-        'modelos, disparo e grupos seguem nos sistemas de origem, e o CRM ainda não tem ' +
-        'decisão escrita.',
+      statusDetalhe: [
+        'As principais funcionalidades e telas já foram definidas a partir dos estudos ' +
+          'de descoberta e validação feitos em "vibe code".',
+        'Por exigir escala e segurança (disparo em massa em volume alto, preservação dos ' +
+          'documentos enviados pelo cliente), o produto passa por uma reconstrução mais ' +
+          'criteriosa. Já está pronta a documentação que guia o desenvolvimento: todas as ' +
+          'funcionalidades mapeadas, as futuras alinhadas e a arquitetura a seguir.',
+      ],
+      proximosPassos:
+        'Revisar o que já está pronto e funcionando, identificar os gaps que precisam ' +
+        'ser cobertos e resolver cada um deles.',
       papel:
         'Central de relacionamento com o cliente da UniFast, com o WhatsApp como canal principal.',
     },
@@ -496,9 +532,11 @@ export const SISTEMAS = [
     name: 'UNINOTAS',
     sub: 'FINANCEIRO & FISCAL',
     icon: 'nota',
-    /* em producao, e crescendo de monitor para hub fiscal */
-    status: `${ESTADOS.producao} · EM EVOLUÇÃO`,
-    state: 'producao',
+    /* conectado a API do SmartNotas; falta o login pelo Accountzz para a
+       entrega a equipe */
+    status: ESTADOS.avancado,
+    state: 'avancado',
+    checkpoint: true,
     box: { x: 1010, y: 684, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Gestão centralizada de notas fiscais da UniFast',
@@ -603,10 +641,26 @@ export const SISTEMAS = [
         ['Monitoramento', 'UptimeRobot'],
         ['Integração fiscal', 'SmartNotas / API fiscal'],
       ],
+      integracoes: [
+        {
+          sistema: 'SmartNotas',
+          nota: 'conectado',
+          descricao: 'API de emissão fiscal do fornecedor, já ligada ao UniNotas.',
+        },
+        {
+          sistema: 'Accountzz',
+          nota: 'próximo passo',
+          descricao: 'Login da equipe: é o que falta para a entrega.',
+        },
+      ],
       statusDetalhe:
-        'O módulo de monitoramento de notas já está em produção. A próxima etapa é ' +
-        'integrar a nova API fiscal, trazendo aos poucos todo o processo de emissão ' +
-        'e gestão de notas para dentro do UniNotas.',
+        'Já conectado à API disponibilizada pelo SmartNotas. O único passo que falta ' +
+        'para a entrega é o login pelo Accountzz.',
+      proximosPassos: [
+        'Login pelo Accountzz',
+        'Apresentação à equipe',
+        'Monitoramento do uso para avaliar melhorias',
+      ],
       papel:
         'Plataforma central de emissão, monitoramento e gestão de notas fiscais da UniFast.',
     },

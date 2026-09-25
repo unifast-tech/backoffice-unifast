@@ -126,8 +126,8 @@ export default function Integration({ aberto, onAbrir }) {
       {!NUCLEO.conectado && (
         <p className="t3 secao__nota secao__nota--legenda">
           <span className="legenda__tracejado" aria-hidden="true" />
-          LIGA&Ccedil;&Atilde;O PREVISTA &mdash; O N&Uacute;CLEO J&Aacute; FOI ENTREGUE, OS SISTEMAS
-          AINDA V&Atilde;O SE CONECTAR A ELE
+          LIGA&Ccedil;&Atilde;O PREVISTA &mdash; A API DO N&Uacute;CLEO J&Aacute; FUNCIONA, OS SISTEMAS
+          AINDA V&Atilde;O SE CONECTAR A ELA
         </p>
       )}
     </section>

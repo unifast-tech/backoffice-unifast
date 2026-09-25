@@ -10,6 +10,7 @@ const contar = (estado) =>
 
 const LINHAS = [
   ['MÓDULOS ATIVOS', contar('producao')],
+  ['AVANÇADOS', contar('avancado')],
   ['EM DESENVOLVIMENTO', contar('desenvolvimento')],
   ['NÚCLEO DE IDENTIDADE', NUCLEO.name],
   ['CANAL PRINCIPAL', 'WHATSAPP'],

@@ -130,7 +130,12 @@ export default function Produtos() {
             </div>
           </dl>
 
-          <FichaCompleta id={`produto-${sistema.id}`} name={sistema.name} ficha={ficha} />
+          <FichaCompleta
+            id={`produto-${sistema.id}`}
+            name={sistema.name}
+            ficha={ficha}
+            checkpoint={sistema.checkpoint}
+          />
         </article>
       </div>
     </section>

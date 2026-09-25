@@ -236,6 +236,10 @@
   color: var(--gold);
 }
 
+.sistema--avancado .sistema__status {
+  color: var(--gold);
+}
+
 /* Entregue e pronto, ainda sem sistemas ligados: status em verde, e os fios
    do esquema tracejados (ver `conectado` em systems.js). */
 .sistema--entregue .sistema__status {
