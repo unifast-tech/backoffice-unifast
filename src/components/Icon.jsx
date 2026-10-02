@@ -106,6 +106,22 @@ const ICONES = {
     ),
   },
 
+  /* Delphi AI: um nucleo que coordena tres nos (os agentes e projetos que ele
+     governa). Os nos sao quadrados, como os do esquema de integracao. */
+  harness: {
+    w: 34,
+    h: 34,
+    art: (
+      <>
+        <circle cx="17" cy="17" r="5.5" {...T} />
+        <rect x="1" y="1" width="8" height="8" {...T} />
+        <rect x="25" y="1" width="8" height="8" {...T} />
+        <rect x="13" y="25" width="8" height="8" {...T} />
+        <path d="M9 9 L13.2 13.2 M25 9 L20.8 13.2 M17 22.5 V25" {...T} strokeLinecap="round" />
+      </>
+    ),
+  },
+
   envelope: {
     w: 20,
     h: 16,

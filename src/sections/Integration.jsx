@@ -63,7 +63,7 @@ export default function Integration({ aberto, onAbrir }) {
           />
           {/* nucleo para o barramento direito, e dele ate o MONITORNOTES */}
           <path d="M764.5 339 H858 M856 203.5 V339.5 M860.5 199 H932" className={FIO} />
-          {/* ligacao tracejada do nucleo ate o DESIGN SYSTEM */}
+          {/* ligacao do nucleo ate o DELPHI AI (U5) */}
           <path d="M856 364 V476 M860.5 479 H926" className="fio fio--tracejado" />
 
           {PERNAS.map((p, i) => (
