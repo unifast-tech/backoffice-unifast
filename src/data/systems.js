@@ -671,8 +671,8 @@ export const SISTEMAS = [
     name: 'DELPHI AI',
     sub: 'HARNESS AS A SERVICE',
     icon: 'harness',
-    status: ESTADOS.planejamento,
-    state: 'planejamento',
+    status: ESTADOS.desenvolvimento,
+    state: 'desenvolvimento',
     box: { x: 1010, y: 964, w: 260, h: 150 },
     /* Ocupa o lugar do antigo Design System, que passa a viver dentro do
        harness (a ficha nao cita isso). Conteudo do repositorio delphi-ai (metodo
@@ -802,7 +802,7 @@ export const SISTEMAS = [
       statusDetalhe:
         'O método e as ferramentas já existem (versão 0.6): regras, verificações ' +
         'automáticas, tarefas com evidência e CI compartilhado. O Harness as a Service ' +
-        'está em planejamento.',
+        'está em desenvolvimento.',
       proximosPassos: [
         'Definir o Delphi AI como Harness as a Service',
         'Centralizar tarefas, travas e métricas num serviço',
