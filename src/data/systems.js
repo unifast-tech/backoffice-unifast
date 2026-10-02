@@ -11,9 +11,6 @@ export const ESTADOS = {
   planejamento: 'EM PLANEJAMENTO',
 }
 
-/* Data do ultimo checkpoint de status. Os sistemas com `checkpoint` mostram
-   essa data no estagio da ficha; atualize os dois juntos a cada checkpoint. */
-export const CHECKPOINT = '25/09/2026'
 
 /* Ficha no formato fixo (vale para todos os sistemas conforme forem migrando):
      subtitulo, tagline?, resumo, categoria, tipo
@@ -37,18 +34,20 @@ export const CHECKPOINT = '25/09/2026'
    integracoes[]: { sistema, descricao?, nota?, converge? } -- converge: true
    desenha "sistema -> este" (quem esta migrando para ele).
    proximosPassos?: string ou lista; vem logo depois do estagio atual.
-   `checkpoint: true` no sistema: o estagio diz "CHECKPOINT <CHECKPOINT>". */
+   `checkpoint: 'dd/mm/aaaa'` no sistema: data da ultima atualizacao de status
+   daquele sistema; o estagio da ficha diz "ATUALIZADO EM <data>". */
 export const NUCLEO = {
   id: 'u0',
   code: 'U0',
   name: 'ACCOUNTZZ',
   sub: 'IDENTIDADE & SEGURANÇA',
   icon: 'cadeado',
-  status: ESTADOS.avancado,
-  state: 'avancado',
-  checkpoint: true,
-  /* API funcional, mas nenhum sistema foi ligado a ele ainda: os fios do
-     esquema ficam tracejados enquanto for false. */
+  /* MVP rodando; v2 mais robusta em desenvolvimento */
+  status: 'MVP RODANDO',
+  state: 'producao',
+  checkpoint: '02/10/2026',
+  /* MVP no ar, mas nenhum sistema foi ligado a ele ainda: os fios do esquema
+     ficam tracejados enquanto for false. */
   conectado: false,
   box: { x: 615, y: 794, w: 211, h: 210 },
   ficha: {
@@ -97,10 +96,13 @@ export const NUCLEO = {
       },
     ],
     statusDetalhe:
-      'API funcionando, com a documentação pronta para uso. Ainda não está ' +
-      'conectado a nenhum sistema; podem surgir ajustes e demandas nas primeiras ' +
-      'conexões.',
-    proximosPassos: ['Conectar o Metriczz', 'Conectar o UniNotas'],
+      'O MVP está rodando, com a API funcionando e a documentação pronta para uso. ' +
+      'Em paralelo, uma v2 mais robusta está em desenvolvimento. Nenhum sistema ' +
+      'está conectado a ele ainda.',
+    proximosPassos: [
+      'Desenvolver a v2, mais robusta',
+      'Conectar o UniNotas e o Metriczz (login pelo Accountzz)',
+    ],
     papel: 'Serviço central de autenticação e autorização da UniFast.',
   },
 }
@@ -112,9 +114,10 @@ export const SISTEMAS = [
     name: 'METRICZZ',
     sub: 'ANALYTICS & BI',
     icon: 'grafico',
-    status: ESTADOS.desenvolvimento,
-    state: 'desenvolvimento',
-    checkpoint: true,
+    /* finalizado e no ar; a equipe esta testando */
+    status: `${ESTADOS.producao} · EM TESTES`,
+    state: 'producao',
+    checkpoint: '02/10/2026',
     box: { x: 170, y: 584, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Dashboards, métricas e inteligência de dados da UniFast',
@@ -193,16 +196,15 @@ export const SISTEMAS = [
         ['Infraestrutura', 'Railway'],
       ],
       statusDetalhe: [
-        'A etapa inicial é a mais complexa: migrar tudo o que era feito no Databricks ' +
-          'para uma nova estrutura de dados, mantendo o modelo medalhão, com ingestão ' +
-          'de dados crus e processamento posterior.',
-        'A pipeline do Routerfy já está gerando dados, e com eles já dá para construir ' +
-          'os primeiros gráficos e dashboards; outras fontes entram ao longo do tempo.',
+        'Finalizado e em produção, em etapa de testes pela equipe.',
+        'Os dados saíram do Databricks para uma nova estrutura no modelo medalhão ' +
+          '(dados crus primeiro, processamento depois), alimentada pela pipeline do ' +
+          'Routerfy; outras fontes entram ao longo do tempo.',
       ],
       proximosPassos: [
-        'Criar a interface dos primeiros gráficos',
-        'Autenticar pelo Accountzz para liberar o MVP',
-        'Depois do MVP, priorizar quais dados conectar',
+        'Concluir os testes com a equipe',
+        'Login pelo Accountzz',
+        'Priorizar quais dados conectar em seguida',
       ],
       papel: 'Central de métricas, relatórios e dashboards da UniFast.',
     },
@@ -344,7 +346,7 @@ export const SISTEMAS = [
        serem cobertos por ele */
     status: ESTADOS.desenvolvimento,
     state: 'desenvolvimento',
-    checkpoint: true,
+    checkpoint: '25/09/2026',
     box: { x: 170, y: 1064, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Central de relacionamento com o cliente da UniFast',
@@ -532,11 +534,10 @@ export const SISTEMAS = [
     name: 'UNINOTAS',
     sub: 'FINANCEIRO & FISCAL',
     icon: 'nota',
-    /* conectado a API do SmartNotas; falta o login pelo Accountzz para a
-       entrega a equipe */
-    status: ESTADOS.avancado,
-    state: 'avancado',
-    checkpoint: true,
+    /* finalizado e entregue a equipe; o login pelo Accountzz vem depois */
+    status: ESTADOS.producao,
+    state: 'producao',
+    checkpoint: '02/10/2026',
     box: { x: 1010, y: 684, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Gestão centralizada de notas fiscais da UniFast',
@@ -650,16 +651,15 @@ export const SISTEMAS = [
         {
           sistema: 'Accountzz',
           nota: 'próximo passo',
-          descricao: 'Login da equipe: é o que falta para a entrega.',
+          descricao: 'Login da equipe pelo núcleo de identidade.',
         },
       ],
       statusDetalhe:
-        'Já conectado à API disponibilizada pelo SmartNotas. O único passo que falta ' +
-        'para a entrega é o login pelo Accountzz.',
+        'Finalizado e entregue à equipe, em produção e conectado à API ' +
+        'disponibilizada pelo SmartNotas.',
       proximosPassos: [
+        'Monitorar o uso para avaliar melhorias',
         'Login pelo Accountzz',
-        'Apresentação à equipe',
-        'Monitoramento do uso para avaliar melhorias',
       ],
       papel:
         'Plataforma central de emissão, monitoramento e gestão de notas fiscais da UniFast.',
@@ -668,138 +668,150 @@ export const SISTEMAS = [
   {
     id: 'u5',
     code: 'U5',
-    name: 'DESIGN SYSTEM',
-    sub: 'PADRONIZAÇÃO VISUAL',
-    icon: 'grade',
-    status: ESTADOS.desenvolvimento,
-    state: 'desenvolvimento',
+    name: 'DELPHI AI',
+    sub: 'HARNESS AS A SERVICE',
+    icon: 'harness',
+    status: ESTADOS.planejamento,
+    state: 'planejamento',
     box: { x: 1010, y: 964, w: 260, h: 150 },
-    /* O modelo e o design system do Belluga 2.4: dele vem o conceito
-       (fundacao compartilhada, superficies com linguagem propria, decisoes e
-       estados documentados), nao a stack nem as telas, que sao do Belluga. */
+    /* Ocupa o lugar do antigo Design System, que passa a viver dentro do
+       harness (a ficha nao cita isso). Conteudo do repositorio delphi-ai (metodo
+       PACED) e do foundation_documentation de cada projeto; a visao de
+       servico (HaaS) vem do time tech e de um documento de estrategia do
+       proprio repositorio, ainda "a discutir". */
     ficha: {
-      subtitulo: 'Fundação visual e de experiência dos sistemas UniFast',
-      tagline: 'Uma fundação, vários sistemas.',
+      subtitulo: 'Harness as a Service · governança do desenvolvimento com IA',
+      tagline: 'Governança com dados concretos para o desenvolvimento com IA.',
       resumo:
-        'Um só jeito de desenhar tela na UniFast: cores, tipografia, forma, estados e ' +
-        'regras de qualidade compartilhados por todos os sistemas, sem obrigar cada um ' +
-        'a falar a mesma linguagem.',
-      categoria: 'Design & Experiência',
-      tipo: 'Fundação compartilhada',
+        'O harness que gerencia o processo de desenvolvimento com agentes de IA: as ' +
+        'mesmas regras, tarefas e verificações para todas as equipes, e visibilidade ' +
+        'para a gestão decidir com dados concretos.',
+      categoria: 'Engenharia & Governança',
+      tipo: 'Harness as a Service',
 
       visaoGeral: [
-        'O Design System é a direção de produto e de experiência dos sistemas da ' +
-          'UniFast. Eles compartilham marca, tokens e regras de qualidade, mas não ' +
-          'linguagem: cada um tem seus componentes, sua densidade e seu comportamento.',
-        'Não é uma biblioteca de telas: é uma fundação comum mais as decisões que ' +
-          'explicam por que cada tela é do jeito que é.',
+        'O Delphi AI é o harness de desenvolvimento da UniFast. Por trás dele está o ' +
+          'PACED, um método interno de ' +
+          'engenharia em que cada projeto deixa mais regras automáticas do que ' +
+          'consumiu, e a complexidade acumulada acelera o código certo em vez de travar.',
+        'O objetivo é virar Harness as a Service: gerenciar o processo de ' +
+          'desenvolvimento como um serviço e, ao fazer isso, dar visibilidade e ' +
+          'governança com dados concretos.',
       ],
-      problema:
-        'Cada sistema nasceu num momento diferente, com a sua própria forma de ' +
-        'desenhar. A mesma ação muda de lugar, de nome e de aparência de um produto ' +
-        'para outro, e quem usa mais de um sistema reaprende a cada troca.',
+      problema: [
+        'A IA aproximou a gestão do código e do produto. Mas, ao mesmo tempo, ' +
+          'dificultou a governança e a colaboração em equipes mais complexas, cada uma ' +
+          'usando uma ferramenta diferente, um agente diferente.',
+        'E a gestão, próxima do produto, não tem a visibilidade adequada para a ' +
+          'tomada de decisão.',
+      ],
+      funcoes: [
+        'Dá a qualquer agente (Claude Code, Codex, Gemini, Cline) as mesmas regras',
+        'Organiza o trabalho em tarefas com aprovação explícita antes de mexer no código',
+        'Exige evidência de cada critério de pronto antes de uma entrega',
+        'Barra automaticamente o que não passa nas verificações',
+        'Junta regras gerais, regras de cada tecnologia e regras de cada projeto',
+        'Mantém um CI único, assinado por todos os projetos',
+        'Registra em cada sessão quais regras pegaram problemas e quais deixaram passar',
+        'Separa papéis de trabalho: estratégia, código, DevOps, qualidade e segurança',
+      ],
       casos: [
         {
-          titulo: 'O QUE A FUNDAÇÃO COMPARTILHA',
+          titulo: 'TRÊS CAMADAS DE GOVERNANÇA',
+          numerado: true,
           itens: [
             {
-              nome: 'Cor',
+              nome: 'Instruções',
               descricao:
-                'Paleta e papéis de cor gerados a partir das cores da marca, com o ' +
-                'contraste calculado em vez de conferido a olho.',
+                'Regras que o agente interpreta. As do projeto vencem as da tecnologia, ' +
+                'que vencem as gerais.',
             },
             {
-              nome: 'Tipografia e forma',
-              descricao: 'Escala de texto, espaço em grade de 4 e formas definidas pela função.',
-            },
-            {
-              nome: 'Acessibilidade',
+              nome: 'Determinística',
               descricao:
-                'Contraste de 4,5:1 no texto, foco visível, leitor de tela e alvos de toque de 48.',
+                'Scripts e verificações que o agente tem de obedecer: o que não passa, ' +
+                'não segue.',
             },
             {
-              nome: 'Estados',
-              descricao: 'Carregando, vazio, erro e sucesso sempre do mesmo jeito.',
-            },
-            {
-              nome: 'Movimento',
-              descricao: 'Contido, e trocado por um fade quando a pessoa pede menos movimento.',
+              nome: 'Padrões',
+              descricao: 'Soluções reutilizáveis e erros conhecidos, versionados.',
             },
           ],
         },
         {
-          titulo: 'PRINCÍPIOS DE TELA',
+          titulo: 'FOUNDATION DOCUMENTATION',
+          texto:
+            'Cada projeto tem o seu foundation_documentation: as regras e as tarefas ' +
+            'daquele projeto, lidas pelo Delphi antes de qualquer trabalho.',
           itens: [
             {
-              nome: 'Detalhe é leitura',
-              descricao: 'Só o formulário altera dados; o detalhe mostra e tem um botão Editar.',
-            },
-            {
-              nome: 'Toda tela tem endereço',
+              nome: 'Constituição',
               descricao:
-                'Abre por link direto, voltar leva à origem e nada redireciona em silêncio.',
+                'A stack e as decisões do projeto; é ela que ativa as regras certas.',
             },
             {
-              nome: 'Erro não apaga nada',
-              descricao:
-                'O que foi digitado fica, e a mensagem diz o próximo passo em vez de um código.',
+              nome: 'Tarefas',
+              descricao: 'Ativas, em promoção e concluídas, cada uma com a sua evidência.',
             },
             {
-              nome: 'Nada só pela cor',
-              descricao: 'Seleção, erro e sucesso mudam também forma, ícone e texto.',
+              nome: 'Regras locais',
+              descricao: 'O que vale só para aquele projeto, acima das regras gerais.',
             },
             {
-              nome: 'Uma ação principal',
-              descricao: 'Um único botão de destaque por tela; o resto fica em segundo plano.',
-            },
-            {
-              nome: 'Criar e editar juntos',
-              descricao:
-                'O mesmo formulário para os dois, e a pessoa aprende uma vez só.',
-            },
-          ],
-        },
-        {
-          titulo: 'COMO ELE É DOCUMENTADO',
-          itens: [
-            {
-              nome: 'Revisão crítica',
-              descricao: 'Cada decisão diz o que estava errado antes e o que muda.',
-            },
-            {
-              nome: 'Anatomia e estados',
-              descricao:
-                'O esqueleto de cada tipo de tela e os estados obrigatórios, como salvo, ' +
-                'salvando, falha e alteração preservada.',
-            },
-            {
-              nome: 'Protótipos',
-              descricao: 'Fluxos interativos para percorrer lista, detalhe e formulário.',
-            },
-            {
-              nome: 'Tamanhos',
-              descricao: 'Como cada tela se organiza no celular, no tablet e no desktop.',
-            },
-            {
-              nome: 'Aceite',
-              descricao: 'Critérios para dizer que uma tela de um sistema segue a fundação.',
+              nome: 'Métricas',
+              descricao: 'O registro de cada regra disparada, sessão a sessão.',
             },
           ],
         },
       ],
+      evolucao: {
+        texto:
+          'Hoje o Delphi funciona dentro de cada repositório, com arquivos e scripts ' +
+          'locais. Isso atende bem uma pessoa ou um agente, mas mostra limites quando ' +
+          'várias pessoas e vários agentes trabalham em paralelo. A evolução é levar o ' +
+          'estado da operação para um serviço central, mantendo código e arquitetura no Git.',
+        itens: [
+          'Tarefas, dependências e travas num lugar só',
+          'Andamento visível em tempo real',
+          'Passagem de trabalho entre pessoas e agentes sem perder contexto',
+          'Métricas consolidadas para a gestão decidir',
+        ],
+      },
       ecossistema:
-        'Cada sistema da UniFast é uma superfície que herda a fundação (cores, ícones, ' +
-        'foco, contraste, estados e vocabulário) e decide o que é só dele: densidade, ' +
-        'navegação e tom. O que herda é igual em todos; o que decide fica documentado.',
+        'Fica por trás dos outros sistemas: cada repositório assina o Delphi e herda as ' +
+        'mesmas regras, verificações e CI. Ao gerenciar o processo, ele também gera os ' +
+        'dados que faltavam para a gestão acompanhar e decidir.',
+      integracoes: [
+        {
+          sistema: 'Agentes de IA',
+          descricao: 'Claude Code, Codex, Gemini e Cline leem as mesmas regras e tarefas.',
+        },
+        {
+          sistema: 'GitHub Actions',
+          descricao: 'CI compartilhado: os projetos assinam o mesmo fluxo de verificações.',
+        },
+      ],
+      tecnologia: [
+        ['Método', 'PACED'],
+        ['Versão', '0.6'],
+        ['Verificações', 'Python e shell'],
+        ['Regras e tarefas', 'Markdown + JSON Schema'],
+        ['CI', 'GitHub Actions'],
+        ['Agentes', 'Claude Code, Codex, Gemini, Cline'],
+      ],
       statusDetalhe:
-        'Em desenvolvimento. O formato de referência é o design system do Belluga ' +
-        '(versão 2.4): fundação compartilhada, superfícies com linguagem própria, ' +
-        'decisões documentadas e protótipos interativos.',
-      papel:
-        'Fundação visual e de experiência compartilhada por todos os sistemas da UniFast.',
+        'O método e as ferramentas já existem (versão 0.6): regras, verificações ' +
+        'automáticas, tarefas com evidência e CI compartilhado. O Harness as a Service ' +
+        'está em planejamento.',
+      proximosPassos: [
+        'Definir o Delphi AI como Harness as a Service',
+        'Centralizar tarefas, travas e métricas num serviço',
+        'Dar à gestão a visibilidade do processo com dados concretos',
+      ],
+      papel: 'Harness que governa o desenvolvimento com IA em toda a UniFast.',
       fonte:
-        'Direção baseada no design system do Belluga 2.4, usado como modelo; o design ' +
-        'system da UniFast ainda está em construção.',
+        'Repositório delphi-ai e foundation_documentation; a visão de serviço vem do ' +
+        'time tech.',
     },
   },
 ]

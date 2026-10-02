@@ -66,7 +66,7 @@ public/assets/{id}.png        # mídias finais, servidas em /assets/{id}.png
   **Exceção:** as fotos dos produtos ficam em `src/assets/produtos/<pasta>/`,
   porque o carrossel as descobre com `import.meta.glob` (em `public/` o site
   não tem como listar a pasta). A pasta é o nome do sistema em minúsculas com
-  hífen (`design-system`); a ordem é a do nome do arquivo.
+  hífen (`delphi-ai`); a ordem é a do nome do arquivo.
 - **Fontes** via `<link>` do Google Fonts no `index.html` da raiz, ou
   `@font-face` em `tokens.css`.
 - Verificação de cada gate: `npm run dev` e comparar no browser com a reference,
@@ -112,21 +112,23 @@ vinham dele:
   tecnologia, estagio, papel. Os opcionais so aparecem se preenchidos. O que
   ainda nao existe (fluxo planejado, casos pendentes, ligacao ao nucleo) sai
   tracejado. `fonte` marca conteudo que nao veio do repositorio (Campuzz,
-  Design System). A ficha do mock (ORIGEM / ARMAZENA / ENTREGA) foi aposentada
+  Delphi AI). A ficha do mock (ORIGEM / ARMAZENA / ENTREGA) foi aposentada
   quando o ultimo sistema migrou.
   Status sai sempre de `ESTADOS` + `state`, com cor via `.estado--<state>`:
   nunca escreva o status do nucleo a mao (ja esteve "SEMPRE ATIVO" sem estar).
   `NUCLEO.conectado` controla os fios do esquema: `false` deixa todos
   tracejados e mostra a legenda "ligacao prevista". Vire para `true` quando o
   primeiro sistema (Metriczz ou UniNotas) estiver de fato ligado.
-- **Checkpoints de status.** Os status seguem o checkpoint do time (o ultimo
-  e de 25/09/2026). A cada checkpoint: atualize `CHECKPOINT` em
-  [`systems.js`](src/data/systems.js), o `state`/`status`, `statusDetalhe` e
-  `proximosPassos` de cada sistema citado, e marque `checkpoint: true` nele (o
-  estagio da ficha passa a dizer "CHECKPOINT <data>"). Sistemas fora do
-  checkpoint (hoje Campuzz e Design System) ficam sem a marca. `AVANCADO`
-  (dourado) e "falta um passo para a entrega"; so `producao` conta como
-  modulo ativo na ficha tecnica.
+- **Atualizacoes de status.** Os status seguem o que o time informa
+  (checkpoints em PDF ou mensagens). A cada atualizacao, em
+  [`systems.js`](src/data/systems.js), mude so os sistemas citados: `state`
+  /`status`, `statusDetalhe`, `proximosPassos` e `checkpoint: 'dd/mm/aaaa'`
+  (a data e por sistema; o estagio da ficha diz "ATUALIZADO EM <data>").
+  Ultimas: 02/10/2026 (Accountzz, Metriczz, UniNotas) e 25/09/2026
+  (LeadsHug); Campuzz e Delphi AI sem data. `status` pode ser um rotulo
+  proprio ("MVP RODANDO", "EM PRODUCAO · EM TESTES") com o `state` dando a
+  cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
+  conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
 - **Trilhas com ordem e desvios.** Em [`trails.js`](src/data/trails.js) as
   paradas vem na ordem em que a pessoa passa: o SVG numera cada uma e poe uma
   seta por trecho. Parada `opcional` (ex.: o expert contratar o LeadsHug) sai

@@ -1,4 +1,3 @@
-import { CHECKPOINT } from '../data/systems.js'
 import '../styles/ficha.css'
 
 /* Ficha completa, na ordem fixa: visao geral, problema, funcoes, casos,
@@ -6,7 +5,7 @@ import '../styles/ficha.css'
    tecnologia, estagio, papel. Blocos sem conteudo sao omitidos.
    Usada no modal da ficha (ao expandir) e na secao Os produtos por dentro,
    onde aparece sempre aberta. As classes vivem em ficha.css. */
-export default function FichaCompleta({ id, name, ficha, checkpoint = false }) {
+export default function FichaCompleta({ id, name, ficha, checkpoint = null }) {
   /* um fluxo so ou uma lista deles (atual / planejado) */
   const fluxos = emLista(ficha.fluxo)
   /* um grupo de casos ou varios (ex.: de onde vem, o que falta) */
@@ -129,7 +128,7 @@ export default function FichaCompleta({ id, name, ficha, checkpoint = false }) {
       )}
 
       <Bloco
-        rotulo={checkpoint ? `ESTÁGIO ATUAL · CHECKPOINT ${CHECKPOINT}` : 'ESTÁGIO ATUAL'}
+        rotulo={checkpoint ? `ESTÁGIO ATUAL · ATUALIZADO EM ${checkpoint}` : 'ESTÁGIO ATUAL'}
         texto={ficha.statusDetalhe}
       />
 

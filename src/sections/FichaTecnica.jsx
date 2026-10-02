@@ -8,13 +8,15 @@ import '../styles/ficha-tecnica.css'
 const contar = (estado) =>
   String(SISTEMAS.filter((s) => s.state === estado).length).padStart(2, '0')
 
+/* linhas de contagem zeradas nao aparecem (ex.: nenhum sistema avancado) */
 const LINHAS = [
   ['MÓDULOS ATIVOS', contar('producao')],
   ['AVANÇADOS', contar('avancado')],
   ['EM DESENVOLVIMENTO', contar('desenvolvimento')],
+  ['EM PLANEJAMENTO', contar('planejamento')],
   ['NÚCLEO DE IDENTIDADE', NUCLEO.name],
   ['CANAL PRINCIPAL', 'WHATSAPP'],
-]
+].filter(([, valor]) => valor !== '00')
 
 export default function FichaTecnica({ inerte = false }) {
   const [aberta, setAberta] = useState(false)
