@@ -14,14 +14,24 @@ const ARQUIVOS = import.meta.glob('../assets/produtos/*/*.{png,jpg,jpeg,webp,avi
   import: 'default',
 })
 
-const pasta = (s) => s.name.toLowerCase().replace(/\s+/g, '-')
+const pasta = (s) =>
+  s.name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .replace(/\s+/g, '-')
 
-/* O nome do arquivo vira legenda ("Nova Turma.png" -> "Nova Turma"). Nomes
-   genericos (captura de tela, screenshot, IMG_0001, 01) ficam sem legenda. */
+/* O nome do arquivo vira legenda ("Nova Turma.png" -> "Nova Turma"); um
+   numero na frente so fixa a ordem e sai da legenda ("1 Dashboard.png").
+   Nomes genericos (captura de tela, screenshot, IMG_0001, 01) ficam sem
+   legenda. */
 const GENERICO = /^(captura de tela|screenshot|imagem|img[_ -]?\d|\d+$)/i
 
 function legendaDe(caminho) {
-  const nome = decodeURIComponent(caminho.split('/').pop()).replace(/\.[^.]+$/, '').trim()
+  const nome = decodeURIComponent(caminho.split('/').pop())
+    .replace(/\.[^.]+$/, '')
+    .replace(/^\d+[ ._-]+(?=\S)/, '')
+    .trim()
   return GENERICO.test(nome) ? null : nome
 }
 

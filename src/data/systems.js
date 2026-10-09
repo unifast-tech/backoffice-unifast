@@ -186,6 +186,10 @@ export const SISTEMAS = [
           sistema: 'Accountzz',
           descricao: 'Identidade e acesso; vai centralizar a autenticação dos produtos.',
         },
+        {
+          sistema: 'Relatório Financeiro',
+          descricao: 'Consome os dados do Metriczz para o relatório diário da liderança.',
+        },
       ],
       tecnologia: [
         ['Frontend', 'React + Vite'],
@@ -538,7 +542,7 @@ export const SISTEMAS = [
     status: ESTADOS.producao,
     state: 'producao',
     checkpoint: '02/10/2026',
-    box: { x: 1010, y: 684, w: 260, h: 150 },
+    box: { x: 1010, y: 824, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Gestão centralizada de notas fiscais da UniFast',
       tagline: 'Todo o fluxo fiscal em um só lugar.',
@@ -668,13 +672,13 @@ export const SISTEMAS = [
   {
     id: 'u5',
     code: 'U5',
-    name: 'DELPHI AI',
+    name: 'PAILON',
     sub: 'HARNESS AS A SERVICE',
     icon: 'harness',
     status: ESTADOS.desenvolvimento,
     state: 'desenvolvimento',
-    box: { x: 1010, y: 964, w: 260, h: 150 },
-    /* Ocupa o lugar do antigo Design System, que passa a viver dentro do
+    box: { x: 1010, y: 1064, w: 260, h: 150 },
+    /* Pailon (antes Delphi AI). Ocupa o lugar do antigo Design System, que passa a viver dentro do
        harness (a ficha nao cita isso). Conteudo do repositorio delphi-ai (metodo
        PACED) e do foundation_documentation de cada projeto; a visao de
        servico (HaaS) vem do time tech e de um documento de estrategia do
@@ -690,7 +694,7 @@ export const SISTEMAS = [
       tipo: 'Harness as a Service',
 
       visaoGeral: [
-        'O Delphi AI é o harness de desenvolvimento da UniFast. Por trás dele está o ' +
+        'O Pailon é o harness de desenvolvimento da UniFast. Por trás dele está o ' +
           'PACED, um método interno de ' +
           'engenharia em que cada projeto deixa mais regras automáticas do que ' +
           'consumiu, e a complexidade acumulada acelera o código certo em vez de travar.',
@@ -742,7 +746,7 @@ export const SISTEMAS = [
           titulo: 'FOUNDATION DOCUMENTATION',
           texto:
             'Cada projeto tem o seu foundation_documentation: as regras e as tarefas ' +
-            'daquele projeto, lidas pelo Delphi antes de qualquer trabalho.',
+            'daquele projeto, lidas pelo Pailon antes de qualquer trabalho.',
           itens: [
             {
               nome: 'Constituição',
@@ -766,7 +770,7 @@ export const SISTEMAS = [
       ],
       evolucao: {
         texto:
-          'Hoje o Delphi funciona dentro de cada repositório, com arquivos e scripts ' +
+          'Hoje o Pailon funciona dentro de cada repositório, com arquivos e scripts ' +
           'locais. Isso atende bem uma pessoa ou um agente, mas mostra limites quando ' +
           'várias pessoas e vários agentes trabalham em paralelo. A evolução é levar o ' +
           'estado da operação para um serviço central, mantendo código e arquitetura no Git.',
@@ -778,7 +782,7 @@ export const SISTEMAS = [
         ],
       },
       ecossistema:
-        'Fica por trás dos outros sistemas: cada repositório assina o Delphi e herda as ' +
+        'Fica por trás dos outros sistemas: cada repositório assina o Pailon e herda as ' +
         'mesmas regras, verificações e CI. Ao gerenciar o processo, ele também gera os ' +
         'dados que faltavam para a gestão acompanhar e decidir.',
       integracoes: [
@@ -804,7 +808,7 @@ export const SISTEMAS = [
         'automáticas, tarefas com evidência e CI compartilhado. O Harness as a Service ' +
         'está em desenvolvimento.',
       proximosPassos: [
-        'Definir o Delphi AI como Harness as a Service',
+        'Definir o Pailon como Harness as a Service',
         'Centralizar tarefas, travas e métricas num serviço',
         'Dar à gestão a visibilidade do processo com dados concretos',
       ],
@@ -812,6 +816,123 @@ export const SISTEMAS = [
       fonte:
         'Repositório delphi-ai e foundation_documentation; a visão de serviço vem do ' +
         'time tech.',
+    },
+  },
+  {
+    id: 'u6',
+    code: 'U6',
+    name: 'RELATÓRIO FINANCEIRO',
+    sub: 'CONTRATOS & PAGAMENTOS',
+    icon: 'relatorio',
+    status: ESTADOS.producao,
+    state: 'producao',
+    checkpoint: '09/10/2026',
+    box: { x: 1010, y: 584, w: 260, h: 150 },
+    /* Sem acesso ao repositorio: a ficha vem da descricao de entrega do
+       projeto, das telas e do time tech (consome o banco do Metriczz). As
+       fotos tem os valores borrados. */
+    ficha: {
+      subtitulo: 'Relatório Financeiro UniFast · School of Business',
+      tagline: 'O fechamento do dia, todo dia, para a liderança.',
+      resumo:
+        'O relatório diário da liderança da UniFast. Reúne contratos e pagamentos ' +
+        'dia a dia, por empresa, unidade de negócio, conta e origem, com o ' +
+        'acumulado do mês e os valores de parceiros e clubs.',
+      categoria: 'Financeiro & Gestão',
+      tipo: 'Relatório diário',
+      fonte:
+        'Descrição de entrega do projeto, telas do sistema e time tech. Ficha ' +
+        'técnica ainda não documentada.',
+
+      visaoGeral: [
+        'O Relatório Financeiro UniFast é onde a liderança acompanha, todo dia, ' +
+          'quanto entrou em contratos e em pagamentos: no dia anterior, ao longo do ' +
+          'mês e em cada unidade de negócio.',
+        'Tem um Dashboard com os indicadores do período, telas detalhadas de ' +
+          'Contratos e de Pagamentos e uma área de Gestão do relatório, onde a ' +
+          'equipe organiza as linhas, os vínculos e os lançamentos de Co-produção.',
+      ],
+      problema:
+        'Os valores de contratos e pagamentos chegam de várias plataformas (Fast ' +
+        'Pay, Eduzz, Edunext, Asaas) e de lançamentos manuais, como a ' +
+        'Co-produção. Montar o fechamento diário exigia juntar e conferir essas ' +
+        'fontes à mão. O relatório faz isso sozinho, com as regras financeiras ' +
+        'definidas, e mostra o que ainda falta conferir.',
+      funcoes: [
+        'Mostra indicadores, gráficos e valores mensais de parceiros e clubs',
+        'Apresenta contratos e pagamentos dia a dia, com total por dia e acumulado do mês',
+        'Filtra por mês, dia, empresa e unidade de negócio, com busca',
+        'Detalha os valores por dia, unidade de negócio, conta e origem',
+        'Exporta o relatório em CSV',
+        'Abre já posicionado no D-1, o último dia fechado',
+        'Funciona no computador e no celular',
+      ],
+      casos: {
+        titulo: 'AS QUATRO ÁREAS',
+        numerado: true,
+        itens: [
+          {
+            nome: 'Dashboard',
+            descricao:
+              'Contratos e pagamentos do dia, acumulado do mês, parceiros e clubs, a ' +
+              'evolução diária e a distribuição por categoria.',
+          },
+          {
+            nome: 'Contratos',
+            descricao:
+              'Contratos criados por unidade, origem e parceiro, com pós-graduações e ' +
+              'certificações à parte.',
+          },
+          {
+            nome: 'Pagamentos',
+            descricao:
+              'Recebimentos por origem, produto e parceiro: Fast Pay, Eduzz / Edunext ' +
+              'e partners / clubs.',
+          },
+          {
+            nome: 'Gestão do relatório',
+            descricao:
+              'Onde a equipe mantém o relatório certo.',
+            itens: [
+              'Co-produção: lançamento e correção dos valores diários',
+              'Linhas e vínculos: criar e excluir linhas e decidir quais contas pertencem a cada uma',
+              'Conferência: comparar com a fonte e achar o que está sem vínculo',
+            ],
+          },
+        ],
+      },
+      ecossistema:
+        'Não gera dados próprios de venda: lê o banco do Metriczz, aplica as regras ' +
+        'financeiras e entrega o fechamento do dia à liderança. A Gestão do relatório ' +
+        'completa o que as plataformas não trazem, como a Co-produção, e liga cada ' +
+        'conta à sua linha.',
+      fluxo: {
+        etapas: ['Plataformas de venda', 'Banco do Metriczz', 'Relatório Financeiro', 'Liderança'],
+        texto:
+          'Os lançamentos de Co-produção e os vínculos salvos na Gestão do relatório ' +
+          'entram nas consultas na hora.',
+      },
+      integracoes: [
+        {
+          sistema: 'Metriczz',
+          nota: 'conectado',
+          descricao: 'Banco de onde vêm os valores de contratos e pagamentos.',
+        },
+        {
+          sistema: 'Fast Pay, Eduzz, Edunext e Asaas',
+          descricao: 'Origens dos valores, separadas em cada linha do relatório.',
+        },
+      ],
+      tecnologia: [
+        ['Partes', 'Frontend, API e banco de dados'],
+        ['Banco de dados', 'Migrações automatizadas'],
+        ['Exportação', 'CSV'],
+        ['Infraestrutura', 'Railway'],
+      ],
+      statusDetalhe:
+        'Em produção no Railway, com frontend, API e banco publicados e os dados ' +
+        'consultáveis também pela API.',
+      papel: 'Relatório financeiro diário da liderança da UniFast.',
     },
   },
 ]

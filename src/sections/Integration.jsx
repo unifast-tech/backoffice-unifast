@@ -34,8 +34,9 @@ const NOS = [
   [440, 899], [518.5, 899],
   [440, 1139], [518.5, 1139],
   [612.5, 899], [826.5, 899],
-  [920, 759], [1000, 759],
-  [920, 1039], [1000, 1039],
+  [920, 659], [1000, 659],
+  [920, 899], [1000, 899],
+  [920, 1139], [1000, 1139],
 ].map(([x, y]) => ({ x: x - OX, y: y - OY }))
 
 export default function Integration({ aberto, onAbrir }) {
@@ -61,10 +62,15 @@ export default function Integration({ aberto, onAbrir }) {
             d="M453.5 103.5 V576 M379.5 99 H451 M379.5 339 H547 M379.5 579 H451"
             className={FIO}
           />
-          {/* nucleo para o barramento direito, e dele ate o MONITORNOTES */}
-          <path d="M764.5 339 H858 M856 203.5 V339.5 M860.5 199 H932" className={FIO} />
-          {/* ligacao do nucleo ate o DELPHI AI (U5) */}
-          <path d="M856 364 V476 M860.5 479 H926" className="fio fio--tracejado" />
+          {/* coluna direita espelha a esquerda: nucleo em linha reta ate o
+              UNINOTAS (U2), no meio */}
+          <path d="M764.5 339 H932" className={FIO} />
+          {/* barramento direito ate o RELATORIO FINANCEIRO (U6, em cima) e o
+              PAILON (U5, embaixo): nenhum dos dois passa pelo nucleo hoje */}
+          <path
+            d="M856 103.5 V576 M860.5 99 H932 M860.5 579 H932"
+            className="fio fio--tracejado"
+          />
 
           {PERNAS.map((p, i) => (
             <rect key={`p${i}`} x={p.x} y={p.y} width="1.5" height={p.h} className="perna" />
