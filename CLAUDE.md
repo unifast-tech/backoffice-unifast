@@ -66,7 +66,8 @@ public/assets/{id}.png        # mídias finais, servidas em /assets/{id}.png
   **Exceção:** as fotos dos produtos ficam em `src/assets/produtos/<pasta>/`,
   porque o carrossel as descobre com `import.meta.glob` (em `public/` o site
   não tem como listar a pasta). A pasta é o nome do sistema em minúsculas com
-  hífen (`delphi-ai`); a ordem é a do nome do arquivo.
+  hífen e sem acento (`pailon`, `relatorio-financeiro`); a ordem é a do
+  nome do arquivo.
 - **Fontes** via `<link>` do Google Fonts no `index.html` da raiz, ou
   `@font-face` em `tokens.css`.
 - Verificação de cada gate: `npm run dev` e comparar no browser com a reference,
@@ -112,7 +113,7 @@ vinham dele:
   tecnologia, estagio, papel. Os opcionais so aparecem se preenchidos. O que
   ainda nao existe (fluxo planejado, casos pendentes, ligacao ao nucleo) sai
   tracejado. `fonte` marca conteudo que nao veio do repositorio (Campuzz,
-  Delphi AI). A ficha do mock (ORIGEM / ARMAZENA / ENTREGA) foi aposentada
+  Pailon). A ficha do mock (ORIGEM / ARMAZENA / ENTREGA) foi aposentada
   quando o ultimo sistema migrou.
   Status sai sempre de `ESTADOS` + `state`, com cor via `.estado--<state>`:
   nunca escreva o status do nucleo a mao (ja esteve "SEMPRE ATIVO" sem estar).
@@ -124,11 +125,21 @@ vinham dele:
   [`systems.js`](src/data/systems.js), mude so os sistemas citados: `state`
   /`status`, `statusDetalhe`, `proximosPassos` e `checkpoint: 'dd/mm/aaaa'`
   (a data e por sistema; o estagio da ficha diz "ATUALIZADO EM <data>").
-  Ultimas: 02/10/2026 (Accountzz, Metriczz, UniNotas) e 25/09/2026
-  (LeadsHug); Campuzz e Delphi AI sem data. `status` pode ser um rotulo
+  Ultimas: 09/10/2026 (Relatorio Financeiro, entrou em producao),
+  02/10/2026 (Accountzz, Metriczz, UniNotas) e 25/09/2026 (LeadsHug);
+  Campuzz e Pailon sem data. `status` pode ser um rotulo
   proprio ("MVP RODANDO", "EM PRODUCAO · EM TESTES") com o `state` dando a
   cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
   conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
+- **Esquema com 3 + 3 cartoes.** A coluna direita espelha a esquerda (y 584 /
+  824 / 1064): Relatorio Financeiro (U6) em cima, UniNotas no meio, em linha
+  reta com o nucleo, e Pailon (antes Delphi AI) embaixo. Os ramais do U6 e do U5 sao sempre
+  tracejados, porque nenhum dos dois passa pelo nucleo hoje. Um 7o sistema
+  exige redesenhar a malha em [`Integration.jsx`](src/sections/Integration.jsx).
+- **Fotos com dados sensiveis.** As telas do Relatorio Financeiro tem os
+  valores em R$ borrados (e a URL do Railway). Faca o mesmo em telas novas
+  com faturamento real. Um numero na frente do nome do arquivo
+  (`1 Dashboard.png`) fixa a ordem e nao aparece na legenda.
 - **Trilhas com ordem e desvios.** Em [`trails.js`](src/data/trails.js) as
   paradas vem na ordem em que a pessoa passa: o SVG numera cada uma e poe uma
   seta por trecho. Parada `opcional` (ex.: o expert contratar o LeadsHug) sai

@@ -43,7 +43,7 @@ src/assets/produtos/metriczz/
 src/assets/produtos/uninotas/
 src/assets/produtos/leadshug/
 src/assets/produtos/campuzz/
-src/assets/produtos/delphi-ai/
+src/assets/produtos/pailon/
 ```
 
 A ordem do carrossel segue o nome do arquivo: use `01.png`, `02.png`… Sem

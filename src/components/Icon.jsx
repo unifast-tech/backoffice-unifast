@@ -106,7 +106,7 @@ const ICONES = {
     ),
   },
 
-  /* Delphi AI: um nucleo que coordena tres nos (os agentes e projetos que ele
+  /* Pailon: um nucleo que coordena tres nos (os agentes e projetos que ele
      governa). Os nos sao quadrados, como os do esquema de integracao. */
   harness: {
     w: 34,
@@ -118,6 +118,21 @@ const ICONES = {
         <rect x="25" y="1" width="8" height="8" {...T} />
         <rect x="13" y="25" width="8" height="8" {...T} />
         <path d="M9 9 L13.2 13.2 M25 9 L20.8 13.2 M17 22.5 V25" {...T} strokeLinecap="round" />
+      </>
+    ),
+  },
+
+  /* Relatorio Financeiro: a folha do relatorio diario, com a curva dos
+     valores dia a dia. */
+  relatorio: {
+    w: 30,
+    h: 36,
+    art: (
+      <>
+        <path d="M1 1 H21 L29 9 V35 H1 Z" {...T} />
+        <path d="M21 1 V9 H29" {...T} />
+        <path d="M6 29 H24" {...T} strokeLinecap="round" />
+        <path d="M6 24 L11 18 L15 21 L22 13" {...T} strokeLinecap="round" />
       </>
     ),
   },
