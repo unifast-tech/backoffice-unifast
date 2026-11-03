@@ -3,7 +3,6 @@ import { SISTEMAS, NUCLEO } from './data/systems.js'
 import Nav from './sections/Nav.jsx'
 import Hero from './sections/Hero.jsx'
 import Integration from './sections/Integration.jsx'
-import Trails from './sections/Trails.jsx'
 import Produtos from './sections/Produtos.jsx'
 import Cta from './sections/Cta.jsx'
 import Ficha from './sections/Ficha.jsx'
@@ -20,6 +19,13 @@ function fichaDaUrl() {
 
 export default function App() {
   const [aberto, setAberto] = useState(fichaDaUrl)
+  const [origemFicha, setOrigemFicha] = useState(null)
+  const abrir = useCallback((sistema) => {
+    /* Guardar antes de aplicar inert: o navegador remove o foco do cartão
+       assim que o restante da página fica inerte. */
+    setOrigemFicha(document.activeElement)
+    setAberto(sistema)
+  }, [])
   const fechar = useCallback(() => setAberto(null), [])
 
   /* A URL acompanha a ficha aberta, entao o endereco da barra ja e o link
@@ -49,10 +55,7 @@ export default function App() {
         <Nav />
         <Hero />
         <Revelavel>
-          <Integration aberto={aberto} onAbrir={setAberto} />
-        </Revelavel>
-        <Revelavel>
-          <Trails onAbrir={setAberto} />
+          <Integration aberto={aberto} onAbrir={abrir} />
         </Revelavel>
         <Revelavel>
           <Produtos />
@@ -62,7 +65,7 @@ export default function App() {
         </Revelavel>
       </div>
 
-      <Ficha key={aberto?.id ?? 'fechada'} sistema={aberto} onFechar={fechar} />
+      <Ficha key={aberto?.id ?? 'fechada'} sistema={aberto} origemFoco={origemFicha} onFechar={fechar} />
       <FichaTecnica inerte={fundoInerte} />
     </div>
   )

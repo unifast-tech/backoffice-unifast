@@ -7,7 +7,7 @@ import '../styles/ficha.css'
    O conteudo e o formato definido em systems.js: versao curta sempre visivel
    e ficha completa ao expandir. App.jsx remonta este componente a cada
    sistema (key), entao a ficha sempre abre recolhida. */
-export default function Ficha({ sistema, onFechar }) {
+export default function Ficha({ sistema, origemFoco, onFechar }) {
   const botaoFechar = useRef(null)
   const aberta = sistema !== null
   const [completa, setCompleta] = useState(false)
@@ -26,7 +26,7 @@ export default function Ficha({ sistema, onFechar }) {
      por tras para de rolar enquanto ela esta aberta. */
   useEffect(() => {
     if (!aberta) return undefined
-    const origem = document.activeElement
+    const origem = origemFoco ?? document.activeElement
     const raiz = document.documentElement
     const overflowAntes = raiz.style.overflow
     raiz.style.overflow = 'hidden'
@@ -35,7 +35,7 @@ export default function Ficha({ sistema, onFechar }) {
       raiz.style.overflow = overflowAntes
       if (origem instanceof HTMLElement && origem.isConnected) origem.focus({ preventScroll: true })
     }
-  }, [aberta])
+  }, [aberta, origemFoco])
 
   if (!sistema) return null
   const { code, name, icon, status, state, ficha } = sistema

@@ -12,6 +12,7 @@ const contar = (estado) =>
 const LINHAS = [
   ['MÓDULOS ATIVOS', contar('producao')],
   ['AVANÇADOS', contar('avancado')],
+  ['EM TESTES', contar('testes')],
   ['EM DESENVOLVIMENTO', contar('desenvolvimento')],
   ['EM PLANEJAMENTO', contar('planejamento')],
   ['NÚCLEO DE IDENTIDADE', NUCLEO.name],

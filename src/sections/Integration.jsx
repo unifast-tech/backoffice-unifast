@@ -1,141 +1,105 @@
-import { useRef } from 'react'
 import Icon from '../components/Icon.jsx'
-import useEscala from '../components/useEscala.js'
+import { CAMPUZZ_TECNOLOGIA, MODULO_VENDAS, GRUPOS_APOIO } from '../data/groups.js'
 import { SISTEMAS, NUCLEO } from '../data/systems.js'
 import '../styles/integration.css'
 
-/* Espaco do diagrama: origem na pagina em (64, 562), 1312 x 680.
-   Todas as medidas vem de reference.png. */
-const OX = 64
-const OY = 562
-const VB = { w: 1312, h: 680 }
+const POR_ID = Object.fromEntries([...SISTEMAS, NUCLEO].map((s) => [s.id, s]))
 
-const rel = (b) => ({ x: b.x - OX, y: b.y - OY, w: b.w, h: b.h })
-
-/* Pernas de chip: 4 a cada 60px nos cartoes padrao, 5 a cada 40px no nucleo. */
-function pernas(b) {
-  const offs = b.w > 240 ? [38, 98, 158, 217.5] : [24, 64, 104, 144, 183.5]
-  return offs.flatMap((o) => [
-    { x: b.x + o, y: b.y - 14.5, h: 14.5 },
-    { x: b.x + o, y: b.y + b.h, h: 14.5 },
-  ])
+function Plataforma({ sistemaId, aberto, onAbrir }) {
+  const sistema = POR_ID[sistemaId]
+  return (
+    <button
+      type="button"
+      className={`plataforma estado--${sistema.state}${aberto?.id === sistema.id ? ' is-aberta' : ''}`}
+      onClick={() => onAbrir(sistema)}
+      aria-label={`Abrir ficha de ${sistema.name}`}
+    >
+      <span className="plataforma__icone" aria-hidden="true"><Icon name={sistema.icon} escala={0.8} /></span>
+      <span className="plataforma__identidade">
+        <span className="t3 plataforma__codigo">{sistema.code}</span>
+        <span className="h3 plataforma__nome">{sistema.name}</span>
+        <span className="t3 plataforma__estado"><span className="ponto" />{sistema.status}</span>
+      </span>
+      <span className="plataforma__mais" aria-hidden="true">+</span>
+    </button>
+  )
 }
 
-const TODOS = [...SISTEMAS, NUCLEO]
-
-/* Enquanto nenhum sistema estiver ligado ao nucleo, todos os fios sao
-   tracejados: o esquema mostra a ligacao prevista, nao uma que ja existe. */
-const FIO = NUCLEO.conectado ? 'fio' : 'fio fio--tracejado'
-const PERNAS = TODOS.map((s) => pernas(rel(s.box))).flat()
-
-/* Nos quadrados de 9px, centrados. */
-const NOS = [
-  [440, 659], [518.5, 659],
-  [440, 899], [518.5, 899],
-  [440, 1139], [518.5, 1139],
-  [612.5, 899], [826.5, 899],
-  [920, 659], [1000, 659],
-  [920, 899], [1000, 899],
-  [920, 1139], [1000, 1139],
-].map(([x, y]) => ({ x: x - OX, y: y - OY }))
-
 export default function Integration({ aberto, onAbrir }) {
-  const diagrama = useRef(null)
-  useEscala(diagrama, VB.w)
-
+  const propsPlataforma = { aberto, onAbrir }
   return (
-    <section className="secao secao--integracao" id="esquema">
+    <section className="secao secao--integracao" id="esquema" aria-labelledby="integracao-titulo">
       <div className="secao__cabecalho">
-        <span className="t3">01 / ESQUEMA DE INTEGRA&Ccedil;&Atilde;O</span>
-        <span className="t3">TODO ACESSO PASSA PELO N&Uacute;CLEO</span>
+        <h2 className="t3" id="integracao-titulo">01 / ECOSSISTEMA POR GRUPOS</h2>
+        <span className="t3">CADA PLATAFORMA NO SEU CONTEXTO</span>
       </div>
 
-      <div className="diagrama" ref={diagrama}>
-        <svg
-          className="diagrama__malha"
-          viewBox={`0 0 ${VB.w} ${VB.h}`}
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {/* barramento esquerdo e ramais dos tres cartoes da coluna */}
-          <path
-            d="M453.5 103.5 V576 M379.5 99 H451 M379.5 339 H547 M379.5 579 H451"
-            className={FIO}
-          />
-          {/* coluna direita espelha a esquerda: nucleo em linha reta ate o
-              UNINOTAS (U2), no meio */}
-          <path d="M764.5 339 H932" className={FIO} />
-          {/* barramento direito ate o RELATORIO FINANCEIRO (U6, em cima) e o
-              PAILON (U5, embaixo): nenhum dos dois passa pelo nucleo hoje */}
-          <path
-            d="M856 103.5 V576 M860.5 99 H932 M860.5 579 H932"
-            className="fio fio--tracejado"
-          />
+      <div className="ecossistema">
+        <header className="ecossistema__base">
+          <p className="t3 ecossistema__rotulo">{CAMPUZZ_TECNOLOGIA.nome} / TECNOLOGIA</p>
+          <h3 className="h2">{CAMPUZZ_TECNOLOGIA.titulo}</h3>
+          <p>{CAMPUZZ_TECNOLOGIA.descricao}</p>
+          <p className="ecossistema__distincao">{CAMPUZZ_TECNOLOGIA.distincao}</p>
+        </header>
 
-          {PERNAS.map((p, i) => (
-            <rect key={`p${i}`} x={p.x} y={p.y} width="1.5" height={p.h} className="perna" />
-          ))}
-          {NOS.map((n, i) => (
-            <rect
-              key={`n${i}`}
-              x={n.x - 4.5}
-              y={n.y - 4.5}
-              width="9"
-              height="9"
-              className="no"
-            />
-          ))}
-        </svg>
+        <div className="ecossistema__identidade">
+          <div className="ecossistema__contexto">
+            <p className="t3 ecossistema__rotulo">CONEXÃO ENTRE TODAS AS PLATAFORMAS</p>
+            <h4 className="h2">Uma identidade para todo o ecossistema.</h4>
+            <p>O Accountzz conecta todas as plataformas pela camada compartilhada de identidade e acesso.</p>
+          </div>
+          <Plataforma sistemaId={NUCLEO.id} {...propsPlataforma} />
+        </div>
 
-        {TODOS.map((s) => {
-          const b = rel(s.box)
-          return (
-            <button
-              type="button"
-              key={s.id}
-              onClick={() => onAbrir(s)}
-              aria-label={`Abrir ficha de ${s.name}`}
-              className={`card sistema sistema--${s.state}${
-                s === NUCLEO ? ' sistema--nucleo' : ''
-              }${aberto?.id === s.id ? ' sistema--ativo' : ''}`}
-              style={{
-                '--x': `${b.x}px`,
-                '--y': `${b.y}px`,
-                '--w': `${b.w}px`,
-                '--h': `${b.h}px`,
-              }}
-            >
-              <span className="sistema__mais" aria-hidden="true">
-                +
-              </span>
+        <section className="grupo grupo--vendas" aria-labelledby="grupo-vendas-titulo">
+          <header className="grupo__cabecalho">
+            <div>
+              <p className="t3 ecossistema__rotulo">CAMPUZZ TECNOLOGIA / OPERAÇÃO COMERCIAL</p>
+              <h4 className="h2" id="grupo-vendas-titulo">{MODULO_VENDAS.nome}</h4>
+              <p>{MODULO_VENDAS.descricao}</p>
+            </div>
+          </header>
 
-              <div className="sistema__corpo">
-                <span className="sistema__ico">
-                  <Icon name={s.icon} />
-                </span>
-                <div className="sistema__texto">
-                  <p className="t3 sistema__code">{s.code}</p>
-                  <p className="h3 sistema__nome">{s.name}</p>
-                  <p className="t3 sistema__sub">{s.sub}</p>
+          <ol className="grupo__funcoes">
+            {MODULO_VENDAS.funcoes.map((funcao, i) => (
+              <li className={`funcao${funcao.pendente ? ' funcao--pendente' : ''}`} key={funcao.id}>
+                <div className="funcao__titulo">
+                  <span className="t3 funcao__numero">{String(i + 1).padStart(2, '0')}</span>
+                  <h5 className="h3">{funcao.nome}</h5>
                 </div>
-              </div>
+                <p className="funcao__descricao">{funcao.descricao}</p>
+                <div className="funcao__plataformas">
+                  {funcao.plataformas.map((plataforma) => plataforma.sistemaId ? (
+                    <Plataforma key={plataforma.sistemaId} sistemaId={plataforma.sistemaId} {...propsPlataforma} />
+                  ) : (
+                    <span className="funcao__ferramenta" key={plataforma.nome}>{plataforma.nome}</span>
+                  ))}
+                  {funcao.pendente && <span className="t3 funcao__pendente">A DEFINIR</span>}
+                </div>
+                {funcao.futuro && (
+                  <div className="funcao__futuro">
+                    <p className="t3">EVOLUÇÃO PREVISTA → {funcao.futuro.nome}</p>
+                    <Plataforma sistemaId={funcao.futuro.sistemaId} {...propsPlataforma} />
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
 
-              {s.status && <p className="t3 sistema__status">{s.status}</p>}
-            </button>
-          )
-        })}
+        <div className="ecossistema__apoio">
+          {GRUPOS_APOIO.map((grupo) => (
+            <section className="grupo grupo--apoio" key={grupo.id} aria-labelledby={`grupo-${grupo.id}-titulo`}>
+              <h4 className="t3 ecossistema__rotulo" id={`grupo-${grupo.id}-titulo`}>{grupo.nome}</h4>
+              <Plataforma sistemaId={grupo.sistemaId} {...propsPlataforma} />
+              <p>{grupo.descricao}</p>
+            </section>
+          ))}
+        </div>
       </div>
 
-      <p className="t3 secao__nota">
-        + CADA CART&Atilde;O &Eacute; CLIC&Aacute;VEL &mdash; ABRE A FICHA T&Eacute;CNICA COMPLETA DO SISTEMA
-      </p>
-      {!NUCLEO.conectado && (
-        <p className="t3 secao__nota secao__nota--legenda">
-          <span className="legenda__tracejado" aria-hidden="true" />
-          LIGA&Ccedil;&Atilde;O PREVISTA &mdash; A API DO N&Uacute;CLEO J&Aacute; FUNCIONA, OS SISTEMAS
-          AINDA V&Atilde;O SE CONECTAR A ELA
-        </p>
-      )}
+      <p className="t3 secao__nota">+ CLIQUE EM UMA PLATAFORMA PARA ABRIR SUA FICHA COMPLETA</p>
+      <p className="t3 secao__nota">OS GRUPOS MOSTRAM O PAPEL DE CADA PLATAFORMA; EVOLUÇÕES FUTURAS ESTÃO SINALIZADAS.</p>
     </section>
   )
 }

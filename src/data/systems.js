@@ -1,5 +1,6 @@
-/* Sistemas do esquema de integracao. A posicao vem da medicao da reference
-   (canvas 1440x2190): design-systems/unifast-produtos/reference.png */
+import { FICHA_RELATORIO_DIARIO } from './relatorio-diario.js'
+
+/* Catálogo de sistemas. Os grupos funcionais ficam em groups.js. */
 
 /* Estados possiveis de um sistema (`state`) e o rotulo que aparece no cartao,
    na ficha e no selo; a cor vem da classe `.estado--<state>` em tokens.css. */
@@ -7,6 +8,7 @@ export const ESTADOS = {
   producao: 'EM PRODUÇÃO',
   entregue: 'ENTREGUE',
   avancado: 'AVANÇADO',
+  testes: 'EM TESTES',
   desenvolvimento: 'EM DESENVOLVIMENTO',
   planejamento: 'EM PLANEJAMENTO',
 }
@@ -42,12 +44,11 @@ export const NUCLEO = {
   name: 'ACCOUNTZZ',
   sub: 'IDENTIDADE & SEGURANÇA',
   icon: 'cadeado',
-  /* MVP rodando; v2 mais robusta em desenvolvimento */
-  status: 'MVP RODANDO',
+  /* MVP rodando. A implementação da v2 depende da aprovação do escopo global. */
+  status: 'MVP RODANDO · V2 EM DEFINIÇÃO DE ARQUITETURA',
   state: 'producao',
-  checkpoint: '02/10/2026',
-  /* MVP no ar, mas nenhum sistema foi ligado a ele ainda: os fios do esquema
-     ficam tracejados enquanto for false. */
+  checkpoint: '03/11/2026',
+  /* Estado técnico da conexão, separado do papel transversal no ecossistema. */
   conectado: false,
   box: { x: 615, y: 794, w: 211, h: 210 },
   ficha: {
@@ -95,12 +96,19 @@ export const NUCLEO = {
         descricao: 'Hoje é o FastHub Front; vai se tornar o backoffice da UniFast.',
       },
     ],
-    statusDetalhe:
+    statusDetalhe: [
       'O MVP está rodando, com a API funcionando e a documentação pronta para uso. ' +
-      'Em paralelo, uma v2 mais robusta está em desenvolvimento. Nenhum sistema ' +
-      'está conectado a ele ainda.',
+        'Nenhum sistema está conectado a ele ainda.',
+      'A v2 está em fase de definição de arquitetura, com prazo para conclusão ' +
+        'até sexta-feira, 06/11/2026.',
+      'O escopo global será apresentado para aprovação. A implementação da v2 ' +
+        'está prevista para começar na semana de 09 a 13/11/2026, condicionada ' +
+        'à aprovação desse escopo na apresentação.',
+    ],
     proximosPassos: [
-      'Desenvolver a v2, mais robusta',
+      'Concluir a definição de arquitetura da v2 até sexta-feira, 06/11/2026',
+      'Apresentar o escopo global da v2 para aprovação',
+      'Iniciar a implementação da v2 na semana de 09 a 13/11/2026, se o escopo global for aprovado',
       'Conectar o UniNotas e o Metriczz (login pelo Accountzz)',
     ],
     papel: 'Serviço central de autenticação e autorização da UniFast.',
@@ -114,10 +122,11 @@ export const SISTEMAS = [
     name: 'METRICZZ',
     sub: 'ANALYTICS & BI',
     icon: 'grafico',
-    /* finalizado e no ar; a equipe esta testando */
-    status: `${ESTADOS.producao} · EM TESTES`,
-    state: 'producao',
-    checkpoint: '02/10/2026',
+    /* Primeira versão em testes, com meta de validação em stage em 15/11.
+       A publicação em produção fica para depois da validação. */
+    status: `${ESTADOS.testes} · PRIMEIRA VERSÃO: 15/11`,
+    state: 'testes',
+    checkpoint: '03/11/2026',
     box: { x: 170, y: 584, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Dashboards, métricas e inteligência de dados da UniFast',
@@ -150,6 +159,249 @@ export const SISTEMAS = [
         'Atualiza partes da interface em tempo real',
         'Mantém rastreável a origem dos dados apresentados',
       ],
+      casos: [
+        {
+          titulo: 'PRONTO EM STAGE · CHECKPOINT DE 03/11',
+          itens: [
+            {
+              nome: 'Recorte por marca',
+              descricao: 'O filtro por empresa usa o cadastro do produtor (M-0161).',
+            },
+            {
+              nome: 'Validação de nomes e marcas',
+              descricao:
+                'Nomes com caracteres invisíveis são recusados. Uma marca arquivada ' +
+                'durante o preenchimento do formulário gera uma mensagem clara (M-0160).',
+            },
+            {
+              nome: 'Marketing por empresa · API',
+              descricao:
+                'O recorte por empresa está na API em stage (M-0162). A tela de ' +
+                'Marketing continua como “Em breve”.',
+            },
+            {
+              nome: 'Conferência realizada',
+              descricao:
+                'A soma do Pago por marca bateu ao centavo com a camada gold. ' +
+                'Nenhum nome apresentou caracteres invisíveis.',
+            },
+          ],
+        },
+        {
+          titulo: 'OUTRAS ENTREGAS CONCLUÍDAS',
+          itens: [
+            {
+              nome: 'Backend · M-0151 a M-0159',
+              descricao:
+                'Fichas encerradas, incluindo webhook por conta, conta sem segredo ' +
+                'e catálogo de empresas.',
+            },
+            {
+              nome: 'Front novo · desenvolvido, ainda fora de stage',
+              descricao:
+                'Fundação, gráficos, Visão Geral, Financeiro, Comercial e Agregações ' +
+                'estão desenvolvidos na frente do novo layout (M-0201 a M-0213). ' +
+                'Essas telas ainda precisam chegar a stage.',
+            },
+          ],
+        },
+        {
+          titulo: 'CONVITE E LOGIN · PRIORIDADE MÁXIMA',
+          pendente: true,
+          itens: [
+            {
+              nome: 'A1 · convite de ponta a ponta · em execução',
+              descricao:
+                'Login real pelo IAM para interno e parceiro, com e-mail de verdade, ' +
+                'aceite e primeiro painel no escopo correto. Depende do IAM local ' +
+                'em funcionamento. Estimativa: 2–3 h.',
+            },
+            {
+              nome: 'A2 · corrigir as quebras encontradas · na fila',
+              descricao:
+                'Cada falha encontrada no caminho do convite vira uma ficha. ' +
+                'Estimativa: 3–6 h; o volume de falhas é a maior incerteza.',
+            },
+            {
+              nome: 'A3 · validar em stage · depende do responsável',
+              descricao:
+                'Conferência com pessoa de teste seguindo o roteiro da A1. ' +
+                'Inclui verificar o sinal do IAM em stage; sem estimativa fechada.',
+            },
+          ],
+        },
+        {
+          titulo: 'DADOS · PRIORIDADE MÁXIMA',
+          pendente: true,
+          itens: [
+            {
+              nome: 'B1 · recorte da UniFast · na fila',
+              descricao:
+                'Medir, documentar a decisão e abrir as fichas, incluindo o item null. ' +
+                'Vem depois do convite. A regra é líquido somente no Pago, na tela e ' +
+                'na API: parceiro vê sem taxa e juros; interno vê bruto, produtor e ' +
+                'UniFast. Estimativa: 6–9 h.',
+            },
+            {
+              nome: 'B2 · gabarito mensal do Pago · depende dos números',
+              descricao:
+                'Confrontar o Pago mensal de 2026 com cada plataforma. Diferença ' +
+                'acima de 0,5% vira ficha com a causa. Depende dos valores extraídos ' +
+                'dos painéis pelo responsável. Estimativa aproximada: 6 h, ainda não medida.',
+            },
+            {
+              nome: 'B3 · Edunext · na fila',
+              descricao: 'Contratos por conta (E0, rodada 5). Estimativa: 2–3 h.',
+            },
+            {
+              nome: 'B4 · contrato cancelado · na fila',
+              descricao:
+                'Conferir na ficha se o tratamento da penalidade ainda falta. Estimativa: 2–3 h.',
+            },
+            {
+              nome: 'B5 · histórico da Eduzz por API · na fila',
+              descricao: 'API já documentada no mapa. Estimativa: 2–3 h.',
+            },
+            {
+              nome: 'B6 · contas Routerfy e URLs · depende de acesso',
+              descricao:
+                'Conferir conta a conta e cadastrar as URLs. Depende do acesso às ' +
+                'contas pelo responsável; sem estimativa fechada.',
+            },
+            {
+              nome: 'Asaas · somente se houver capacidade',
+              descricao:
+                'API e webhook entram apenas se houver sobra de tempo. Estimativa: 8–12 h.',
+            },
+          ],
+        },
+        {
+          titulo: 'FRONT NOVO · TRABALHO RESTANTE',
+          pendente: true,
+          itens: [
+            {
+              nome: 'MZ4 · cadastros · em execução',
+              descricao:
+                'Produtores, Produtos e Usuários (M-0214 a M-0216), com estimativa ' +
+                'de 8–12 h e dependência do merge de stage. Produtores está em ' +
+                'correção após o confronto com o desenho.',
+            },
+            {
+              nome: 'MZ5 · Integrações · na fila',
+              descricao: 'Depende da MZ4. Estimativa: 3–8 h.',
+            },
+            {
+              nome: 'MZ7 · mobile e marca · na fila',
+              descricao: 'Depende da MZ5. Estimativa: 3–8 h.',
+            },
+            {
+              nome: 'MZ8 · revisão e ajustes',
+              descricao:
+                'Revisão pelo responsável após as fases anteriores. Convite e dados ' +
+                'têm prioridade caso o limite de uso pressione o trabalho no front.',
+            },
+          ],
+        },
+        {
+          titulo: 'CALENDÁRIO · META E JANELAS PROPOSTAS',
+          pendente: true,
+          texto:
+            'A data combinada para a primeira versão em stage é 15/11/2026. ' +
+            'As janelas intermediárias são propostas e ainda não foram medidas.',
+          itens: [
+            {
+              nome: 'Até 10/11 · convite e dados em stage',
+              descricao: 'Precisam estar disponíveis para o QA da primeira versão.',
+            },
+            {
+              nome: '10 a 12/11 · QA no worktree',
+              descricao: 'Conferência pelo responsável, com convite, dados e front disponíveis.',
+            },
+            {
+              nome: '12/11 · merge do front em stage',
+              descricao:
+                'Janela proposta. Publicações grandes perto dessa data precisam ser ' +
+                'avisadas à frente que trabalha no front.',
+            },
+            {
+              nome: 'Depois do QA · revisão MZ8 e ajustes',
+              descricao: 'Usar a folga final para correções antes da validação da versão.',
+            },
+            {
+              nome: '15/11 · primeira versão em stage',
+              descricao:
+                'Meta combinada para validar convite, números, recorte da UniFast e ' +
+                'telas novas. O envio à produção fica depois da validação.',
+            },
+          ],
+        },
+        {
+          titulo: 'DEPENDÊNCIAS DO RESPONSÁVEL',
+          pendente: true,
+          itens: [
+            {
+              nome: 'Pago mensal de 2026 por plataforma',
+              descricao: 'Extrair dos painéis. Sem esses números, o gabarito de convergência fica bloqueado.',
+            },
+            {
+              nome: 'Sinal do IAM em stage',
+              descricao:
+                'Conferir o log do unifast-iam para distinguir falha na subida, ' +
+                'na entrega ou fila vazia.',
+            },
+            {
+              nome: 'Pessoa de teste e acesso à Routerfy',
+              descricao:
+                'Disponibilizar um e-mail acessível para testar o convite completo ' +
+                'e o acesso às contas Routerfy para a conferência de contas e URLs.',
+            },
+            {
+              nome: 'Decisões sem bloqueio da versão',
+              descricao:
+                'Definir como explicar que os “maiores” da Visão Geral usam apenas ' +
+                'o mês corrente; a recomendação é explicitar isso no título e no ' +
+                'estado vazio. Atualizar a regra 3b da documentação do Resultados, ' +
+                'que ainda menciona “empresa do fato”, em sessão interativa.',
+            },
+          ],
+        },
+        {
+          titulo: 'FORA DA VERSÃO DE 15/11',
+          pendente: true,
+          itens: [
+            {
+              nome: 'Operações',
+              descricao:
+                'Saiu do desenho. As referências nas ADR-0030 e ADR-0032 ainda receberão uma nota.',
+            },
+            {
+              nome: 'Produção e migrações',
+              descricao:
+                'F7, envio à main, migração de contas e saída do Firebase ficam para depois da validação.',
+            },
+            {
+              nome: 'MZ6 e outras evoluções de produto',
+              descricao:
+                'Sincronização, busca, notificações, exportação, telas de Marketing e ' +
+                'Indicadores e ajustes visuais G1 a G12 ficam depois do dia 15. ' +
+                'Produtor como cliente segue possível, sem prioridade.',
+            },
+          ],
+        },
+      ],
+      evolucao: {
+        texto:
+          'A primeira versão tem como meta estar em stage até 15/11/2026 para ' +
+          'validação. Convite e dados são as entregas de prioridade máxima; ' +
+          'o front novo cede a vez se o limite de uso apertar.',
+        itens: [
+          'Convite completo: convidar, aceitar, primeiro login e painel no escopo correto, ' +
+            'incluindo reenviar, cancelar, revogar e convidar novamente',
+          'Pago mensal de 2026 conferido por plataforma, com diferença de até 0,5% ou explicada; ' +
+            'parceiro vê Pago líquido sem taxa e juros, e interno vê bruto, produtor e UniFast',
+          'Telas novas de cadastros e Integrações, adaptação mobile e marca, seguidas da revisão MZ8',
+        ],
+      },
       ecossistema: [
         'É a camada de visualização e consumo analítico dos dados da UniFast. Os ' +
           'dados vêm da infraestrutura analítica da empresa, são processados pela API ' +
@@ -184,10 +436,12 @@ export const SISTEMAS = [
         },
         {
           sistema: 'Accountzz',
-          descricao: 'Identidade e acesso; vai centralizar a autenticação dos produtos.',
+          descricao:
+            'IAM usado no trabalho de convite e login real para interno e parceiro. ' +
+            'O teste depende do IAM local em funcionamento e da conferência do IAM em stage.',
         },
         {
-          sistema: 'Relatório Financeiro',
+          sistema: 'Relatório Diário',
           descricao: 'Consome os dados do Metriczz para o relatório diário da liderança.',
         },
       ],
@@ -200,145 +454,101 @@ export const SISTEMAS = [
         ['Infraestrutura', 'Railway'],
       ],
       statusDetalhe: [
-        'Finalizado e em produção, em etapa de testes pela equipe.',
-        'Os dados saíram do Databricks para uma nova estrutura no modelo medalhão ' +
-          '(dados crus primeiro, processamento depois), alimentada pela pipeline do ' +
-          'Routerfy; outras fontes entram ao longo do tempo.',
+        'Retrato de 03/11/2026 à tarde. O Metriczz está em testes para a primeira ' +
+          'versão, com meta de validação em stage até 15/11/2026. Ainda não está ' +
+          'em produção; a publicação ocorre somente depois da validação.',
+        'Há correções de backend e recortes por marca e empresa já em stage. ' +
+          'O novo front tem telas desenvolvidas que ainda não chegaram a stage; ' +
+          'Produtores está em correção. Convite e login real pelo IAM estão em execução.',
+        'O prazo está apertado: aproximadamente 46 h para convite e dados, com 40% ' +
+          'de folga para imprevistos, mais 14–28 h de front, totalizando 60–74 h. ' +
+          'A capacidade estimada é de cerca de 43 h em 12 dias, no ritmo recente ' +
+          'de 3,6 h por dia. O plano requer 5–6 h de disparo por dia, mas as duas ' +
+          'frentes compartilham o mesmo limite de uso de 5 horas.',
+        'As estimativas são referências ainda não aferidas contra os resultados. ' +
+          'Se faltar capacidade, convite e dados têm prioridade; os primeiros ' +
+          'cortes são Asaas, depois Eduzz e, por fim, parte da MZ7. ' +
+          'Este checkpoint é estático e não acompanha a execução automaticamente.',
       ],
       proximosPassos: [
-        'Concluir os testes com a equipe',
-        'Login pelo Accountzz',
-        'Priorizar quais dados conectar em seguida',
+        'Concluir o convite pelo IAM, corrigir as falhas encontradas e validar com pessoa de teste',
+        'Obter o Pago mensal de 2026 dos painéis e concluir o recorte da UniFast e o gabarito de dados',
+        'Levar convite e dados a stage até 10/11 para a janela proposta de QA de 10 a 12/11',
+        'Concluir MZ4, MZ5 e MZ7 conforme a capacidade; janela proposta de merge do front em stage em 12/11',
+        'Fazer a revisão MZ8 e os ajustes finais para validar a primeira versão em stage até 15/11/2026',
+        'Planejar o envio à produção e as migrações somente após a validação',
       ],
+      fonte:
+        'Relatório “Metriczz — Versão de 15/11: o que está feito e o que falta”, ' +
+        'checkpoint de 03/11/2026 à tarde, fornecido pelo time tech. ' +
+        'Prazos e estimativas refletem esse retrato.',
       papel: 'Central de métricas, relatórios e dashboards da UniFast.',
     },
   },
   {
     id: 'u4',
     code: 'U4',
-    name: 'CAMPUZZ',
-    sub: 'PLATAFORMA EDUCACIONAL',
+    name: 'CAMPUZZ LMS',
+    sub: 'GESTÃO DA APRENDIZAGEM',
+    pastaFotos: 'campuzz',
     icon: 'capelo',
     status: ESTADOS.producao,
     state: 'producao',
     box: { x: 170, y: 824, w: 260, h: 150 },
-    /* Sem acesso ao repositorio: a ficha vem do site de vendas do Campuzz.
-       As areas sao entregues pelos sistemas da UniFast (via); nada de
-       tecnologia ou fluxo ate haver fonte tecnica. */
+    /* u4 identifica o produto LMS. Campuzz, a tecnologia transversal, é
+       descrita separadamente em groups.js. A pasta de fotos continua a mesma. */
     ficha: {
-      subtitulo: 'Sistema operacional do ecossistema educacional',
-      tagline: 'Seis áreas do negócio educacional num fluxo único.',
+      subtitulo: 'Produto de aprendizagem sobre a tecnologia Campuzz',
+      tagline: 'A jornada de aprendizagem em um só lugar.',
       resumo:
-        'A infraestrutura que integra as seis áreas críticas de uma operação ' +
-        'educacional (receita, financeiro, jurídico, suporte, acadêmico e dados) ' +
-        'num fluxo único, automatizado e guiado por IA.',
-      categoria: 'Educação & Operação',
-      tipo: 'Plataforma comercial',
+        'O Campuzz LMS é o produto de gestão da aprendizagem: reúne cursos, alunos, ' +
+        'turmas e a operação acadêmica. Utiliza a tecnologia Campuzz, a base que ' +
+        'sustenta todo o ecossistema UniFast.',
+      categoria: 'Acadêmico & Aprendizagem',
+      tipo: 'LMS · Sistema de gestão da aprendizagem',
       fonte:
-        'Áreas e recursos: site de vendas do Campuzz. Relação com os sistemas: ' +
-        'time tech. Ficha técnica ainda não documentada.',
+        'Separação entre Campuzz tecnologia e Campuzz LMS: time tech. ' +
+        'Recursos acadêmicos: conteúdo e telas do produto já disponíveis nesta página. ' +
+        'Ficha técnica ainda não documentada.',
 
-      visaoGeral:
-        'O Campuzz é o sistema operacional completo para o ecossistema educacional. ' +
-        'Reúne numa só infraestrutura a tração comercial, o financeiro e o fiscal, a ' +
-        'proteção jurídica, o suporte ao aluno, a entrega acadêmica e uma camada de ' +
-        'inteligência de dados que observa todas as outras.',
-      ecossistema:
-        'O Campuzz é a face comercial do ecossistema. Jurídico, suporte e a entrega ' +
-        'acadêmica são dele mesmo; receita, fiscal e dados vêm dos sistemas que a ' +
-        'UniFast está construindo: o CRM é o LeadsHug, a emissão de notas é o ' +
-        'UniNotas e os dashboards e indicadores são o Metriczz. Conforme esses ' +
-        'sistemas evoluem, o Campuzz evolui junto.',
-      integracoes: [
-        { sistema: 'LeadsHug', descricao: 'CRM e atendimento da área de Receita.' },
-        { sistema: 'UniNotas', descricao: 'Emissão e gestão de NF-e da área Financeiro & Fiscal.' },
-        { sistema: 'Metriczz', descricao: 'Dashboards e indicadores da área de Data Intelligence.' },
+      visaoGeral: [
+        'Campuzz é o nome da tecnologia que move todo o ecossistema UniFast. ' +
+          'Campuzz LMS é o produto de aprendizagem que utiliza essa base tecnológica.',
+        'O LMS concentra a jornada acadêmica: cursos, alunos, turmas, calendário, ' +
+          'comunidades, documentos e suporte. O módulo Vendas pertence à organização ' +
+          'da tecnologia Campuzz e tem suas próprias funcionalidades.',
       ],
-      casos: {
-        titulo: 'AS SEIS ÁREAS',
-        numerado: true,
-        itens: [
-          {
-            nome: 'Receita · Marketing & Vendas',
-            via: 'LeadsHug',
-            descricao:
-              'Centraliza a tração do negócio, da captura de leads até a conversão no CRM.',
-            itens: [
-              'Funil comercial inteligente',
-              'Gestão de campanhas',
-              'Automação de vendas',
-              'Métricas de ROI em tempo real',
-            ],
-          },
-          {
-            nome: 'Financeiro & Fiscal',
-            via: 'UniNotas',
-            descricao:
-              'Opera o fluxo de caixa, os pagamentos e a complexidade tributária da educação.',
-            itens: [
-              'Checkout de alta conversão',
-              'BPO financeiro',
-              'Emissão automatizada de NF-e',
-              'Estrutura de SCP para redução de impostos',
-            ],
-          },
-          {
-            nome: 'Jurídico & Compliance',
-            proprio: true,
-            descricao:
-              'Protege os ativos intelectuais e mantém a operação dentro das normas legais.',
-            itens: [
-              'Contratos de matrícula automáticos',
-              'Assinatura digital',
-              'Conformidade com a LGPD',
-              'Proteção anti-pirataria',
-            ],
-          },
-          {
-            nome: 'Suporte & CX',
-            proprio: true,
-            descricao:
-              'Acompanha a satisfação e o sucesso do aluno durante todo o ciclo de vida.',
-            itens: [
-              'Central de suporte preditivo',
-              'Gestão de tickets',
-              'Monitoramento de NPS',
-              'Agentes de IA para atendimento',
-            ],
-          },
-          {
-            nome: 'Acadêmico & Entrega',
-            proprio: true,
-            descricao:
-              'Gerencia a jornada pedagógica do aluno, com uma experiência fluida e reconhecida.',
-            itens: [
-              'LMS moderno',
-              'Secretaria virtual',
-              'Gestão de turmas',
-              'Comunidade',
-              'Diplomas com registro no MEC',
-            ],
-          },
-          {
-            nome: 'Data Intelligence',
-            via: 'Metriczz',
-            descricao:
-              'A camada de IA que observa as outras cinco áreas e gera predições ' +
-              'estratégicas, alimentada pelos dados de mais de 280 operações simultâneas.',
-            itens: [
-              'Dashboards preditivos',
-              'Score de risco de churn',
-              'Indicadores de performance',
-              'Predição de inadimplência',
-              'Projeção de LTV',
-            ],
-          },
-        ],
-      },
+      funcoes: [
+        'Organiza cursos e a entrega de conteúdo de aprendizagem',
+        'Gerencia alunos e turmas',
+        'Reúne o calendário da operação acadêmica',
+        'Disponibiliza comunidades',
+        'Centraliza documentos e solicitações acadêmicas',
+        'Oferece suporte ao aluno',
+      ],
+      ecossistema:
+        'É o produto de aprendizagem dentro do ecossistema sustentado pela tecnologia ' +
+        'Campuzz. O Accountzz fornece a camada compartilhada de identidade e acesso. ' +
+        'As funcionalidades comerciais são apresentadas no módulo Vendas da tecnologia Campuzz.',
+      integracoes: [
+        { sistema: 'Campuzz · tecnologia', descricao: 'Base tecnológica que sustenta o LMS e as demais plataformas.' },
+        { sistema: 'Accountzz', descricao: 'Camada compartilhada de identidade e acesso.' },
+      ],
       papel:
-        'Produto comercial da UniFast: faz o jurídico, o suporte e o acadêmico, e ' +
-        'entrega ao cliente, num só lugar, o que os demais sistemas constroem por baixo.',
+        'Produto de aprendizagem da UniFast, construído sobre a tecnologia Campuzz.',
     },
+  },
+  {
+    id: 'u6',
+    code: 'U6',
+    name: 'RELATÓRIO DIÁRIO',
+    sub: 'CONTRATOS & PAGAMENTOS',
+    pastaFotos: 'relatorio-financeiro',
+    icon: 'relatorio',
+    status: ESTADOS.producao,
+    state: 'producao',
+    checkpoint: '03/11/2026',
+    ficha: FICHA_RELATORIO_DIARIO,
   },
   {
     id: 'u3',
@@ -503,12 +713,12 @@ export const SISTEMAS = [
       ],
       ecossistema:
         'É onde a conversa com o cliente acontece. Outros sistemas falam com ele por uma ' +
-        'API pública, com contrato estável; hoje o parceiro é o Campuzz, cuja área de ' +
-        'Receita se apoia no LeadsHug. O expert também pode contratar o LeadsHug para ' +
+        'API pública, com contrato estável; hoje o parceiro é a tecnologia Campuzz, cujo módulo ' +
+        'Vendas usa o LeadsHug para leads e prevê concentrar nele a mensageria. O expert também pode contratar o LeadsHug para ' +
         'o próprio atendimento, se quiser.',
       integracoes: [
         {
-          sistema: 'Campuzz',
+          sistema: 'Campuzz · tecnologia',
           descricao: 'Parceiro pela API pública: lê conversas e responde sem passar por tela.',
         },
         { sistema: 'WhatsApp oficial (Meta)', descricao: 'WABA, templates e janela de 24h.' },
@@ -673,7 +883,7 @@ export const SISTEMAS = [
     id: 'u5',
     code: 'U5',
     name: 'PAILON',
-    sub: 'HARNESS AS A SERVICE',
+    sub: 'PRODUTO & TECH',
     icon: 'harness',
     status: ESTADOS.desenvolvimento,
     state: 'desenvolvimento',
@@ -684,10 +894,11 @@ export const SISTEMAS = [
        servico (HaaS) vem do time tech e de um documento de estrategia do
        proprio repositorio, ainda "a discutir". */
     ficha: {
-      subtitulo: 'Harness as a Service · governança do desenvolvimento com IA',
-      tagline: 'Governança com dados concretos para o desenvolvimento com IA.',
+      subtitulo: 'Visão de produto e apoio ao time tech',
+      tagline: 'Antecipa a visão do produto e facilita o trabalho do time tech.',
       resumo:
-        'O harness que gerencia o processo de desenvolvimento com agentes de IA: as ' +
+        'O Pailon antecipa a visão do produto e facilita o trabalho do time tech. ' +
+        'Gerencia o processo de desenvolvimento com agentes de IA: as ' +
         'mesmas regras, tarefas e verificações para todas as equipes, e visibilidade ' +
         'para a gestão decidir com dados concretos.',
       categoria: 'Engenharia & Governança',
@@ -812,127 +1023,10 @@ export const SISTEMAS = [
         'Centralizar tarefas, travas e métricas num serviço',
         'Dar à gestão a visibilidade do processo com dados concretos',
       ],
-      papel: 'Harness que governa o desenvolvimento com IA em toda a UniFast.',
+      papel: 'Antecipa a visão do produto e facilita o trabalho do time tech em toda a UniFast.',
       fonte:
-        'Repositório delphi-ai e foundation_documentation; a visão de serviço vem do ' +
+        'Repositório delphi-ai (origem do Pailon) e foundation_documentation; a visão de serviço vem do ' +
         'time tech.',
-    },
-  },
-  {
-    id: 'u6',
-    code: 'U6',
-    name: 'RELATÓRIO FINANCEIRO',
-    sub: 'CONTRATOS & PAGAMENTOS',
-    icon: 'relatorio',
-    status: ESTADOS.producao,
-    state: 'producao',
-    checkpoint: '09/10/2026',
-    box: { x: 1010, y: 584, w: 260, h: 150 },
-    /* Sem acesso ao repositorio: a ficha vem da descricao de entrega do
-       projeto, das telas e do time tech (consome o banco do Metriczz). As
-       fotos tem os valores borrados. */
-    ficha: {
-      subtitulo: 'Relatório Financeiro UniFast · School of Business',
-      tagline: 'O fechamento do dia, todo dia, para a liderança.',
-      resumo:
-        'O relatório diário da liderança da UniFast. Reúne contratos e pagamentos ' +
-        'dia a dia, por empresa, unidade de negócio, conta e origem, com o ' +
-        'acumulado do mês e os valores de parceiros e clubs.',
-      categoria: 'Financeiro & Gestão',
-      tipo: 'Relatório diário',
-      fonte:
-        'Descrição de entrega do projeto, telas do sistema e time tech. Ficha ' +
-        'técnica ainda não documentada.',
-
-      visaoGeral: [
-        'O Relatório Financeiro UniFast é onde a liderança acompanha, todo dia, ' +
-          'quanto entrou em contratos e em pagamentos: no dia anterior, ao longo do ' +
-          'mês e em cada unidade de negócio.',
-        'Tem um Dashboard com os indicadores do período, telas detalhadas de ' +
-          'Contratos e de Pagamentos e uma área de Gestão do relatório, onde a ' +
-          'equipe organiza as linhas, os vínculos e os lançamentos de Co-produção.',
-      ],
-      problema:
-        'Os valores de contratos e pagamentos chegam de várias plataformas (Fast ' +
-        'Pay, Eduzz, Edunext, Asaas) e de lançamentos manuais, como a ' +
-        'Co-produção. Montar o fechamento diário exigia juntar e conferir essas ' +
-        'fontes à mão. O relatório faz isso sozinho, com as regras financeiras ' +
-        'definidas, e mostra o que ainda falta conferir.',
-      funcoes: [
-        'Mostra indicadores, gráficos e valores mensais de parceiros e clubs',
-        'Apresenta contratos e pagamentos dia a dia, com total por dia e acumulado do mês',
-        'Filtra por mês, dia, empresa e unidade de negócio, com busca',
-        'Detalha os valores por dia, unidade de negócio, conta e origem',
-        'Exporta o relatório em CSV',
-        'Abre já posicionado no D-1, o último dia fechado',
-        'Funciona no computador e no celular',
-      ],
-      casos: {
-        titulo: 'AS QUATRO ÁREAS',
-        numerado: true,
-        itens: [
-          {
-            nome: 'Dashboard',
-            descricao:
-              'Contratos e pagamentos do dia, acumulado do mês, parceiros e clubs, a ' +
-              'evolução diária e a distribuição por categoria.',
-          },
-          {
-            nome: 'Contratos',
-            descricao:
-              'Contratos criados por unidade, origem e parceiro, com pós-graduações e ' +
-              'certificações à parte.',
-          },
-          {
-            nome: 'Pagamentos',
-            descricao:
-              'Recebimentos por origem, produto e parceiro: Fast Pay, Eduzz / Edunext ' +
-              'e partners / clubs.',
-          },
-          {
-            nome: 'Gestão do relatório',
-            descricao:
-              'Onde a equipe mantém o relatório certo.',
-            itens: [
-              'Co-produção: lançamento e correção dos valores diários',
-              'Linhas e vínculos: criar e excluir linhas e decidir quais contas pertencem a cada uma',
-              'Conferência: comparar com a fonte e achar o que está sem vínculo',
-            ],
-          },
-        ],
-      },
-      ecossistema:
-        'Não gera dados próprios de venda: lê o banco do Metriczz, aplica as regras ' +
-        'financeiras e entrega o fechamento do dia à liderança. A Gestão do relatório ' +
-        'completa o que as plataformas não trazem, como a Co-produção, e liga cada ' +
-        'conta à sua linha.',
-      fluxo: {
-        etapas: ['Plataformas de venda', 'Banco do Metriczz', 'Relatório Financeiro', 'Liderança'],
-        texto:
-          'Os lançamentos de Co-produção e os vínculos salvos na Gestão do relatório ' +
-          'entram nas consultas na hora.',
-      },
-      integracoes: [
-        {
-          sistema: 'Metriczz',
-          nota: 'conectado',
-          descricao: 'Banco de onde vêm os valores de contratos e pagamentos.',
-        },
-        {
-          sistema: 'Fast Pay, Eduzz, Edunext e Asaas',
-          descricao: 'Origens dos valores, separadas em cada linha do relatório.',
-        },
-      ],
-      tecnologia: [
-        ['Partes', 'Frontend, API e banco de dados'],
-        ['Banco de dados', 'Migrações automatizadas'],
-        ['Exportação', 'CSV'],
-        ['Infraestrutura', 'Railway'],
-      ],
-      statusDetalhe:
-        'Em produção no Railway, com frontend, API e banco publicados e os dados ' +
-        'consultáveis também pela API.',
-      papel: 'Relatório financeiro diário da liderança da UniFast.',
     },
   },
 ]
