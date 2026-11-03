@@ -66,8 +66,9 @@ public/assets/{id}.png        # mídias finais, servidas em /assets/{id}.png
   **Exceção:** as fotos dos produtos ficam em `src/assets/produtos/<pasta>/`,
   porque o carrossel as descobre com `import.meta.glob` (em `public/` o site
   não tem como listar a pasta). A pasta é o nome do sistema em minúsculas com
-  hífen e sem acento (`pailon`, `relatorio-financeiro`); a ordem é a do
-  nome do arquivo.
+  hífen e sem acento (`pailon`), ou o valor de `pastaFotos` quando definido.
+  Campuzz LMS (`u4`) preserva `campuzz`; Relatório Diário (`u6`), antes Relatório
+  Financeiro, preserva `relatorio-financeiro`. A ordem é a do nome do arquivo.
 - **Fontes** via `<link>` do Google Fonts no `index.html` da raiz, ou
   `@font-face` em `tokens.css`.
 - Verificação de cada gate: `npm run dev` e comparar no browser com a reference,
@@ -95,8 +96,18 @@ vinham dele:
   foi revelada ela esta em `opacity: 0`, o que esconde a subarvore inteira.
   Por isso a ficha do sistema e montada em `App.jsx`, fora das secoes: dentro
   delas o escurecimento sumia junto.
-- **Cartao inteiro clicavel.** `.sistema` e um `<button>`; o `+` do canto e
-  decorativo. Com hover o cartao cresce e ganha halo difuso.
+- **Ecossistema por grupos.** `src/data/groups.js` apresenta Campuzz como a
+  tecnologia que sustenta todo o ecossistema. Campuzz LMS (`u4`) é o produto de
+  aprendizagem, no grupo Acadêmico & Aprendizagem. São conceitos distintos:
+  o módulo Vendas pertence à tecnologia Campuzz. Suas quatro funções são
+  Data (Metriczz e Relatório Diário), Leads (LeadsHug), Mensageria
+  (Wpp Hub e Wpp Ofc, futuramente LeadsHug) e marketing (a definir). Accountzz
+  é transversal; UniNotas fica em Financeiro & Fiscal e Pailon em Produto &
+  Tech. Pailon é o novo nome do Delphi AI, com o mesmo id `u5`. O layout usa
+  CSS Grid, sem posições absolutas ou fios. A ficha do LMS concentra os recursos
+  de aprendizagem; as quatro funções de Vendas ficam em `MODULO_VENDAS`.
+- **Cartão inteiro clicável.** `.plataforma` é um `<button>`; o `+` é
+  decorativo. O foco e o hover destacam a borda e mostram um halo.
 - **Ficha tecnica em painel.** Saiu do canto do hero e virou
   [`FichaTecnica`](src/sections/FichaTecnica.jsx), acionada pelo botao fixo no
   canto inferior direito. As contagens vem de `systems.js`, nao sao fixas.
@@ -117,35 +128,45 @@ vinham dele:
   quando o ultimo sistema migrou.
   Status sai sempre de `ESTADOS` + `state`, com cor via `.estado--<state>`:
   nunca escreva o status do nucleo a mao (ja esteve "SEMPRE ATIVO" sem estar).
-  `NUCLEO.conectado` controla os fios do esquema: `false` deixa todos
-  tracejados e mostra a legenda "ligacao prevista". Vire para `true` quando o
-  primeiro sistema (Metriczz ou UniNotas) estiver de fato ligado.
+  `NUCLEO.conectado` registra o estado técnico informado, mas não controla o
+  layout por grupos. A posição do Accountzz mostra seu papel transversal;
+  mudar a apresentação não altera o status técnico dos produtos.
 - **Atualizacoes de status.** Os status seguem o que o time informa
   (checkpoints em PDF ou mensagens). A cada atualizacao, em
   [`systems.js`](src/data/systems.js), mude so os sistemas citados: `state`
   /`status`, `statusDetalhe`, `proximosPassos` e `checkpoint: 'dd/mm/aaaa'`
   (a data e por sistema; o estagio da ficha diz "ATUALIZADO EM <data>").
-  Ultimas: 09/10/2026 (Relatorio Financeiro, entrou em producao),
-  02/10/2026 (Accountzz, Metriczz, UniNotas) e 25/09/2026 (LeadsHug);
-  Campuzz e Pailon sem data. `status` pode ser um rotulo
+  Últimas: 03/11/2026 (Accountzz, Metriczz e Relatório Diário), 02/10/2026 (UniNotas) e 25/09/2026
+  (LeadsHug); Campuzz e Pailon sem data. `status` pode ser um rotulo
   proprio ("MVP RODANDO", "EM PRODUCAO · EM TESTES") com o `state` dando a
   cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
   conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
-- **Esquema com 3 + 3 cartoes.** A coluna direita espelha a esquerda (y 584 /
-  824 / 1064): Relatorio Financeiro (U6) em cima, UniNotas no meio, em linha
-  reta com o nucleo, e Pailon (antes Delphi AI) embaixo. Os ramais do U6 e do U5 sao sempre
-  tracejados, porque nenhum dos dois passa pelo nucleo hoje. Um 7o sistema
-  exige redesenhar a malha em [`Integration.jsx`](src/sections/Integration.jsx).
-- **Fotos com dados sensiveis.** As telas do Relatorio Financeiro tem os
-  valores em R$ borrados (e a URL do Railway). Faca o mesmo em telas novas
-  com faturamento real. Um numero na frente do nome do arquivo
-  (`1 Dashboard.png`) fixa a ordem e nao aparece na legenda.
-- **Trilhas com ordem e desvios.** Em [`trails.js`](src/data/trails.js) as
-  paradas vem na ordem em que a pessoa passa: o SVG numera cada uma e poe uma
-  seta por trecho. Parada `opcional` (ex.: o expert contratar o LeadsHug) sai
-  tracejada, sem numero, ligada a parada mais proxima. Passar o mouse numa
-  trilha apaga as outras; os icones das colunas abrem a ficha do sistema.
-- **Os produtos por dentro (seção 03).** [`Produtos`](src/sections/Produtos.jsx):
+  Accountzz mantém o MVP rodando (`state: 'producao'`); a v2 está em definição
+  de arquitetura até 06/11/2026. O início da implementação está previsto para
+  a semana de 09 a 13/11/2026, condicionado à aprovação do escopo global na
+  apresentação. A fase da v2 não significa que sua implementação já começou.
+  Metriczz está em testes (`state: 'testes'`, dourado); a primeira versão tem meta em
+  stage em 15/11/2026, e só segue para produção após validação. O checkpoint
+  de 03/11 à tarde separa backend já em stage, front desenvolvido fora de
+  stage, pendências, dependências e trabalho fora da versão. Convite e dados
+  têm prioridade. As janelas intermediárias de 10 a 12/11 são propostas;
+  estimativas ainda não foram aferidas. Metriczz ainda não está em produção e
+  não entra na contagem de módulos ativos; aparece na contagem “EM TESTES”.
+  Relatório Diário (`u6`) pertence a Data, ao lado do Metriczz. Sua ficha está
+  em `src/data/relatorio-diario.js`; fotos em `relatorio-financeiro/`. Está em
+  produção, com checkpoint de 03/11/2026: todas as entregas, melhorias de
+  22 e 28/10, publicação e envio diário por WhatsApp foram confirmados como
+  concluídos e rodando. A confirmação atual supera as antigas pendências de
+  merge/deploy e o pedido histórico de coluna Backlog. Não reabrir essas
+  pendências nem atribuir um provedor ou horário ao WhatsApp sem informação.
+- **Fotos com dados sensíveis.** As telas do Relatório Diário preservam os
+  valores financeiros, dados de conta e URL do Railway borrados. Manter o mesmo
+  tratamento em novas telas com dados reais. Prefixos numéricos nos arquivos
+  definem a ordem e não aparecem na legenda.
+- **Ordem das seções.** Cabeçalho, ecossistema por grupos (01), produtos por
+  dentro (02) e contato. A seção de trilhas da operação foi retirada; os
+  cartões por módulo apresentam a organização dos sistemas.
+- **Os produtos por dentro (seção 02).** [`Produtos`](src/sections/Produtos.jsx):
   filtro de um sistema por vez numa linha única em toda a largura (rola para o
   lado se não couber) e [`Carrossel`](src/components/Carrossel.jsx) de fotos à
   esquerda, os dois fixos (`sticky`; a galeria gruda em `--filtro-h` abaixo do
@@ -195,28 +216,16 @@ mostra que o acesso pelo Accountzz ainda não está disponível.
   largura do cartão dimensiona a coluna e ele vaza da tela no celular (o
   `overflow: clip` do `.page` esconde a rolagem, então o teste de rolagem
   horizontal não pega).
-- **Diagrama e trilhas escalam por igual.** Os dois blocos sao desenhados em
-  1312px (SVG + cartoes em px) e [`useEscala`](src/components/useEscala.js)
-  grava `--k` = largura disponivel / 1312; o CSS aplica `scale(var(--k))`.
-  **Nao** volte a esticar so o SVG com `preserveAspectRatio="none"`: os fios
-  deixam de encostar nos cartoes em qualquer largura diferente de 1312px de
-  conteudo, inclusive 1440 com barra de rolagem.
 
 ## Camada responsiva
 
-O mock só existe em desktop (1440px). Tudo em [`src/styles/`](src/styles/) exceto
-`mobile.css` reproduz o mock medida a medida e **não deve ser alterado para
-acomodar telas estreitas**. A adaptação vive só em
+O mock só existe em desktop (1440px). As regiões originais em [`src/styles/`](src/styles/)
+reproduzem o mock; o ecossistema por grupos substitui o antigo diagrama conforme
+a nova organização do produto. A adaptação para telas estreitas vive só em
 [`src/styles/mobile.css`](src/styles/mobile.css), carregado por último em
-`main.jsx`, com dois cortes: 1099px (empilha diagrama e trilhas) e 599px
+`main.jsx`, com dois cortes: 1099px (reorganiza grupos) e 599px
 (escala de tipo para celular).
 
-Duas armadilhas já resolvidas, que vão voltar se alguém mexer:
-
-- **Posições absolutas via variável.** Cartões do diagrama e paradas das trilhas
-  recebem `--x`/`--y`/`--w`/`--h` por `style` inline. O CSS desktop lê essas
-  variáveis; o mobile devolve `auto`. Se as posições voltarem a ser `style`
-  inline diretas, o mobile só as vence com `!important`.
 - **Ordem dos media queries.** O minificador reordena blocos `@media` de mesma
   especificidade. Por isso as regras de 599px levam o prefixo `.page`, para
   ganharem do bloco de 1099px independentemente da ordem final.

@@ -1,16 +1,17 @@
-.secao {
+﻿.secao {
   padding-top: 44px;
-}
-
-.secao__cabecalho .t3 {
-  font-size: 13px;
-  letter-spacing: 0.1em;
 }
 
 .secao__cabecalho {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 16px;
+}
+
+.secao__cabecalho .t3 {
+  font-size: 13px;
+  letter-spacing: 0.1em;
 }
 
 .secao__nota {
@@ -19,278 +20,206 @@
   color: var(--gold-dim);
 }
 
-.secao__nota--legenda {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 6px;
+.ecossistema {
+  display: grid;
+  gap: 28px;
+  margin: 32px 0 24px;
+  padding: 28px;
+  border: 1px solid var(--gold-dim);
+  border-top: 3px solid var(--gold);
 }
 
-/* amostra do fio tracejado do esquema (8 cheio, 4 vazio) */
-.legenda__tracejado {
-  flex: none;
-  width: 32px;
-  height: 1.5px;
-  background: repeating-linear-gradient(to right, var(--gold) 0 8px, transparent 8px 12px);
+.ecossistema__base {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
 }
 
-/* ---- diagrama ---- */
-/* Desenhado sempre em 1312x680 e escalado por igual com --k (useEscala):
-   fios e cartoes encolhem juntos. A margem negativa devolve a altura que a
-   escala tirou, ja que transform nao muda o espaco ocupado no fluxo. */
-.diagrama {
-  position: relative;
-  width: 1312px;
-  height: 680px;
-  margin-top: -1.5px;
-  margin-bottom: calc((var(--k, 1) - 1) * 680px);
-  transform: scale(var(--k, 1));
-  transform-origin: 0 0;
-}
-
-.diagrama__malha {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.fio {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 1.5;
-}
-
-.fio--tracejado {
-  stroke-dasharray: 8 4;
-}
-
-.perna {
-  fill: var(--gold);
-}
-
-.no {
-  fill: var(--bg);
-  stroke: var(--gold);
-  stroke-width: 1.5;
-}
-
-/* ---- cartao de sistema ----
-   U1 medido: caixa 261x150 em (169, 584); icone 31x35 em x=188,5;
-   bloco de texto em x=232,5 com "U1" em y=629, nome em y=647 e sub em y=673;
-   status com topo de maiusculas em y=713. */
-
-/* O cartao inteiro e o botao que abre a ficha. */
-.sistema {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: var(--w);
-  height: var(--h);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 1.5px solid var(--gold);
-  padding: 0 19.5px 0 14.5px;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1),
-    box-shadow 240ms ease,
-    border-color 240ms ease;
-}
-
-/* Ao passar o mouse o cartao cresce e ganha um halo difuso, que tambem
-   levanta ele acima dos conectores. */
-.sistema:hover,
-.sistema:focus-visible {
-  transform: scale(1.045);
-  z-index: 5;
-  border-color: color-mix(in srgb, var(--gold) 100%, var(--ink) 25%);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--gold) 30%, transparent),
-    0 16px 44px -10px color-mix(in srgb, var(--gold) 45%, transparent),
-    0 0 70px color-mix(in srgb, var(--gold) 20%, transparent);
-  outline: none;
-}
-
-.sistema:focus-visible {
-  border-color: var(--ink);
-}
-
-.sistema--desenvolvimento {
-  border-style: dashed;
-  border-color: var(--gold-dim);
-}
-
-/* Na reference o bloco do nucleo ficava 14px abaixo do centro. Com o status
-   no rodape do cartao (o mock nao tinha), ele sobe para dar lugar a linha. */
-.sistema--nucleo {
-  padding-bottom: 26px;
-  border-width: 2px;
-  border-radius: 8px;
-  align-items: center;
-  text-align: center;
-}
-
-.sistema .ico {
-  color: var(--gold);
-}
-
-.sistema--nucleo .ico {
+.ecossistema .ecossistema__distincao {
+  padding-left: 16px;
+  border-left: 2px solid var(--gold-dim);
   color: var(--ink);
 }
 
-.sistema--nucleo .sistema__ico {
-  width: auto;
-}
-
-.sistema--desenvolvimento .ico {
-  color: var(--muted);
-}
-
-/* Coluna do icone com largura fixa: na reference todos os icones ficam
-   centrados em x = borda do cartao + 34, e o texto comeca sempre no mesmo x. */
-.sistema__ico {
+.ecossistema__identidade {
   display: grid;
-  place-items: center;
-  flex: none;
-  width: 36.5px;
-  margin-top: 3px;
-}
-
-.sistema__corpo {
-  display: flex;
-  gap: 9.5px;
+  grid-template-columns: minmax(0, 1fr) 310px;
   align-items: center;
+  gap: 32px;
+  padding: 30px;
+  border: 1px solid var(--gold);
+  border-top-width: 3px;
+  background: linear-gradient(110deg, #c5a56610, transparent), var(--surface);
 }
 
-/* O bloco de texto fica 4,75px acima do centro do cartao, como na reference. */
-.sistema__texto {
-  margin-bottom: 9.5px;
+.ecossistema__rotulo {
+  margin: 0 0 12px;
+  color: var(--gold);
 }
 
-.sistema--nucleo .sistema__texto {
-  margin-bottom: 0;
-}
-
-.sistema--nucleo .sistema__code {
-  font-size: 11.4px;
-}
-
-.sistema--nucleo .sistema__ico {
-  margin-top: 0;
-}
-
-.sistema--nucleo .sistema__corpo {
-  flex-direction: column;
-  align-items: center;
-  gap: 22px;
-}
-
-.sistema__texto > p {
-  margin: 0;
-}
-
-.sistema__code {
-  font-size: 9.3px;
-  letter-spacing: 0.06em;
+.ecossistema p:not(.t3) {
+  margin: 12px 0 0;
   color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
 
-.sistema__nome {
-  margin: 4.5px 0 6px !important;
-  font-size: 15.5px;
+.grupo {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
 }
 
-.sistema__sub {
-  font-size: 9px;
-  letter-spacing: 0.081em;
-  color: var(--muted);
+.grupo__cabecalho {
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--rule);
 }
 
-.sistema__status {
-  position: absolute;
-  right: 19.5px;
-  bottom: 10px;
-  margin: 0;
-  font-size: 9px;
-  letter-spacing: 0.005em;
-  color: var(--gold-dim);
+.grupo__funcoes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.sistema--desenvolvimento .sistema__status {
-  color: var(--muted);
+.funcao {
+  min-width: 0;
+  padding: 20px 16px;
+  border: 1px solid var(--hairline);
+  background: var(--bg);
 }
 
-/* Planejado: contorno tracejado como o de desenvolvimento, mas no dourado
-   cheio, porque o nucleo continua sendo a peca central do esquema. */
-.sistema--planejamento {
+.funcao--pendente {
   border-style: dashed;
 }
 
-.sistema--planejamento .sistema__status {
+.funcao__titulo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.funcao__titulo .h3 {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.funcao__numero {
   color: var(--gold);
 }
 
-.sistema--avancado .sistema__status {
+.ecossistema .funcao__descricao {
+  min-height: 72px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+.funcao__plataformas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.funcao__ferramenta,
+.funcao__pendente {
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  font: 400 12px/1.5 var(--mono);
+  color: var(--ink);
+}
+
+.funcao__pendente {
+  color: var(--muted);
+  border-style: dashed;
+}
+
+.funcao__futuro {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--gold-dim);
+}
+
+.funcao__futuro > .t3 {
+  margin: 0 0 12px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
   color: var(--gold);
 }
 
-/* Entregue e pronto, ainda sem sistemas ligados: status em verde, e os fios
-   do esquema tracejados (ver `conectado` em systems.js). */
-.sistema--entregue .sistema__status {
-  color: var(--verde);
-}
-
-.sistema--nucleo .sistema__status {
-  left: 0;
-  right: 0;
-  bottom: 12px;
-  text-align: center;
-}
-
-/* ---- botao + no canto ---- */
-.sistema__mais {
-  position: absolute;
-  top: -13.5px;
-  right: -10.5px;
-  width: 25px;
-  height: 25px;
+.ecossistema__apoio {
   display: grid;
-  place-items: center;
-  border: 1.5px solid var(--gold);
-  border-radius: 50%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.plataforma {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 18px 16px;
+  border: 1px solid var(--gold-dim);
   background: var(--bg);
-  color: var(--gold);
-  font: 400 14px/1 var(--mono);
-  transition:
-    background 240ms ease,
-    color 240ms ease;
+  color: var(--ink);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.sistema--desenvolvimento .sistema__mais {
-  border-color: var(--gold-dim);
-  color: var(--gold-dim);
-}
-
-.sistema:hover .sistema__mais,
-.sistema:focus-visible .sistema__mais {
-  background: var(--gold);
+.plataforma:hover,
+.plataforma:focus-visible,
+.plataforma.is-aberta {
   border-color: var(--gold);
-  color: var(--bg);
+  box-shadow: 0 0 22px #c5a56620;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .sistema {
-    transition: box-shadow 240ms ease;
-  }
+.plataforma:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
 
-  .sistema:hover,
-  .sistema:focus-visible {
-    transform: none;
-  }
+.plataforma__icone {
+  flex: none;
+  color: var(--gold);
+}
+
+.plataforma__identidade {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.plataforma__codigo {
+  font-size: 9px;
+}
+
+.plataforma__nome {
+  font-size: 15px;
+}
+
+.plataforma__estado {
+  color: var(--cor-estado);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.plataforma__mais {
+  align-self: flex-start;
+  margin-left: auto;
+  color: var(--gold);
+}
+
+.funcao .plataforma {
+  gap: 9px;
+  padding: 14px 10px;
+}
+
+.funcao .plataforma__icone {
+  display: none;
 }

@@ -1,8 +1,8 @@
 import '../styles/icon.css'
 
 /* Icones tracados dos recortes em design-systems/unifast-produtos/assets/crops/.
-   Cada um guarda a proporcao medida na reference; `escala` reduz o conjunto
-   para os cabecalhos de coluna das trilhas (0,77 do tamanho de cartao). */
+   Cada um guarda a proporcao medida na reference; `escala` ajusta o tamanho
+   conforme o contexto de uso. */
 
 const T = { fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinejoin: 'round' }
 

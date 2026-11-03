@@ -31,7 +31,7 @@ export default function Hero() {
 
       <p className="t3 hero__rolagem" aria-hidden="true">
         <span className="hero__rolagem-linha" />
-        ROLE PARA O ESQUEMA
+        ROLE PARA O ECOSSISTEMA
       </p>
     </section>
   )

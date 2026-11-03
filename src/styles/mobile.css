@@ -1,7 +1,6 @@
 /* Adaptacao para telas estreitas.
    O mock so existe em desktop (1440px), entao abaixo de 1100px esta e uma
-   decisao de projeto, nao uma medicao: o diagrama vira uma pilha ligada por
-   uma espinha vertical e cada trilha vira uma linha do tempo.
+   decisao de projeto, nao uma medicao: os grupos se empilham para aproveitar a largura disponivel.
    Este arquivo e carregado por ultimo; acima de 1100px nada aqui se aplica. */
 
 @media (max-width: 1099px) {
@@ -37,8 +36,7 @@
   }
 
   /* ---------- cabecalhos de secao ---------- */
-  .secao,
-  .secao--trilhas {
+  .secao {
     padding-top: 40px;
   }
 
@@ -51,214 +49,25 @@
     margin-top: 20px;
   }
 
-  /* ---------- diagrama empilhado ---------- */
-  .diagrama {
-    position: relative;
-    width: auto;
-    height: auto;
-    margin-bottom: 0;
-    transform: none;
-    margin-top: 26px;
-    padding-left: 38px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+  /* ---------- ecossistema por grupos ---------- */
+  .ecossistema__identidade {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
   }
 
-  /* espinha vertical: substitui a malha de conectores do desktop */
-  .diagrama::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 24px;
-    bottom: 24px;
-    width: 1.5px;
-    background: var(--gold);
+  .grupo__funcoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .diagrama__malha {
-    display: none;
+  .ecossistema__apoio {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sistema {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: auto;
-    height: auto;
+  .ecossistema .funcao__descricao {
     min-height: 0;
-    padding: 20px 20px 18px 14.5px;
   }
 
-  /* ramal ligando cada cartao a espinha */
-  .sistema::before {
-    content: '';
-    position: absolute;
-    left: -24px;
-    top: 50%;
-    width: 24px;
-    height: 1.5px;
-    background: var(--gold);
-  }
-
-  .sistema--desenvolvimento::before {
-    background: var(--gold-dim);
-  }
-
-  .sistema--nucleo {
-    order: -1;
-    padding: 22px 20px 20px;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .sistema--nucleo .sistema__corpo {
-    flex-direction: row;
-    align-items: center;
-    gap: 18px;
-  }
-
-  .sistema--nucleo .sistema__ico {
-    width: 36.5px;
-  }
-
-  .sistema--nucleo .ico {
-    width: 30px;
-    height: 43px;
-  }
-
-  .sistema__texto,
-  .sistema--nucleo .sistema__texto {
-    margin-bottom: 0;
-  }
-
-  .sistema__ico {
-    margin-top: 0;
-  }
-
-  .sistema__status,
-  .sistema--nucleo .sistema__status {
-    position: static;
-    margin-top: 14px;
-    text-align: left;
-  }
-
-  .sistema__mais {
-    top: -12.5px;
-    right: -12.5px;
-  }
-
-  /* ---------- trilhas como linha do tempo ---------- */
-  .trilhas {
-    width: auto;
-    height: auto;
-    margin-bottom: 0;
-    transform: none;
-    margin-top: 26px;
-  }
-
-  .trilhas__malha,
-  .trilhas__colunas {
-    display: none;
-  }
-
-  .trilha {
-    position: relative;
-    top: auto;
-    height: auto;
-    margin-bottom: 30px;
-  }
-
-  /* sem mouse para destacar no celular */
-  .trilhas--foco .trilha:not(.is-foco) {
-    opacity: 1;
-  }
-
-  .trilha__rotulo {
-    position: static;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 14px;
-  }
-
-  .trilha__legenda {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: auto;
-    max-width: none;
-    transform: none;
-    text-align: left;
-    padding: 0 0 16px 32px;
-    font-size: 13px;
-    line-height: 19px;
-  }
-
-  /* anel da parada, com o numero da ordem (ou + na opcional) */
-  .trilha__legenda::before {
-    content: attr(data-n);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    display: grid;
-    place-items: center;
-    box-sizing: border-box;
-    border: 1.5px solid var(--gold);
-    border-radius: 50%;
-    background: var(--bg);
-    font: 700 10px/1 var(--mono);
-    color: var(--gold);
-  }
-
-  .trilha__legenda--opcional::before {
-    border-style: dashed;
-    border-color: var(--gold-dim);
-    font-weight: 400;
-    color: var(--gold-dim);
-  }
-
-  /* trecho ate a proxima parada; ate a opcional, tracejado */
-  .trilha__legenda:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 9.25px;
-    top: 20px;
-    bottom: 0;
-    width: 1.5px;
-    background: var(--gold);
-  }
-
-  .trilha__legenda:has(+ .trilha__legenda--opcional)::after {
-    background: repeating-linear-gradient(to bottom, var(--gold-dim) 0 4px, transparent 4px 8px);
-  }
-
-  .trilha__coluna-nome {
-    justify-content: flex-start;
-    font-size: 10px;
-  }
-
-  /* ---------- selo e chamada ---------- */
-  .selo-iam {
-    height: auto;
-    flex-wrap: wrap;
-    gap: 18px;
-    padding: 22px 20px;
-    margin-top: 10px;
-  }
-
-  .selo-iam__texto {
-    margin-bottom: 0;
-    flex: 1 1 260px;
-    min-width: 0;
-  }
-
-  .selo-iam__estado {
-    margin-left: 0;
-    flex-basis: 100%;
-  }
-
+  /* ---------- chamada ---------- */
   .cta {
     padding-top: 54px;
   }
@@ -350,26 +159,31 @@
     line-height: 1.7;
   }
 
-  .page .diagrama {
-    padding-left: 30px;
+  .page .ecossistema,
+  .page .ecossistema__apoio {
+    gap: 20px;
   }
 
-  .page .diagrama::before {
-    left: 11px;
+  .page .ecossistema {
+    padding: 20px 12px;
   }
 
-  .page .sistema::before {
-    left: -20px;
-    width: 20px;
+  .page .grupo__funcoes,
+  .page .ecossistema__apoio {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .page .sistema__nome {
-    font-size: 14.5px;
+  .page .ecossistema__identidade,
+  .page .grupo {
+    padding: 22px 18px;
   }
 
-  .page .selo-iam__texto .t3 {
-    font-size: 9.5px;
-    line-height: 1.7;
+  .page .ecossistema .h2 {
+    font-size: 23px;
+  }
+
+  .page .plataforma__nome {
+    font-size: 14px;
   }
 
   .page .ficha-camada {

@@ -7,7 +7,7 @@ import '../styles/produtos.css'
 
 /* Fotos de cada produto: basta soltar os arquivos em
    src/assets/produtos/<pasta>/ (a pasta e o nome do sistema em minusculas,
-   com hifen no lugar de espaco). O Vite encontra sozinho; a ordem segue o
+   com hifen no lugar de espaco, ou o campo pastaFotos). O Vite encontra sozinho; a ordem segue o
    nome do arquivo (01.png, 02.png...). */
 const ARQUIVOS = import.meta.glob('../assets/produtos/*/*.{png,jpg,jpeg,webp,avif}', {
   eager: true,
@@ -15,6 +15,7 @@ const ARQUIVOS = import.meta.glob('../assets/produtos/*/*.{png,jpg,jpeg,webp,avi
 })
 
 const pasta = (s) =>
+  s.pastaFotos ??
   s.name
     .toLowerCase()
     .normalize('NFD')
@@ -78,7 +79,7 @@ export default function Produtos() {
   return (
     <section className="secao secao--produtos" id="produtos">
       <div className="secao__cabecalho">
-        <span className="t3">03 / OS PRODUTOS POR DENTRO</span>
+        <span className="t3">02 / OS PRODUTOS POR DENTRO</span>
         <span className="t3">ESCOLHA UM SISTEMA PARA CONHECER</span>
       </div>
 

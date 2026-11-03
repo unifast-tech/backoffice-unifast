@@ -142,6 +142,10 @@ svg {
   --cor-estado: var(--muted);
 }
 
+.estado--testes {
+  --cor-estado: var(--gold);
+}
+
 .estado--planejamento {
   --cor-estado: var(--gold);
 }

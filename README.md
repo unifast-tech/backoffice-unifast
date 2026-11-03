@@ -25,8 +25,19 @@ O título ocupa a tela inteira ao abrir. O resto aparece conforme você rola,
 cada seção entrando com um fade. Quem desliga animações no sistema operacional
 recebe tudo estático.
 
-No esquema de integração, o cartão inteiro abre a ficha do sistema. Passando o
-mouse ele cresce e ganha um halo.
+O ecossistema é organizado por grupos em `src/data/groups.js`. Campuzz é a
+tecnologia que sustenta todo o ecossistema. Campuzz LMS é o produto de
+aprendizagem (`u4`), apresentado no grupo Acadêmico & Aprendizagem. O módulo
+Vendas da tecnologia Campuzz reúne Data (Metriczz e Relatório Diário), Leads (LeadsHug), Mensageria (Wpp Hub e Wpp
+Ofc, futuramente LeadsHug) e ferramentas de marketing a definir. Accountzz é a
+camada compartilhada de identidade e acesso; UniNotas aparece em Financeiro &
+Fiscal e Pailon (antigo Delphi AI) em Produto & Tech. Os cartões das plataformas
+abrem suas fichas. A ficha do Campuzz LMS descreve a operação de aprendizagem.
+
+Relatório Diário (`u6`) está em produção, com consultas de contratos e pagamentos,
+Gestão do relatório, filtros personalizados, melhorias de agrupamentos e envio
+diário por WhatsApp. A ficha fica em `src/data/relatorio-diario.js`. A confirmação
+atual de conclusão supera as pendências históricas de merge e publicação.
 
 A ficha técnica com os números dos módulos fica no botão redondo do canto
 inferior direito, presente em toda a página.
@@ -44,11 +55,18 @@ src/assets/produtos/uninotas/
 src/assets/produtos/leadshug/
 src/assets/produtos/campuzz/
 src/assets/produtos/pailon/
+src/assets/produtos/relatorio-financeiro/
 ```
+
+As telas do Campuzz LMS continuam na pasta `campuzz/`; as do Relatório Diário
+ficam em `relatorio-financeiro/`. O campo `pastaFotos` preserva essas pastas ao
+renomear um sistema. Nomes sem esse campo usam a marca em minúsculas, sem acento e com hífen.
 
 A ordem do carrossel segue o nome do arquivo: use `01.png`, `02.png`… Sem
 fotos, o produto mostra "as telas chegam em breve". As fotos aparecem
-inteiras, sem corte, numa moldura 16:10.
+inteiras, sem corte, numa moldura 16:10. Um número no início do arquivo define
+a ordem e é removido da legenda. Nas telas do relatório, valores financeiros
+e outros dados sensíveis devem estar borrados, como nas imagens existentes.
 
 ## Deploy (Railway)
 
@@ -64,7 +82,7 @@ Para testar igual à produção na sua máquina: `npm run build` e `npm start`
 ## Parâmetro de URL
 
 `?ficha=u1` abre a ficha daquele sistema já no carregamento, centrada na tela,
-para compartilhar o link de um sistema específico. Os ids são `u0` a `u5`.
+para compartilhar o link de um sistema específico. Os ids são `u0` a `u6`.
 
 ## Dependência externa
 
