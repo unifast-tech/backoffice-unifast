@@ -106,6 +106,43 @@
   text-align: center;
 }
 
+.suporte__alternar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--gold-dim);
+  background: var(--bg);
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.suporte__alternar > span {
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.suporte__alternar:hover,
+.suporte__alternar:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 22px #c5a56620;
+}
+
+.suporte__alternar:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.suporte__alternar--fim {
+  border-style: dashed;
+}
+
 .suporte__lista {
   margin: 18px 0 0;
   padding: 0;
