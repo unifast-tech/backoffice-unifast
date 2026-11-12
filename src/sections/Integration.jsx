@@ -1,6 +1,7 @@
 import Icon from '../components/Icon.jsx'
 import { CAMPUZZ_TECNOLOGIA, MODULO_VENDAS, GRUPOS_APOIO } from '../data/groups.js'
 import { SISTEMAS, NUCLEO } from '../data/systems.js'
+import Suporte from './Suporte.jsx'
 import '../styles/integration.css'
 
 const POR_ID = Object.fromEntries([...SISTEMAS, NUCLEO].map((s) => [s.id, s]))
@@ -74,7 +75,9 @@ export default function Integration({ aberto, onAbrir }) {
                   ) : (
                     <span className="funcao__ferramenta" key={plataforma.nome}>{plataforma.nome}</span>
                   ))}
-                  {funcao.pendente && <span className="t3 funcao__pendente">A DEFINIR</span>}
+                  {funcao.plataformas.length === 0 && (
+                    <span className="t3 funcao__pendente">PLATAFORMA A DEFINIR</span>
+                  )}
                 </div>
                 {funcao.futuro && (
                   <div className="funcao__futuro">
@@ -82,10 +85,25 @@ export default function Integration({ aberto, onAbrir }) {
                     <Plataforma sistemaId={funcao.futuro.sistemaId} {...propsPlataforma} />
                   </div>
                 )}
+                {funcao.andamento?.length > 0 && (
+                  <div className="funcao__andamento">
+                    <p className="t3">EM ANDAMENTO · {MODULO_VENDAS.checkpoint}</p>
+                    <ul>
+                      {funcao.andamento.map((item) => (
+                        <li key={item.texto}>
+                          {item.sistema && <strong className="t3">{item.sistema}</strong>}
+                          {item.texto}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </li>
             ))}
           </ol>
         </section>
+
+        <Suporte />
 
         <div className="ecossistema__apoio">
           {GRUPOS_APOIO.map((grupo) => (

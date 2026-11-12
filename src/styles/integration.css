@@ -148,6 +148,43 @@
   color: var(--gold);
 }
 
+.funcao__andamento {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.funcao__andamento > .t3 {
+  margin: 0 0 12px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+}
+
+.funcao__andamento ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.funcao__andamento li {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.funcao__andamento strong {
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .ecossistema__apoio {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

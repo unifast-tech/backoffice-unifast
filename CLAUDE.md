@@ -100,12 +100,35 @@ vinham dele:
   tecnologia que sustenta todo o ecossistema. Campuzz LMS (`u4`) é o produto de
   aprendizagem, no grupo Acadêmico & Aprendizagem. São conceitos distintos:
   o módulo Vendas pertence à tecnologia Campuzz. Suas quatro funções são
-  Data (Metriczz e Relatório Diário), Leads (LeadsHug), Mensageria
-  (Wpp Hub e Wpp Ofc, futuramente LeadsHug) e marketing (a definir). Accountzz
+  Data (Metriczz, Relatório Diário e Databricks `u7`), Leads (Metriczz, desde
+  12/11/2026; o LeadsHug saiu dela), Mensageria (Wpp Hub e Wpp Ofc,
+  futuramente LeadsHug) e marketing (páginas de acompanhamento em Cloudflare
+  Workers). Cada função tem
+  `andamento[]` com as novidades do time, datadas por `MODULO_VENDAS.checkpoint`;
+  ao receber novidades por módulo, troque a lista inteira e a data. Accountzz
   é transversal; UniNotas fica em Financeiro & Fiscal e Pailon em Produto &
   Tech. Pailon é o novo nome do Delphi AI, com o mesmo id `u5`. O layout usa
   CSS Grid, sem posições absolutas ou fios. A ficha do LMS concentra os recursos
   de aprendizagem; as quatro funções de Vendas ficam em `MODULO_VENDAS`.
+- **Suporte da tecnologia Campuzz.** [`Suporte`](src/sections/Suporte.jsx),
+  dentro do ecossistema, entre o módulo Vendas e os grupos de apoio. Lista as
+  tarefas que demandaram suporte, uma semana por vez, com filtro (setas e
+  lista de semanas; abre na mais recente e marca a atual). Os dados ficam em
+  [`suporte.js`](src/data/suporte.js), com o formato documentado no topo:
+  **toda semana, acrescente um item novo** `{ inicio: 'aaaa-mm-dd' (segunda),
+  tarefas: [] }` e não apague as antigas. O rótulo "09/11 A 13/11/2026" sai do
+  `inicio`. Semana sem tarefas mostra o aviso de vazio. Quando toda a semana
+  tem o mesmo `responsavel`, ele aparece uma vez no resumo e sai das linhas.
+  Valores de oferta (preços de checkout) e links de pagamento ficam fora da
+  página; a tarefa descreve o que foi feito. Senhas e URIs com credencial
+  nunca entram. Primeira semana: 09 a 13/11/2026, com tarefas de Rafael Pilon
+  (todas resolvidas) e Lucas Paifer (resolvidas, exceto e-Notas e certificados, aguardando). `aguardando` é a tarefa parada à espera de
+  terceiros (decisão, credencial, material).
+  Na função Leads, a reestruturação do Mongo da jornada do lead tem prazo em
+  20/11/2026. **Armadilha:**
+  `.ecossistema p:not(.t3)` pinta todo `<p>` de cinza e dá margem de 12px;
+  textos do bloco que precisam de outra cor ou margem usam seletor mais
+  específico (`.ecossistema .suporte__texto .suporte__titulo`).
 - **Cartão inteiro clicável.** `.plataforma` é um `<button>`; o `+` é
   decorativo. O foco e o hover destacam a borda e mostram um halo.
 - **Ficha tecnica em painel.** Saiu do canto do hero e virou
@@ -136,18 +159,19 @@ vinham dele:
   [`systems.js`](src/data/systems.js), mude so os sistemas citados: `state`
   /`status`, `statusDetalhe`, `proximosPassos` e `checkpoint: 'dd/mm/aaaa'`
   (a data e por sistema; o estagio da ficha diz "ATUALIZADO EM <data>").
-  Últimas: 03/11/2026 (Accountzz, Metriczz e Relatório Diário), 02/10/2026 (UniNotas) e 25/09/2026
-  (LeadsHug); Campuzz e Pailon sem data. `status` pode ser um rotulo
+  Últimas: 12/11/2026 (Accountzz, Metriczz, LeadsHug e Databricks), 03/11/2026 (Relatório
+  Diário), 02/10/2026 (UniNotas); Campuzz e Pailon sem data. `status` pode ser um rotulo
   proprio ("MVP RODANDO", "EM PRODUCAO · EM TESTES") com o `state` dando a
   cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
   conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
-  Accountzz mantém o MVP rodando (`state: 'producao'`); a v2 está em definição
-  de arquitetura até 06/11/2026. O início da implementação está previsto para
-  a semana de 09 a 13/11/2026, condicionado à aprovação do escopo global na
-  apresentação. A fase da v2 não significa que sua implementação já começou.
-  Metriczz está em testes (`state: 'testes'`, dourado); a primeira versão tem meta em
-  stage em 15/11/2026, e só segue para produção após validação. O checkpoint
-  de 03/11 à tarde separa backend já em stage, front desenvolvido fora de
+  Accountzz mantém o MVP rodando (`state: 'producao'`); a arquitetura da v2
+  termina em 13/11/2026 e a prototipação é na quarta, 18/11/2026.
+  Metriczz está em testes finais (`state: 'testes'`, dourado); a primeira versão tem meta em
+  stage em 15/11/2026, e só segue para produção após validação. Depois dela
+  vêm as telas de gestão de leads inspiradas no Mixpanel (prazo a definir).
+  LeadsHug segue em desenvolvimento: primeiras telas (Atendimento, CRM e
+  Contatos) em construção, primeira versão para testes em 20/11/2026. O checkpoint
+  do Metriczz de 03/11 à tarde (ainda mostrado na ficha) separa backend já em stage, front desenvolvido fora de
   stage, pendências, dependências e trabalho fora da versão. Convite e dados
   têm prioridade. As janelas intermediárias de 10 a 12/11 são propostas;
   estimativas ainda não foram aferidas. Metriczz ainda não está em produção e
@@ -159,6 +183,14 @@ vinham dele:
   concluídos e rodando. A confirmação atual supera as antigas pendências de
   merge/deploy e o pedido histórico de coluna Backlog. Não reabrir essas
   pendências nem atribuir um provedor ou horário ao WhatsApp sem informação.
+  Databricks (`u7`, ícone `grade`) é o pipeline financeiro em bronze, silver e
+  gold, também em Data. Ficha em `src/data/databricks.js`, fotos em
+  `databricks/`. Em produção e em remodelação (checkpoint de 12/11/2026): PRs
+  #1 a #18 entregues, M-0003 a M-0005 prontas no staging com PR a abrir,
+  M-0006 aguardando desenho. É a camada medalhão que o Metriczz usa; a
+  informação antiga de que o Metriczz "saiu do Databricks" não vale mais.
+  Os totais de receita e de taxas da empresa ficam fora da página (mesmo
+  critério das telas borradas); os valores dos casos corrigidos aparecem.
 - **Fotos com dados sensíveis.** As telas do Relatório Diário preservam os
   valores financeiros, dados de conta e URL do Railway borrados. Manter o mesmo
   tratamento em novas telas com dados reais. Prefixos numéricos nos arquivos

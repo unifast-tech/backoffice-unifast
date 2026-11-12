@@ -1,4 +1,5 @@
 import { FICHA_RELATORIO_DIARIO } from './relatorio-diario.js'
+import { FICHA_DATABRICKS } from './databricks.js'
 
 /* Catálogo de sistemas. Os grupos funcionais ficam em groups.js. */
 
@@ -44,10 +45,10 @@ export const NUCLEO = {
   name: 'ACCOUNTZZ',
   sub: 'IDENTIDADE & SEGURANÇA',
   icon: 'cadeado',
-  /* MVP rodando. A implementação da v2 depende da aprovação do escopo global. */
-  status: 'MVP RODANDO · V2 EM DEFINIÇÃO DE ARQUITETURA',
+  /* MVP rodando. V2: arquitetura finalizada em 13/11, prototipação em 18/11. */
+  status: 'MVP RODANDO · V2: PROTOTIPAÇÃO EM 18/11',
   state: 'producao',
-  checkpoint: '03/11/2026',
+  checkpoint: '12/11/2026',
   /* Estado técnico da conexão, separado do papel transversal no ecossistema. */
   conectado: false,
   box: { x: 615, y: 794, w: 211, h: 210 },
@@ -99,16 +100,13 @@ export const NUCLEO = {
     statusDetalhe: [
       'O MVP está rodando, com a API funcionando e a documentação pronta para uso. ' +
         'Nenhum sistema está conectado a ele ainda.',
-      'A v2 está em fase de definição de arquitetura, com prazo para conclusão ' +
-        'até sexta-feira, 06/11/2026.',
-      'O escopo global será apresentado para aprovação. A implementação da v2 ' +
-        'está prevista para começar na semana de 09 a 13/11/2026, condicionada ' +
-        'à aprovação desse escopo na apresentação.',
+      'A arquitetura da v2 está em finalização, com conclusão prevista para ' +
+        'sexta-feira, 13/11/2026.',
+      'A prototipação da v2 está marcada para quarta-feira, 18/11/2026.',
     ],
     proximosPassos: [
-      'Concluir a definição de arquitetura da v2 até sexta-feira, 06/11/2026',
-      'Apresentar o escopo global da v2 para aprovação',
-      'Iniciar a implementação da v2 na semana de 09 a 13/11/2026, se o escopo global for aprovado',
+      'Finalizar a arquitetura da v2 na sexta-feira, 13/11/2026',
+      'Prototipar a v2 na quarta-feira, 18/11/2026',
       'Conectar o UniNotas e o Metriczz (login pelo Accountzz)',
     ],
     papel: 'Serviço central de autenticação e autorização da UniFast.',
@@ -122,11 +120,11 @@ export const SISTEMAS = [
     name: 'METRICZZ',
     sub: 'ANALYTICS & BI',
     icon: 'grafico',
-    /* Primeira versão em testes, com meta de validação em stage em 15/11.
+    /* Testes finais da primeira versão, com meta de validação em stage em 15/11.
        A publicação em produção fica para depois da validação. */
-    status: `${ESTADOS.testes} · PRIMEIRA VERSÃO: 15/11`,
+    status: 'EM TESTES FINAIS · PRIMEIRA VERSÃO: 15/11',
     state: 'testes',
-    checkpoint: '03/11/2026',
+    checkpoint: '12/11/2026',
     box: { x: 170, y: 584, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Dashboards, métricas e inteligência de dados da UniFast',
@@ -393,13 +391,16 @@ export const SISTEMAS = [
         texto:
           'A primeira versão tem como meta estar em stage até 15/11/2026 para ' +
           'validação. Convite e dados são as entregas de prioridade máxima; ' +
-          'o front novo cede a vez se o limite de uso apertar.',
+          'o front novo cede a vez se o limite de uso apertar. Depois dela, o Metriczz ' +
+          'passa a atender também o módulo Leads.',
         itens: [
           'Convite completo: convidar, aceitar, primeiro login e painel no escopo correto, ' +
             'incluindo reenviar, cancelar, revogar e convidar novamente',
           'Pago mensal de 2026 conferido por plataforma, com diferença de até 0,5% ou explicada; ' +
             'parceiro vê Pago líquido sem taxa e juros, e interno vê bruto, produtor e UniFast',
           'Telas novas de cadastros e Integrações, adaptação mobile e marca, seguidas da revisão MZ8',
+          'Telas de gestão de leads inspiradas no dashboard do Mixpanel, com prazo a definir ' +
+            'após a primeira versão de 15/11',
         ],
       },
       ecossistema: [
@@ -408,6 +409,8 @@ export const SISTEMAS = [
           'do Metriczz e guardados numa camada própria para os dashboards.',
         'Usuários internos podem ter uma visão mais ampla da operação; parceiros ' +
           'veem somente os produtores, produtos e dados do próprio escopo.',
+        'No módulo Vendas, atende as funções Data e Leads. A gestão de leads deixa o ' +
+          'LeadsHug e passa para o Metriczz.',
       ],
       fluxo: {
         etapas: ['Pipeline Routerfy', 'Dados crus', 'Dados processados', 'API Metriczz', 'Dashboards'],
@@ -428,7 +431,9 @@ export const SISTEMAS = [
         },
         {
           sistema: 'Databricks',
-          descricao: 'Onde os dados eram tratados até agora; em migração para a nova estrutura.',
+          descricao:
+            'Pipeline financeiro em bronze, silver e gold; a gold é a referência dos ' +
+            'números conferidos. Em remodelação (checkpoint de 12/11/2026).',
         },
         {
           sistema: 'Gateway UniFast',
@@ -450,10 +455,12 @@ export const SISTEMAS = [
         ['Backend', 'NestJS'],
         ['Banco de dados', 'PostgreSQL'],
         ['ORM', 'Prisma'],
-        ['Dados', 'Arquitetura medalhão (migrando do Databricks)'],
+        ['Dados', 'Arquitetura medalhão no Databricks'],
         ['Infraestrutura', 'Railway'],
       ],
       statusDetalhe: [
+        'Checkpoint de 12/11/2026: a primeira versão está em testes finais para a ' +
+          'entrega de 15/11/2026.',
         'Retrato de 03/11/2026 à tarde. O Metriczz está em testes para a primeira ' +
           'versão, com meta de validação em stage até 15/11/2026. Ainda não está ' +
           'em produção; a publicação ocorre somente depois da validação.',
@@ -477,11 +484,13 @@ export const SISTEMAS = [
         'Concluir MZ4, MZ5 e MZ7 conforme a capacidade; janela proposta de merge do front em stage em 12/11',
         'Fazer a revisão MZ8 e os ajustes finais para validar a primeira versão em stage até 15/11/2026',
         'Planejar o envio à produção e as migrações somente após a validação',
+        'Definir o prazo das telas de gestão de leads (inspiradas no Mixpanel) após a primeira versão',
       ],
       fonte:
         'Relatório “Metriczz — Versão de 15/11: o que está feito e o que falta”, ' +
         'checkpoint de 03/11/2026 à tarde, fornecido pelo time tech. ' +
-        'Prazos e estimativas refletem esse retrato.',
+        'Prazos e estimativas refletem esse retrato. Testes finais e gestão de leads: ' +
+        'atualização do time de 12/11/2026.',
       papel: 'Central de métricas, relatórios e dashboards da UniFast.',
     },
   },
@@ -551,6 +560,18 @@ export const SISTEMAS = [
     ficha: FICHA_RELATORIO_DIARIO,
   },
   {
+    id: 'u7',
+    code: 'U7',
+    name: 'DATABRICKS',
+    sub: 'PIPELINE FINANCEIRO',
+    icon: 'grade',
+    /* Pipeline em produção, base da receita Routerfy no BI; remodelação em curso. */
+    status: `${ESTADOS.producao} · EM REMODELAÇÃO`,
+    state: 'producao',
+    checkpoint: '12/11/2026',
+    ficha: FICHA_DATABRICKS,
+  },
+  {
     id: 'u3',
     code: 'U3',
     name: 'LEADSHUG',
@@ -558,9 +579,9 @@ export const SISTEMAS = [
     icon: 'balao',
     /* em reconstrucao; os dois sistemas de origem seguem em producao ate
        serem cobertos por ele */
-    status: ESTADOS.desenvolvimento,
+    status: `${ESTADOS.desenvolvimento} · TESTES: 20/11`,
     state: 'desenvolvimento',
-    checkpoint: '25/09/2026',
+    checkpoint: '12/11/2026',
     box: { x: 170, y: 1064, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Central de relacionamento com o cliente da UniFast',
@@ -701,8 +722,8 @@ export const SISTEMAS = [
             {
               nome: 'CRM',
               descricao:
-                'Lead, funil e ficha do cliente: é a ambição do produto e ainda não tem ' +
-                'decisão escrita.',
+                'Primeiras telas em construção desde o checkpoint de 12/11; lead, funil e ' +
+                'ficha do cliente completos seguem como ambição do produto.',
             },
             {
               nome: 'Campanhas de relacionamento',
@@ -714,7 +735,7 @@ export const SISTEMAS = [
       ecossistema:
         'É onde a conversa com o cliente acontece. Outros sistemas falam com ele por uma ' +
         'API pública, com contrato estável; hoje o parceiro é a tecnologia Campuzz, cujo módulo ' +
-        'Vendas usa o LeadsHug para leads e prevê concentrar nele a mensageria. O expert também pode contratar o LeadsHug para ' +
+        'Vendas prevê concentrar nele a mensageria (a gestão de leads passou para o Metriczz). O expert também pode contratar o LeadsHug para ' +
         'o próprio atendimento, se quiser.',
       integracoes: [
         {
@@ -734,10 +755,13 @@ export const SISTEMAS = [
           'documentos enviados pelo cliente), o produto passa por uma reconstrução mais ' +
           'criteriosa. Já está pronta a documentação que guia o desenvolvimento: todas as ' +
           'funcionalidades mapeadas, as futuras alinhadas e a arquitetura a seguir.',
+        'Checkpoint de 12/11/2026: as primeiras telas (Atendimento, CRM e Contatos) estão ' +
+          'em construção. A primeira versão para iniciar os testes está prevista para 20/11/2026.',
       ],
-      proximosPassos:
-        'Revisar o que já está pronto e funcionando, identificar os gaps que precisam ' +
-        'ser cobertos e resolver cada um deles.',
+      proximosPassos: [
+        'Concluir as primeiras telas: Atendimento, CRM e Contatos',
+        'Liberar a primeira versão para iniciar os testes em 20/11/2026',
+      ],
       papel:
         'Central de relacionamento com o cliente da UniFast, com o WhatsApp como canal principal.',
     },
