@@ -117,7 +117,11 @@ vinham dele:
   [`suporte.js`](src/data/suporte.js), com o formato documentado no topo:
   **toda semana, acrescente um item novo** `{ inicio: 'aaaa-mm-dd' (segunda),
   tarefas: [] }` e não apague as antigas. O rótulo "09/11 A 13/11/2026" sai do
-  `inicio`. Semana sem tarefas mostra o aviso de vazio. Quando toda a semana
+  `inicio`. Semana sem tarefas mostra o aviso de vazio. A lista começa
+  **fechada** (decisão do usuário: não ocupar a tela de quem não quer ver);
+  ficam visíveis o cabeçalho, o filtro e o resumo, e o botão "VER AS NN
+  TAREFAS DA SEMANA" abre a lista. Há um segundo "OCULTAR" no fim dela, que
+  devolve foco e tela ao botão do topo. Trocar de semana mantém o estado. Quando toda a semana
   tem o mesmo `responsavel`, ele aparece uma vez no resumo e sai das linhas.
   Valores de oferta (preços de checkout) e links de pagamento ficam fora da
   página; a tarefa descreve o que foi feito. Senhas e URIs com credencial

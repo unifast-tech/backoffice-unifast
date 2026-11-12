@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { SEMANAS_SUPORTE, STATUS_SUPORTE } from '../data/suporte.js'
 import '../styles/suporte.css'
 
@@ -30,6 +30,10 @@ const dois = (n) => String(n).padStart(2, '0')
 export default function Suporte() {
   /* índice 0 = semana mais recente; "anterior" anda para o fim do array */
   const [indice, setIndice] = useState(0)
+  /* a lista começa fechada: o bloco mostra só o resumo até a pessoa pedir */
+  const [aberto, setAberto] = useState(false)
+  const alternar = useRef(null)
+  const idLista = useId()
   const semana = SEMANAS[indice]
   if (!semana) return null
 
@@ -48,6 +52,17 @@ export default function Suporte() {
     }),
     responsavelUnico ? [`RESPONSÁVEL · ${responsavelUnico}`, null] : null,
   ].filter(Boolean)
+
+  const total = semana.tarefas.length
+
+  /* fechar pelo fim da lista: devolve o foco e a tela ao botão do topo */
+  const fecharPeloFim = () => {
+    setAberto(false)
+    requestAnimationFrame(() => {
+      alternar.current?.focus({ preventScroll: true })
+      alternar.current?.scrollIntoView({ block: 'center' })
+    })
+  }
 
   return (
     <section className="grupo grupo--suporte" aria-labelledby="grupo-suporte-titulo">
@@ -99,28 +114,50 @@ export default function Suporte() {
         ))}
       </p>
 
-      {semana.tarefas.length === 0 ? (
+      {total === 0 ? (
         <p className="suporte__vazio">Nenhuma tarefa de suporte registrada nesta semana.</p>
       ) : (
-        <ol className="suporte__lista">
-          {semana.tarefas.map((tarefa, i) => (
-            <li className="suporte__tarefa" key={`${semana.inicio}-${i}`}>
-              <span className="t3 suporte__dia">{tarefa.dia}</span>
-              <div className="suporte__texto">
-                <p className="h3 suporte__titulo">{tarefa.titulo}</p>
-                {tarefa.descricao && <p className="suporte__descricao">{tarefa.descricao}</p>}
-                {tarefa.responsavel && !responsavelUnico && (
-                  <p className="t3 suporte__responsavel">RESPONSÁVEL · {tarefa.responsavel}</p>
-                )}
-              </div>
-              <span className="t3 suporte__sistema">{tarefa.sistema ?? '—'}</span>
-              <span className={`t3 suporte__status suporte__status--${tarefa.status}`}>
-                <span className="ponto" />
-                {STATUS_SUPORTE[tarefa.status] ?? tarefa.status}
-              </span>
-            </li>
-          ))}
-        </ol>
+        <button
+          type="button"
+          className="t3 suporte__alternar"
+          onClick={() => setAberto(!aberto)}
+          aria-expanded={aberto}
+          aria-controls={idLista}
+          ref={alternar}
+        >
+          <span aria-hidden="true">{aberto ? '−' : '+'}</span>
+          {aberto
+            ? 'OCULTAR AS TAREFAS'
+            : `VER ${total === 1 ? 'A TAREFA' : `AS ${dois(total)} TAREFAS`} DA SEMANA`}
+        </button>
+      )}
+
+      {total > 0 && aberto && (
+        <div id={idLista}>
+          <ol className="suporte__lista">
+            {semana.tarefas.map((tarefa, i) => (
+              <li className="suporte__tarefa" key={`${semana.inicio}-${i}`}>
+                <span className="t3 suporte__dia">{tarefa.dia}</span>
+                <div className="suporte__texto">
+                  <p className="h3 suporte__titulo">{tarefa.titulo}</p>
+                  {tarefa.descricao && <p className="suporte__descricao">{tarefa.descricao}</p>}
+                  {tarefa.responsavel && !responsavelUnico && (
+                    <p className="t3 suporte__responsavel">RESPONSÁVEL · {tarefa.responsavel}</p>
+                  )}
+                </div>
+                <span className="t3 suporte__sistema">{tarefa.sistema ?? '—'}</span>
+                <span className={`t3 suporte__status suporte__status--${tarefa.status}`}>
+                  <span className="ponto" />
+                  {STATUS_SUPORTE[tarefa.status] ?? tarefa.status}
+                </span>
+              </li>
+            ))}
+          </ol>
+          <button type="button" className="t3 suporte__alternar suporte__alternar--fim" onClick={fecharPeloFim}>
+            <span aria-hidden="true">−</span>
+            OCULTAR AS TAREFAS
+          </button>
+        </div>
       )}
     </section>
   )
