@@ -1,0 +1,156 @@
+/* Suporte da tecnologia Campuzz: filtro por semana e lista de tarefas.
+   A adaptação para telas estreitas fica em mobile.css. */
+
+.suporte__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+.suporte__filtro {
+  display: flex;
+  align-items: stretch;
+  flex: none;
+  border: 1px solid var(--gold-dim);
+  background: var(--bg);
+}
+
+.suporte__passo {
+  width: 44px;
+  border: 0;
+  background: none;
+  color: var(--gold);
+  font-size: 18px;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.suporte__passo:disabled {
+  color: var(--hairline);
+  cursor: default;
+}
+
+.suporte__passo:not(:disabled):hover {
+  background: #c5a56614;
+}
+
+.suporte__passo:focus-visible,
+.suporte__semana select:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.suporte__semana {
+  display: grid;
+  gap: 4px;
+  padding: 10px 14px;
+  border-inline: 1px solid var(--gold-dim);
+}
+
+.suporte__semana .t3 {
+  font-size: 9px;
+  color: var(--gold);
+}
+
+.suporte__semana select {
+  appearance: none;
+  min-width: 210px;
+  padding: 0 18px 0 0;
+  border: 0;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--gold) 50%) right 6px center / 5px 5px no-repeat,
+    linear-gradient(-45deg, transparent 50%, var(--gold) 50%) right 1px center / 5px 5px no-repeat;
+  color: var(--ink);
+  font: 400 13px/1.5 var(--mono);
+  cursor: pointer;
+}
+
+.suporte__semana option {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.suporte__resumo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 22px 0 0;
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.suporte__status--resolvida {
+  --cor-estado: var(--verde);
+}
+
+.suporte__status--andamento {
+  --cor-estado: var(--gold);
+}
+
+.suporte__status--aguardando {
+  --cor-estado: var(--gold-dim);
+}
+
+.suporte__status--aberta {
+  --cor-estado: var(--muted);
+}
+
+.ecossistema p.suporte__vazio {
+  margin: 18px 0 0;
+  padding: 26px 20px;
+  border: 1px dashed var(--hairline);
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.suporte__lista {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.suporte__tarefa {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 170px 150px;
+  align-items: baseline;
+  gap: 20px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.suporte__dia {
+  color: var(--gold);
+}
+
+.ecossistema .suporte__texto .suporte__titulo {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ecossistema .suporte__texto .suporte__descricao {
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+
+.suporte__responsavel {
+  margin: 10px 0 0;
+  color: var(--gold-dim);
+  font-size: 9px;
+}
+
+.suporte__sistema {
+  color: var(--ink);
+  font-size: 10px;
+}
+
+.suporte__status {
+  color: var(--cor-estado);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
