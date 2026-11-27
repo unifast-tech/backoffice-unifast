@@ -693,14 +693,14 @@ export const SISTEMAS = [
           'estão implementados no ambiente local. A experiência integrada de pessoa, ' +
           'negócios e conversas no desenho Campuzz Connect está em revisão, travada por ' +
           'um teste de limite com lotes acima de 500 negócios.',
-        'A primeira versão para testes, prevista para 20/11/2026, depende do fechamento ' +
-          'dessa revisão.',
+        'A liberação da primeira versão fica para depois do retorno do recesso, com a ' +
+          'revisão fechada.',
       ],
       proximosPassos: [
         'Isolar a falha do lote de 501 negócios e fechar a revisão da ST-UI-INT-01',
         'Validar um fluxo real com Typebot e WhatsApp oficial',
         'Subir o ambiente online persistente para as provas dos canais',
-        'Liberar a primeira versão para testes',
+        'Liberar a primeira versão após o retorno do recesso',
       ],
       fonte:
         'Estudos do time tech e tarefas da Sprint 1 e do backlog no Bitrix (epic LeadsHug), ' +

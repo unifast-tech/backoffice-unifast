@@ -194,7 +194,7 @@ vinham dele:
   módulos ativos; aparece na contagem “EM TESTES”.
   LeadsHug segue em desenvolvimento: Contatos e CRM implementados no ambiente
   local (nada em produção) e a experiência integrada ST-UI-INT-01 em revisão;
-  a versão de testes prevista para 20/11 depende dela.
+  a liberação da primeira versão fica para depois do retorno do recesso.
   UniNotas (epic monitor-notas) tem a correção da sincronização histórica e a
   exportação CSV prontas, a publicar em produção.
   Certificador (`u8`, ícone `certificado`, ficha em `src/data/certificador.js`)
