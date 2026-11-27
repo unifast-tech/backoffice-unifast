@@ -47,8 +47,9 @@ export const NUCLEO = {
   name: 'ACCOUNTZZ',
   sub: 'IDENTIDADE & SEGURANÇA',
   icon: 'cadeado',
-  /* MVP rodando. V2: prototipação feita, desenvolvimento iniciado (27/11). */
-  status: 'MVP RODANDO · V2 EM DESENVOLVIMENTO',
+  /* MVP rodando. V2: prototipação feita, desenvolvimento iniciado (27/11);
+     prazo no 1º trimestre de 2027, com meta em 31/01/2027. */
+  status: 'MVP RODANDO · V2 ATÉ 31/01/2027',
   state: 'producao',
   checkpoint: '27/11/2026',
   /* Estado técnico da conexão, separado do papel transversal no ecossistema. */
@@ -103,10 +104,10 @@ export const NUCLEO = {
       'O MVP está rodando, com a API funcionando e a documentação pronta para uso. ' +
         'Nenhum sistema está conectado a ele ainda.',
       'A v2 já passou pela prototipação e está em desenvolvimento (atualização do ' +
-        'time de 27/11/2026).',
+        'time de 27/11/2026). O prazo é o 1º trimestre de 2027, com meta em 31/01/2027.',
     ],
     proximosPassos: [
-      'Desenvolver a v2',
+      'Entregar a v2 até 31/01/2027 (1º trimestre de 2027)',
       'Conectar o UniNotas e o Metriczz (login pelo Accountzz)',
     ],
     papel: 'Serviço central de autenticação e autorização da UniFast.',

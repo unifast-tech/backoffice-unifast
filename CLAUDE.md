@@ -184,7 +184,8 @@ vinham dele:
   cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
   conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
   Accountzz mantém o MVP rodando (`state: 'producao'`); a v2 já passou pela
-  prototipação e está em desenvolvimento (27/11/2026).
+  prototipação e está em desenvolvimento (27/11/2026), com prazo no 1º
+  trimestre de 2027 e meta em 31/01/2027.
   Metriczz (`state: 'testes'`, dourado) tem a primeira versão pronta em stage,
   em QA; a primeira publicação na main espera o QA, o IAM em produção e a
   limpeza da saída do Firebase. Vai se chamar "Campuzz Data Module Metriczz"
