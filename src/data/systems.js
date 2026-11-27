@@ -1,5 +1,7 @@
 import { FICHA_RELATORIO_DIARIO } from './relatorio-diario.js'
 import { FICHA_DATABRICKS } from './databricks.js'
+import { FICHA_CERTIFICADOR } from './certificador.js'
+import { FICHA_MCP_BITRIX24 } from './mcp-bitrix24.js'
 
 /* Catálogo de sistemas. Os grupos funcionais ficam em groups.js. */
 
@@ -120,11 +122,11 @@ export const SISTEMAS = [
     name: 'METRICZZ',
     sub: 'ANALYTICS & BI',
     icon: 'grafico',
-    /* Testes finais da primeira versão, com meta de validação em stage em 15/11.
-       A publicação em produção fica para depois da validação. */
-    status: 'EM TESTES FINAIS · PRIMEIRA VERSÃO: 15/11',
+    /* Primeira versão em stage, em QA. A primeira publicação em produção
+       depende do QA e do IAM em produção (Sprint 1, Bitrix). */
+    status: 'EM STAGE · QA PARA A PRODUÇÃO',
     state: 'testes',
-    checkpoint: '12/11/2026',
+    checkpoint: '27/11/2026',
     box: { x: 170, y: 584, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Dashboards, métricas e inteligência de dados da UniFast',
@@ -159,248 +161,117 @@ export const SISTEMAS = [
       ],
       casos: [
         {
-          titulo: 'PRONTO EM STAGE · CHECKPOINT DE 03/11',
+          titulo: 'SPRINT 1 · ENTREGUE EM STAGE',
+          texto: 'Entregas de 16 a 24/11/2026, todas no stage. A bateria chegou a 7.824 testes verdes.',
           itens: [
             {
-              nome: 'Recorte por marca',
-              descricao: 'O filtro por empresa usa o cadastro do produtor (M-0161).',
+              nome: 'Parceiro vê só o valor líquido',
+              descricao: 'A regra passou a ser aplicada no servidor (decisão de 17/11, que substitui a de 04/11).',
             },
             {
-              nome: 'Validação de nomes e marcas',
-              descricao:
-                'Nomes com caracteres invisíveis são recusados. Uma marca arquivada ' +
-                'durante o preenchimento do formulário gera uma mensagem clara (M-0160).',
+              nome: 'Saída do Firebase',
+              descricao: 'Todo login passa pelo IAM do Accountzz (stage em 23/11).',
             },
             {
-              nome: 'Marketing por empresa · API',
-              descricao:
-                'O recorte por empresa está na API em stage (M-0162). A tela de ' +
-                'Marketing continua como “Em breve”.',
+              nome: 'API de dados e tela de tokens desligadas',
+              descricao: 'Os tokens existentes foram revogados.',
             },
             {
-              nome: 'Conferência realizada',
+              nome: 'Eduzz sem fatura em dobro',
               descricao:
-                'A soma do Pago por marca bateu ao centavo com a camada gold. ' +
-                'Nenhum nome apresentou caracteres invisíveis.',
+                'Medida a sobreposição entre API e webhook: 149 de 149 faturas sem ' +
+                'duplicidade. A fatura de teste saiu e entrou o filtro por plataforma.',
+            },
+            {
+              nome: 'Tetos e quarentena',
+              descricao:
+                'Limites para valores e quantidades absurdos e para datas fora de 1970 a 2100; ' +
+                'eventos malformados vão para quarentena.',
+            },
+            {
+              nome: 'Financeiro e Comercial',
+              descricao:
+                'Cartão «Recebíveis futuros», «Valor devido» e «Valor vencido» calculados ' +
+                'pelas cobranças e respeitando os filtros, comparativo por tipo nos cartões ' +
+                'e «Alunos por período» por produto.',
+            },
+            {
+              nome: 'Cadastros',
+              descricao:
+                'Filtro de status em Usuários, estado próprio para pessoa excluída e ' +
+                'desvincular uma chave sem remover o produtor.',
+            },
+            {
+              nome: 'Primeira leva de bugs visuais',
+              descricao:
+                'Chave Eduzz com duas grafias, produtor removido que ficava preso, menu ' +
+                'cortado, filtro por produtor e toque no gráfico.',
+            },
+            {
+              nome: 'Acessos',
+              descricao: 'E-mails e acesso das Edtechs configurados, além de novos acessos de parceiros.',
             },
           ],
         },
         {
-          titulo: 'OUTRAS ENTREGAS CONCLUÍDAS',
-          itens: [
-            {
-              nome: 'Backend · M-0151 a M-0159',
-              descricao:
-                'Fichas encerradas, incluindo webhook por conta, conta sem segredo ' +
-                'e catálogo de empresas.',
-            },
-            {
-              nome: 'Front novo · desenvolvido, ainda fora de stage',
-              descricao:
-                'Fundação, gráficos, Visão Geral, Financeiro, Comercial e Agregações ' +
-                'estão desenvolvidos na frente do novo layout (M-0201 a M-0213). ' +
-                'Essas telas ainda precisam chegar a stage.',
-            },
-          ],
-        },
-        {
-          titulo: 'CONVITE E LOGIN · PRIORIDADE MÁXIMA',
+          titulo: 'SPRINT 1 · EM ANDAMENTO',
           pendente: true,
           itens: [
             {
-              nome: 'A1 · convite de ponta a ponta · em execução',
+              nome: 'Histórico da Eduzz pela API · prioridade máxima',
               descricao:
-                'Login real pelo IAM para interno e parceiro, com e-mail de verdade, ' +
-                'aceite e primeiro painel no escopo correto. Depende do IAM local ' +
-                'em funcionamento. Estimativa: 2–3 h.',
+                'O importador está no stage desde 24/11. Falta listar as contas, medir a ' +
+                'primeira e importar conta a conta, com conferência do responsável. Se a ' +
+                'venda da API não for reconhecida igual à do webhook, nada é gravado.',
             },
             {
-              nome: 'A2 · corrigir as quebras encontradas · na fila',
+              nome: 'QA no celular',
               descricao:
-                'Cada falha encontrada no caminho do convite vira uma ficha. ' +
-                'Estimativa: 3–6 h; o volume de falhas é a maior incerteza.',
-            },
-            {
-              nome: 'A3 · validar em stage · depende do responsável',
-              descricao:
-                'Conferência com pessoa de teste seguindo o roteiro da A1. ' +
-                'Inclui verificar o sinal do IAM em stage; sem estimativa fechada.',
+                'A primeira rodada (18 e 19/11) teve 44 itens: 40 ok, 3 pulados e 1 falha ' +
+                'já corrigida. Faltam os roteiros das entregas novas, os itens de computador ' +
+                'e o restante do convite (sinais do IAM e pessoa excluída).',
             },
           ],
         },
         {
-          titulo: 'DADOS · PRIORIDADE MÁXIMA',
+          titulo: 'PARA A PRIMEIRA PUBLICAÇÃO EM PRODUÇÃO',
           pendente: true,
           itens: [
             {
-              nome: 'B1 · recorte da UniFast · na fila',
+              nome: 'Publicação na main',
               descricao:
-                'Medir, documentar a decisão e abrir as fichas, incluindo o item null. ' +
-                'Vem depois do convite. A regra é líquido somente no Pago, na tela e ' +
-                'na API: parceiro vê sem taxa e juros; interno vê bruto, produtor e ' +
-                'UniFast. Estimativa: 6–9 h.',
+                'Espera o fim do QA, o IAM em produção, a chave de cifra da sessão, a ' +
+                'remoção das variáveis do Firebase e a conferência dos tokens. A publicação ' +
+                'segue o runbook.',
             },
             {
-              nome: 'B2 · gabarito mensal do Pago · depende dos números',
+              nome: 'Novo nome e visual · Campuzz Data Module Metriczz',
               descricao:
-                'Confrontar o Pago mensal de 2026 com cada plataforma. Diferença ' +
-                'acima de 0,5% vira ficha com a causa. Depende dos valores extraídos ' +
-                'dos painéis pelo responsável. Estimativa aproximada: 6 h, ainda não medida.',
-            },
-            {
-              nome: 'B3 · Edunext · na fila',
-              descricao: 'Contratos por conta (E0, rodada 5). Estimativa: 2–3 h.',
-            },
-            {
-              nome: 'B4 · contrato cancelado · na fila',
-              descricao:
-                'Conferir na ficha se o tratamento da penalidade ainda falta. Estimativa: 2–3 h.',
-            },
-            {
-              nome: 'B5 · histórico da Eduzz por API · na fila',
-              descricao: 'API já documentada no mapa. Estimativa: 2–3 h.',
-            },
-            {
-              nome: 'B6 · contas Routerfy e URLs · depende de acesso',
-              descricao:
-                'Conferir conta a conta e cadastrar as URLs. Depende do acesso às ' +
-                'contas pelo responsável; sem estimativa fechada.',
-            },
-            {
-              nome: 'Asaas · somente se houver capacidade',
-              descricao:
-                'API e webhook entram apenas se houver sobra de tempo. Estimativa: 8–12 h.',
+                'Decisão de 16/11. Nada começa antes da apresentação do material visual; ' +
+                'depois, a troca vai ao stage e passa pelo QA.',
             },
           ],
         },
         {
-          titulo: 'FRONT NOVO · TRABALHO RESTANTE',
+          titulo: 'BACKLOG',
           pendente: true,
           itens: [
-            {
-              nome: 'MZ4 · cadastros · em execução',
-              descricao:
-                'Produtores, Produtos e Usuários (M-0214 a M-0216), com estimativa ' +
-                'de 8–12 h e dependência do merge de stage. Produtores está em ' +
-                'correção após o confronto com o desenho.',
-            },
-            {
-              nome: 'MZ5 · Integrações · na fila',
-              descricao: 'Depende da MZ4. Estimativa: 3–8 h.',
-            },
-            {
-              nome: 'MZ7 · mobile e marca · na fila',
-              descricao: 'Depende da MZ5. Estimativa: 3–8 h.',
-            },
-            {
-              nome: 'MZ8 · revisão e ajustes',
-              descricao:
-                'Revisão pelo responsável após as fases anteriores. Convite e dados ' +
-                'têm prioridade caso o limite de uso pressione o trabalho no front.',
-            },
-          ],
-        },
-        {
-          titulo: 'CALENDÁRIO · META E JANELAS PROPOSTAS',
-          pendente: true,
-          texto:
-            'A data combinada para a primeira versão em stage é 15/11/2026. ' +
-            'As janelas intermediárias são propostas e ainda não foram medidas.',
-          itens: [
-            {
-              nome: 'Até 10/11 · convite e dados em stage',
-              descricao: 'Precisam estar disponíveis para o QA da primeira versão.',
-            },
-            {
-              nome: '10 a 12/11 · QA no worktree',
-              descricao: 'Conferência pelo responsável, com convite, dados e front disponíveis.',
-            },
-            {
-              nome: '12/11 · merge do front em stage',
-              descricao:
-                'Janela proposta. Publicações grandes perto dessa data precisam ser ' +
-                'avisadas à frente que trabalha no front.',
-            },
-            {
-              nome: 'Depois do QA · revisão MZ8 e ajustes',
-              descricao: 'Usar a folga final para correções antes da validação da versão.',
-            },
-            {
-              nome: '15/11 · primeira versão em stage',
-              descricao:
-                'Meta combinada para validar convite, números, recorte da UniFast e ' +
-                'telas novas. O envio à produção fica depois da validação.',
-            },
-          ],
-        },
-        {
-          titulo: 'DEPENDÊNCIAS DO RESPONSÁVEL',
-          pendente: true,
-          itens: [
-            {
-              nome: 'Pago mensal de 2026 por plataforma',
-              descricao: 'Extrair dos painéis. Sem esses números, o gabarito de convergência fica bloqueado.',
-            },
-            {
-              nome: 'Sinal do IAM em stage',
-              descricao:
-                'Conferir o log do unifast-iam para distinguir falha na subida, ' +
-                'na entrega ou fila vazia.',
-            },
-            {
-              nome: 'Pessoa de teste e acesso à Routerfy',
-              descricao:
-                'Disponibilizar um e-mail acessível para testar o convite completo ' +
-                'e o acesso às contas Routerfy para a conferência de contas e URLs.',
-            },
-            {
-              nome: 'Decisões sem bloqueio da versão',
-              descricao:
-                'Definir como explicar que os “maiores” da Visão Geral usam apenas ' +
-                'o mês corrente; a recomendação é explicitar isso no título e no ' +
-                'estado vazio. Atualizar a regra 3b da documentação do Resultados, ' +
-                'que ainda menciona “empresa do fato”, em sessão interativa.',
-            },
-          ],
-        },
-        {
-          titulo: 'FORA DA VERSÃO DE 15/11',
-          pendente: true,
-          itens: [
-            {
-              nome: 'Operações',
-              descricao:
-                'Saiu do desenho. As referências nas ADR-0030 e ADR-0032 ainda receberão uma nota.',
-            },
-            {
-              nome: 'Produção e migrações',
-              descricao:
-                'F7, envio à main, migração de contas e saída do Firebase ficam para depois da validação.',
-            },
-            {
-              nome: 'MZ6 e outras evoluções de produto',
-              descricao:
-                'Sincronização, busca, notificações, exportação, telas de Marketing e ' +
-                'Indicadores e ajustes visuais G1 a G12 ficam depois do dia 15. ' +
-                'Produtor como cliente segue possível, sem prioridade.',
-            },
+            { nome: 'Marketing', descricao: 'No backlog do projeto, ainda sem descrição.' },
+            { nome: 'Integração Eduzz', descricao: 'No backlog do projeto, ainda sem descrição.' },
           ],
         },
       ],
       evolucao: {
         texto:
-          'A primeira versão tem como meta estar em stage até 15/11/2026 para ' +
-          'validação. Convite e dados são as entregas de prioridade máxima; ' +
-          'o front novo cede a vez se o limite de uso apertar. Depois dela, o Metriczz ' +
-          'passa a atender também o módulo Leads.',
+          'A primeira versão está pronta em stage e caminha para a primeira publicação ' +
+          'em produção, que depende do QA e do IAM em produção. O produto também passa ' +
+          'a se chamar Campuzz Data Module Metriczz. Depois, o Metriczz passa a atender ' +
+          'também o módulo Leads.',
         itens: [
-          'Convite completo: convidar, aceitar, primeiro login e painel no escopo correto, ' +
-            'incluindo reenviar, cancelar, revogar e convidar novamente',
-          'Pago mensal de 2026 conferido por plataforma, com diferença de até 0,5% ou explicada; ' +
-            'parceiro vê Pago líquido sem taxa e juros, e interno vê bruto, produtor e UniFast',
-          'Telas novas de cadastros e Integrações, adaptação mobile e marca, seguidas da revisão MZ8',
-          'Telas de gestão de leads inspiradas no dashboard do Mixpanel, com prazo a definir ' +
-            'após a primeira versão de 15/11',
+          'Histórico completo da Eduzz importado pela API, conta a conta',
+          'QA de celular e de computador concluído e primeira publicação na main',
+          'Novo nome e visual: Campuzz Data Module Metriczz',
+          'Marketing e telas de gestão de leads inspiradas no Mixpanel, ainda sem prazo',
         ],
       },
       ecossistema: [
@@ -442,8 +313,8 @@ export const SISTEMAS = [
         {
           sistema: 'Accountzz',
           descricao:
-            'IAM usado no trabalho de convite e login real para interno e parceiro. ' +
-            'O teste depende do IAM local em funcionamento e da conferência do IAM em stage.',
+            'Todo login passa pelo IAM desde a saída do Firebase (stage, 23/11). A ' +
+            'publicação em produção depende do IAM em produção.',
         },
         {
           sistema: 'Relatório Diário',
@@ -459,38 +330,23 @@ export const SISTEMAS = [
         ['Infraestrutura', 'Railway'],
       ],
       statusDetalhe: [
-        'Checkpoint de 12/11/2026: a primeira versão está em testes finais para a ' +
-          'entrega de 15/11/2026.',
-        'Retrato de 03/11/2026 à tarde. O Metriczz está em testes para a primeira ' +
-          'versão, com meta de validação em stage até 15/11/2026. Ainda não está ' +
-          'em produção; a publicação ocorre somente depois da validação.',
-        'Há correções de backend e recortes por marca e empresa já em stage. ' +
-          'O novo front tem telas desenvolvidas que ainda não chegaram a stage; ' +
-          'Produtores está em correção. Convite e login real pelo IAM estão em execução.',
-        'O prazo está apertado: aproximadamente 46 h para convite e dados, com 40% ' +
-          'de folga para imprevistos, mais 14–28 h de front, totalizando 60–74 h. ' +
-          'A capacidade estimada é de cerca de 43 h em 12 dias, no ritmo recente ' +
-          'de 3,6 h por dia. O plano requer 5–6 h de disparo por dia, mas as duas ' +
-          'frentes compartilham o mesmo limite de uso de 5 horas.',
-        'As estimativas são referências ainda não aferidas contra os resultados. ' +
-          'Se faltar capacidade, convite e dados têm prioridade; os primeiros ' +
-          'cortes são Asaas, depois Eduzz e, por fim, parte da MZ7. ' +
-          'Este checkpoint é estático e não acompanha a execução automaticamente.',
+        'Sprint 1 (Bitrix, 27/11/2026). A primeira versão está pronta em stage, com cerca de ' +
+          'dez entregas feitas entre 16 e 24/11, e ainda não foi publicada em produção.',
+        'Estão em andamento o histórico da Eduzz pela API, prioridade máxima da sprint, e ' +
+          'o QA no celular. A primeira publicação na main espera o QA, o IAM em produção e ' +
+          'a limpeza de segurança da saída do Firebase.',
+        'O produto vai passar a se chamar Campuzz Data Module Metriczz, com visual novo.',
       ],
       proximosPassos: [
-        'Concluir o convite pelo IAM, corrigir as falhas encontradas e validar com pessoa de teste',
-        'Obter o Pago mensal de 2026 dos painéis e concluir o recorte da UniFast e o gabarito de dados',
-        'Levar convite e dados a stage até 10/11 para a janela proposta de QA de 10 a 12/11',
-        'Concluir MZ4, MZ5 e MZ7 conforme a capacidade; janela proposta de merge do front em stage em 12/11',
-        'Fazer a revisão MZ8 e os ajustes finais para validar a primeira versão em stage até 15/11/2026',
-        'Planejar o envio à produção e as migrações somente após a validação',
-        'Definir o prazo das telas de gestão de leads (inspiradas no Mixpanel) após a primeira versão',
+        'Importar o histórico da Eduzz conta a conta e conferir',
+        'Concluir o QA de celular e de computador',
+        'Publicar a primeira versão na main, com o IAM em produção',
+        'Aplicar o novo nome e visual depois da apresentação do material',
+        'Detalhar Marketing e gestão de leads, hoje no backlog',
       ],
       fonte:
-        'Relatório “Metriczz — Versão de 15/11: o que está feito e o que falta”, ' +
-        'checkpoint de 03/11/2026 à tarde, fornecido pelo time tech. ' +
-        'Prazos e estimativas refletem esse retrato. Testes finais e gestão de leads: ' +
-        'atualização do time de 12/11/2026.',
+        'Tarefas da Sprint 1 e do backlog no Bitrix (projeto Projetos Tech, epic ' +
+        'Metriczz), lidas em 27/11/2026. Responsável: Gabriel Moura.',
       papel: 'Central de métricas, relatórios e dashboards da UniFast.',
     },
   },
@@ -548,6 +404,19 @@ export const SISTEMAS = [
     },
   },
   {
+    id: 'u8',
+    code: 'U8',
+    name: 'CERTIFICADOR',
+    sub: 'CERTIFICADOS & HISTÓRICOS',
+    icon: 'certificado',
+    /* Em homologação no Railway com dados fictícios; dados reais só depois
+       das provas de proteção e recuperação do banco (Sprint 1, Bitrix). */
+    status: 'EM HOMOLOGAÇÃO',
+    state: 'testes',
+    checkpoint: '27/11/2026',
+    ficha: FICHA_CERTIFICADOR,
+  },
+  {
     id: 'u6',
     code: 'U6',
     name: 'RELATÓRIO DIÁRIO',
@@ -579,9 +448,9 @@ export const SISTEMAS = [
     icon: 'balao',
     /* em reconstrucao; os dois sistemas de origem seguem em producao ate
        serem cobertos por ele */
-    status: `${ESTADOS.desenvolvimento} · TESTES: 20/11`,
+    status: `${ESTADOS.desenvolvimento} · EM REVISÃO`,
     state: 'desenvolvimento',
-    checkpoint: '12/11/2026',
+    checkpoint: '27/11/2026',
     box: { x: 170, y: 1064, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Central de relacionamento com o cliente da UniFast',
@@ -714,16 +583,82 @@ export const SISTEMAS = [
           ],
         },
         {
+          titulo: 'IMPLEMENTADO NO AMBIENTE LOCAL · ATÉ A SPRINT 1',
+          texto:
+            'Histórias concluídas no ambiente local entre outubro e 15/11/2026, ' +
+            'registradas no Bitrix em 26/11. Nenhuma delas está em produção.',
+          itens: [
+            {
+              nome: 'Contatos',
+              descricao: 'Base e perfil de contatos, com a pessoa compartilhada por vínculos explícitos (12/11).',
+            },
+            {
+              nome: 'CRM',
+              descricao:
+                'Meus CRMs compartilhados entre BUs e primeiro funil (13/11); negócios ' +
+                'abertos em Kanban e Lista (14/11); ganhos, perdidos e reabertura com ' +
+                'histórico preservado (15/11).',
+            },
+            {
+              nome: 'Conversa e envio',
+              descricao:
+                'Abrir conversa a partir do contato com primeiro envio seguro, canal ' +
+                'abstrato para o envio comum e histórico completo e paginado na inbox.',
+            },
+            {
+              nome: 'Modelos oficiais',
+              descricao: 'O vendedor prepara e submete modelos oficiais da Meta (22/10).',
+            },
+            {
+              nome: 'Instagram',
+              descricao: 'DMs do Instagram atendidas na mesma BU dos WhatsApps (08/11).',
+            },
+            {
+              nome: 'Identidade visual',
+              descricao: 'Configuração de identidade visual por workspace, com testes de tela.',
+            },
+          ],
+        },
+        {
+          titulo: 'SPRINT 1 · EM ANDAMENTO',
+          pendente: true,
+          itens: [
+            {
+              nome: 'Experiência integrada · ST-UI-INT-01 · em revisão',
+              descricao:
+                'Pessoa, negócios e conversas juntos no desenho Campuzz Connect, ' +
+                'absorvendo a tela de Atendimento. O lote de 500 negócios passa e o de 501 ' +
+                'estoura o limite de execução; a causa está sendo isolada.',
+            },
+            {
+              nome: 'Typebot',
+              descricao:
+                'Integração implementada e testada. Falta validar um fluxo real com ' +
+                'Typebot e WhatsApp oficial.',
+            },
+            {
+              nome: 'Cadastro de números oficiais e não oficiais',
+              descricao:
+                'Inspirado nas jornadas da Central de Modelos e do WhatsFlow. Falta ' +
+                'publicar o checkpoint na documentação de fundação.',
+            },
+            {
+              nome: 'Fundação documental',
+              descricao: 'Documentação governada do produto, faltando a verificação de encerramento.',
+            },
+          ],
+        },
+        {
           titulo: 'O QUE AINDA FALTA',
           pendente: true,
           itens: [
             { nome: 'Modelos e disparo', descricao: 'Seguem na Central de Modelos; voltam na v2.' },
             { nome: 'Grupos', descricao: 'Seguem no WhatsApp Hub.' },
             {
-              nome: 'CRM',
+              nome: 'Ambiente online persistente',
               descricao:
-                'Primeiras telas em construção desde o checkpoint de 12/11; lead, funil e ' +
-                'ficha do cliente completos seguem como ambição do produto.',
+                'Ambiente no ar para desenvolvimento e provas dos canais (ST-OPS-01), no ' +
+                'backlog à espera de liberação.',
             },
             {
               nome: 'Campanhas de relacionamento',
@@ -755,13 +690,22 @@ export const SISTEMAS = [
           'documentos enviados pelo cliente), o produto passa por uma reconstrução mais ' +
           'criteriosa. Já está pronta a documentação que guia o desenvolvimento: todas as ' +
           'funcionalidades mapeadas, as futuras alinhadas e a arquitetura a seguir.',
-        'Checkpoint de 12/11/2026: as primeiras telas (Atendimento, CRM e Contatos) estão ' +
-          'em construção. A primeira versão para iniciar os testes está prevista para 20/11/2026.',
+        'Sprint 1 (Bitrix, 27/11/2026): Contatos e CRM (funis, Kanban, ganhos e perdidos) ' +
+          'estão implementados no ambiente local. A experiência integrada de pessoa, ' +
+          'negócios e conversas no desenho Campuzz Connect está em revisão, travada por ' +
+          'um teste de limite com lotes acima de 500 negócios.',
+        'A primeira versão para testes, prevista para 20/11/2026, depende do fechamento ' +
+          'dessa revisão.',
       ],
       proximosPassos: [
-        'Concluir as primeiras telas: Atendimento, CRM e Contatos',
-        'Liberar a primeira versão para iniciar os testes em 20/11/2026',
+        'Isolar a falha do lote de 501 negócios e fechar a revisão da ST-UI-INT-01',
+        'Validar um fluxo real com Typebot e WhatsApp oficial',
+        'Subir o ambiente online persistente para as provas dos canais',
+        'Liberar a primeira versão para testes',
       ],
+      fonte:
+        'Estudos do time tech e tarefas da Sprint 1 e do backlog no Bitrix (epic LeadsHug), ' +
+        'lidas em 27/11/2026. Responsável: Lucas Paifer.',
       papel:
         'Central de relacionamento com o cliente da UniFast, com o WhatsApp como canal principal.',
     },
@@ -773,9 +717,9 @@ export const SISTEMAS = [
     sub: 'FINANCEIRO & FISCAL',
     icon: 'nota',
     /* finalizado e entregue a equipe; o login pelo Accountzz vem depois */
-    status: ESTADOS.producao,
+    status: `${ESTADOS.producao} · CORREÇÃO A PUBLICAR`,
     state: 'producao',
-    checkpoint: '02/10/2026',
+    checkpoint: '27/11/2026',
     box: { x: 1010, y: 824, w: 260, h: 150 },
     ficha: {
       subtitulo: 'Gestão centralizada de notas fiscais da UniFast',
@@ -813,7 +757,7 @@ export const SISTEMAS = [
         'Mostra indicadores de volume de emissões e erros',
         'Tem monitoramento externo para detectar aumento de falhas',
       ],
-      casos: {
+      casos: [{
         titulo: 'TIPOS DE ERRO TRATADOS',
         itens: [
           { nome: 'Duplicidade', descricao: 'Identifica quando a nota já foi emitida antes.' },
@@ -828,6 +772,41 @@ export const SISTEMAS = [
           },
         ],
       },
+      {
+        titulo: 'SPRINT 1 · CONCLUÍDO',
+        itens: [
+          {
+            nome: 'Sincronização histórica corrigida',
+            descricao:
+              'A sincronização do histórico foi corrigida em 17/11, julho voltou a fechar e a ' +
+              'exportação em CSV foi liberada. Validado localmente com 478 testes de backend ' +
+              'e 35 de integração.',
+          },
+          {
+            nome: 'API Smart Notas devolve notas negadas e com erro',
+            descricao:
+              'Na conciliação de outubro, o relatório tinha 5.121 notas e a API 4.148: as 973 ' +
+              'que faltavam eram 891 negadas e 82 com erro. A versão atualizada da API, que ' +
+              'devolve todos os status, já está no ar e resolveu a diferença.',
+          },
+        ],
+      },
+      {
+        titulo: 'BACKLOG · ADIADO',
+        pendente: true,
+        itens: [
+          {
+            nome: 'Monitor para produtores externos',
+            descricao:
+              'Versão do monitor para atender outros produtores, com levantamento de uma BU ' +
+              'para testar a integração com a Smart Notas.',
+          },
+          {
+            nome: 'Emissão pelo e-Notas',
+            descricao: 'API de emissão de notas integrada ao e-Notas. Depende de uma API key válida.',
+          },
+        ],
+      }],
       evolucao: {
         texto:
           'O UniNotas está deixando de ser só um monitor para virar a plataforma ' +
@@ -892,11 +871,15 @@ export const SISTEMAS = [
           descricao: 'Login da equipe pelo núcleo de identidade.',
         },
       ],
-      statusDetalhe:
+      statusDetalhe: [
         'Finalizado e entregue à equipe, em produção e conectado à API ' +
-        'disponibilizada pelo SmartNotas.',
+          'disponibilizada pelo SmartNotas.',
+        'Sprint 1 (Bitrix, 27/11/2026): a correção da sincronização histórica e a ' +
+          'exportação em CSV estão prontas e validadas localmente; falta acompanhar o PR ' +
+          'e a liberação em produção.',
+      ],
       proximosPassos: [
-        'Monitorar o uso para avaliar melhorias',
+        'Publicar em produção a correção da sincronização e a exportação',
         'Login pelo Accountzz',
       ],
       papel:
@@ -1052,5 +1035,17 @@ export const SISTEMAS = [
         'Repositório delphi-ai (origem do Pailon) e foundation_documentation; a visão de serviço vem do ' +
         'time tech.',
     },
+  },
+  {
+    id: 'u9',
+    code: 'U9',
+    name: 'MCP BITRIX24',
+    sub: 'IA & GESTÃO DE TAREFAS',
+    icon: 'conector',
+    /* Em produção no Railway desde 19/11; feed e convites aceitos em 24/11. */
+    status: ESTADOS.producao,
+    state: 'producao',
+    checkpoint: '27/11/2026',
+    ficha: FICHA_MCP_BITRIX24,
   },
 ]

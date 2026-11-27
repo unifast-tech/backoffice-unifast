@@ -106,8 +106,10 @@ vinham dele:
   Workers). Cada função tem
   `andamento[]` com as novidades do time, datadas por `MODULO_VENDAS.checkpoint`;
   ao receber novidades por módulo, troque a lista inteira e a data. Accountzz
-  é transversal; UniNotas fica em Financeiro & Fiscal e Pailon em Produto &
-  Tech. Pailon é o novo nome do Delphi AI, com o mesmo id `u5`. O layout usa
+  é transversal; UniNotas fica em Financeiro & Fiscal, Pailon e MCP Bitrix24
+  (`u9`) em Produto & Tech, e Certificador (`u8`) em Acadêmico & Aprendizagem,
+  ao lado do LMS. Cada grupo de apoio lista `sistemaIds[]` (um ou mais cartões
+  empilhados). Pailon é o novo nome do Delphi AI, com o mesmo id `u5`. O layout usa
   CSS Grid, sem posições absolutas ou fios. A ficha do LMS concentra os recursos
   de aprendizagem; as quatro funções de Vendas ficam em `MODULO_VENDAS`.
 - **Suporte da tecnologia Campuzz.** [`Suporte`](src/sections/Suporte.jsx),
@@ -125,11 +127,13 @@ vinham dele:
   tem o mesmo `responsavel`, ele aparece uma vez no resumo e sai das linhas.
   Valores de oferta (preços de checkout) e links de pagamento ficam fora da
   página; a tarefa descreve o que foi feito. Senhas e URIs com credencial
-  nunca entram. Primeira semana: 09 a 13/11/2026, com tarefas de Rafael Pilon
+  nunca entram. Semanas: 09/11, 16/11 e 23/11/2026 (as duas últimas vindas do
+  Bitrix). Primeira semana: 09 a 13/11/2026, com tarefas de Rafael Pilon
   (todas resolvidas) e Lucas Paifer (resolvidas, exceto e-Notas e certificados, aguardando). `aguardando` é a tarefa parada à espera de
   terceiros (decisão, credencial, material).
-  Na função Leads, a reestruturação do Mongo da jornada do lead tem prazo em
-  20/11/2026. **Armadilha:**
+  Na função Leads, a reestruturação do Mongo da jornada do lead está pausada
+  (27/11/2026): o time observa o uso para decidir entre reestruturar ou só
+  adequar o banco. **Armadilha:**
   `.ecossistema p:not(.t3)` pinta todo `<p>` de cinza e dá margem de 12px;
   textos do bloco que precisam de outra cor ou margem usam seletor mais
   específico (`.ecossistema .suporte__texto .suporte__titulo`).
@@ -159,27 +163,43 @@ vinham dele:
   layout por grupos. A posição do Accountzz mostra seu papel transversal;
   mudar a apresentação não altera o status técnico dos produtos.
 - **Atualizacoes de status.** Os status seguem o que o time informa
-  (checkpoints em PDF ou mensagens). A cada atualizacao, em
+  (checkpoints em PDF ou mensagens) e, desde 27/11/2026, as tarefas do
+  Bitrix24 lidas pelo MCP: projeto Scrum **Projetos Tech** (grupo 86), sprint
+  ativa e backlog (tarefas do projeto fora de qualquer sprint). O MCP não
+  devolve o epic; o prefixo do título (`[Metriczz]`, `[LeadsHug]`,
+  `[Certificador]`…) e a descrição identificam o produto. Tarefas sem produto
+  (checkouts, e-mails, acessos, bases, disparos, Central de Vendas) vão para
+  `suporte.js`, na semana da criação. A cada atualizacao, em
   [`systems.js`](src/data/systems.js), mude so os sistemas citados: `state`
   /`status`, `statusDetalhe`, `proximosPassos` e `checkpoint: 'dd/mm/aaaa'`
   (a data e por sistema; o estagio da ficha diz "ATUALIZADO EM <data>").
-  Últimas: 12/11/2026 (Accountzz, Metriczz, LeadsHug e Databricks), 03/11/2026 (Relatório
-  Diário), 02/10/2026 (UniNotas); Campuzz e Pailon sem data. `status` pode ser um rotulo
+  Últimas: 27/11/2026, Sprint 1 do Bitrix (Metriczz, Databricks, LeadsHug,
+  UniNotas, Certificador e MCP Bitrix24), 12/11/2026 (Accountzz), 03/11/2026 (Relatório
+  Diário); Campuzz e Pailon sem data. Relatório Diário, Campuzz e Pailon não
+  tinham tarefas na Sprint 1. **Accountzz não segue o fluxo de sprint**
+  (decisão do usuário em 27/11/2026): a ausência de tarefas no Bitrix não
+  indica atraso, e o status dele só muda quando o time informar. `status` pode ser um rotulo
   proprio ("MVP RODANDO", "EM PRODUCAO · EM TESTES") com o `state` dando a
   cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
   conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
   Accountzz mantém o MVP rodando (`state: 'producao'`); a arquitetura da v2
   termina em 13/11/2026 e a prototipação é na quarta, 18/11/2026.
-  Metriczz está em testes finais (`state: 'testes'`, dourado); a primeira versão tem meta em
-  stage em 15/11/2026, e só segue para produção após validação. Depois dela
-  vêm as telas de gestão de leads inspiradas no Mixpanel (prazo a definir).
-  LeadsHug segue em desenvolvimento: primeiras telas (Atendimento, CRM e
-  Contatos) em construção, primeira versão para testes em 20/11/2026. O checkpoint
-  do Metriczz de 03/11 à tarde (ainda mostrado na ficha) separa backend já em stage, front desenvolvido fora de
-  stage, pendências, dependências e trabalho fora da versão. Convite e dados
-  têm prioridade. As janelas intermediárias de 10 a 12/11 são propostas;
-  estimativas ainda não foram aferidas. Metriczz ainda não está em produção e
-  não entra na contagem de módulos ativos; aparece na contagem “EM TESTES”.
+  Metriczz (`state: 'testes'`, dourado) tem a primeira versão pronta em stage,
+  em QA; a primeira publicação na main espera o QA, o IAM em produção e a
+  limpeza da saída do Firebase. Vai se chamar "Campuzz Data Module Metriczz"
+  (só depois do material visual). O retrato de 03/11 (meta de 15/11) saiu da
+  ficha. Metriczz ainda não está em produção e não entra na contagem de
+  módulos ativos; aparece na contagem “EM TESTES”.
+  LeadsHug segue em desenvolvimento: Contatos e CRM implementados no ambiente
+  local (nada em produção) e a experiência integrada ST-UI-INT-01 em revisão;
+  a versão de testes prevista para 20/11 depende dela.
+  UniNotas (epic monitor-notas) tem a correção da sincronização histórica e a
+  exportação CSV prontas, a publicar em produção.
+  Certificador (`u8`, ícone `certificado`, ficha em `src/data/certificador.js`)
+  está em homologação no Railway com dados fictícios (`state: 'testes'`);
+  dados reais só depois das provas de proteção e recuperação do banco.
+  MCP Bitrix24 (`u9`, ícone `conector`, ficha em `src/data/mcp-bitrix24.js`)
+  está em produção no Railway desde 19/11/2026.
   Relatório Diário (`u6`) pertence a Data, ao lado do Metriczz. Sua ficha está
   em `src/data/relatorio-diario.js`; fotos em `relatorio-financeiro/`. Está em
   produção, com checkpoint de 03/11/2026: todas as entregas, melhorias de
@@ -189,9 +209,10 @@ vinham dele:
   pendências nem atribuir um provedor ou horário ao WhatsApp sem informação.
   Databricks (`u7`, ícone `grade`) é o pipeline financeiro em bronze, silver e
   gold, também em Data. Ficha em `src/data/databricks.js`, fotos em
-  `databricks/`. Em produção e em remodelação (checkpoint de 12/11/2026): PRs
-  #1 a #18 entregues, M-0003 a M-0005 prontas no staging com PR a abrir,
-  M-0006 aguardando desenho. É a camada medalhão que o Metriczz usa; a
+  `databricks/`. Em produção e em remodelação: PRs #1 a #18 (12/11/2026);
+  na Sprint 1, vendas e receita da Routerfy corrigidas na produção (25/11),
+  ingestão do Mongo e segurança publicadas aguardando confirmação, coprodução
+  Eduzz bloqueada até reunião com a Eduzz e M-0006 aguardando desenho. É a camada medalhão que o Metriczz usa; a
   informação antiga de que o Metriczz "saiu do Databricks" não vale mais.
   Os totais de receita e de taxas da empresa ficam fora da página (mesmo
   critério das telas borradas); os valores dos casos corrigidos aparecem.

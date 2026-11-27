@@ -191,6 +191,11 @@
   gap: 28px;
 }
 
+.grupo__plataformas {
+  display: grid;
+  gap: 12px;
+}
+
 .plataforma {
   position: relative;
   display: flex;

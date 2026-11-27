@@ -109,7 +109,11 @@ export default function Integration({ aberto, onAbrir }) {
           {GRUPOS_APOIO.map((grupo) => (
             <section className="grupo grupo--apoio" key={grupo.id} aria-labelledby={`grupo-${grupo.id}-titulo`}>
               <h4 className="t3 ecossistema__rotulo" id={`grupo-${grupo.id}-titulo`}>{grupo.nome}</h4>
-              <Plataforma sistemaId={grupo.sistemaId} {...propsPlataforma} />
+              <div className="grupo__plataformas">
+                {grupo.sistemaIds.map((id) => (
+                  <Plataforma key={id} sistemaId={id} {...propsPlataforma} />
+                ))}
+              </div>
               <p>{grupo.descricao}</p>
             </section>
           ))}

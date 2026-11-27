@@ -16,7 +16,7 @@ export const MODULO_VENDAS = {
   id: 'vendas',
   nome: 'Módulo Vendas',
   descricao: 'Quatro funcionalidades do módulo comercial da tecnologia Campuzz.',
-  checkpoint: '12/11/2026',
+  checkpoint: '27/11/2026',
   funcoes: [
     {
       id: 'data',
@@ -28,12 +28,17 @@ export const MODULO_VENDAS = {
         { nome: 'Databricks', sistemaId: 'u7' },
       ],
       andamento: [
-        { sistema: 'Metriczz', texto: 'Testes finais para a entrega da primeira versão.' },
+        {
+          sistema: 'Metriczz',
+          texto:
+            'Primeira versão pronta em stage, em QA. A publicação em produção espera o QA ' +
+            'e o IAM em produção; o histórico da Eduzz pela API está em importação.',
+        },
         {
           sistema: 'Databricks',
           texto:
-            'Remodelação da infraestrutura da UniFast: PRs #1 a #18 entregues no ' +
-            'pipeline financeiro, M-0003 a M-0005 prontas no staging.',
+            'Vendas e receita da Routerfy corrigidas na produção (25/11). Coprodução Eduzz ' +
+            'parada até a reunião com a Eduzz.',
         },
       ],
     },
@@ -46,13 +51,13 @@ export const MODULO_VENDAS = {
         {
           sistema: 'Metriczz',
           texto:
-            'Telas de gestão de leads inspiradas no dashboard do Mixpanel. ' +
-            'Prazo a definir após a primeira versão de 15/11.',
+            'Marketing e telas de gestão de leads inspiradas no Mixpanel seguem no backlog, ' +
+            'sem prazo.',
         },
         {
           texto:
-            'Reestruturação do banco Mongo com toda a jornada do lead da UniFast, ' +
-            'para facilitar o desenvolvimento futuro da história do lead. Prazo: 20/11.',
+            'Reestruturação do banco Mongo com a jornada do lead pausada: o time está ' +
+            'observando o uso para definir se é preciso reestruturar ou apenas adequar o banco.',
         },
       ],
     },
@@ -66,9 +71,14 @@ export const MODULO_VENDAS = {
         {
           sistema: 'LeadsHug',
           texto:
-            'Construção das primeiras telas: Atendimento, CRM e Contatos. ' +
-            'Primeira versão para iniciar os testes em 20/11.',
+            'Contatos e CRM implementados no ambiente local; a experiência integrada no ' +
+            'desenho Campuzz Connect está em revisão.',
         },
+        {
+          sistema: 'Wpp Hub',
+          texto: 'Treinamento do comercial para os disparos e bases preparadas por consultor.',
+        },
+        { texto: 'Unificação de canais no backlog, sem descrição.' },
       ],
     },
     {
@@ -88,23 +98,28 @@ export const MODULO_VENDAS = {
   ],
 }
 
+/* sistemaIds: as plataformas do grupo, na ordem em que aparecem. */
 export const GRUPOS_APOIO = [
   {
     id: 'aprendizagem',
     nome: 'Acadêmico & Aprendizagem',
-    sistemaId: 'u4',
-    descricao: 'Campuzz LMS: o produto de aprendizagem que utiliza a tecnologia Campuzz.',
+    sistemaIds: ['u4', 'u8'],
+    descricao:
+      'Campuzz LMS, o produto de aprendizagem que utiliza a tecnologia Campuzz, e o ' +
+      'Certificador da Secretaria.',
   },
   {
     id: 'fiscal',
     nome: 'Financeiro & Fiscal',
-    sistemaId: 'u2',
+    sistemaIds: ['u2'],
     descricao: 'Emissão, monitoramento e gestão de notas fiscais.',
   },
   {
     id: 'produto-tech',
     nome: 'Produto & Tech',
-    sistemaId: 'u5',
-    descricao: 'O Pailon antecipa a visão do produto e facilita o trabalho do time tech.',
+    sistemaIds: ['u5', 'u9'],
+    descricao:
+      'O Pailon antecipa a visão do produto e facilita o trabalho do time tech; o MCP ' +
+      'Bitrix24 leva as tarefas aos assistentes de IA.',
   },
 ]
