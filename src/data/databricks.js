@@ -1,5 +1,6 @@
 /* Conteúdo fornecido pelo time: atualização de 12/11/2026 do pipeline
-   financeiro no Databricks (PRs #1 a #18, fichas M-0001 a M-0006).
+   financeiro no Databricks (PRs #1 a #18, fichas M-0001 a M-0006) e tarefas
+   da Sprint 1 no Bitrix (epic Databricks, lidas em 27/11/2026).
    Totais de receita e de taxas da empresa ficam fora da página, no mesmo
    critério das telas do Relatório Diário, que têm os valores borrados.
    O status e a identificação ficam no catálogo systems.js. */
@@ -152,28 +153,65 @@ export const FICHA_DATABRICKS = {
       ],
     },
     {
-      titulo: 'PRONTO NO STAGING · PR A ABRIR',
+      titulo: 'SPRINT 1 · EM PRODUÇÃO',
+      itens: [
+        {
+          nome: 'Vendas e receita da Routerfy confiáveis',
+          descricao:
+            'Medido na produção em 25/11. As vendas pagas contadas em dobro foram de 45 ' +
+            '(R$ 12.208,41) para 0, e as vendas sem cliente, de 4.011 para 16. 845 faturas ' +
+            'ganharam a transação correspondente, e 6 faturas sem dinheiro por trás ' +
+            '(R$ 18.606,90) saíram da receita.',
+        },
+        {
+          nome: 'PR #23 · as seis contas da Routerfy que faltavam',
+          descricao:
+            'Seis contas entraram na carga da API com histórico desde 17/06: 270 faturas ' +
+            'pagas passaram a ter o estado confirmado pela API (17/11).',
+        },
+        {
+          nome: 'Análise dos valores divergentes',
+          descricao:
+            'Análise consolidada das divergências, concluída no prazo de 15/11. O relatório ' +
+            '“Faturas fantasmas” foi enviado à Routerfy em 13/11.',
+        },
+      ],
+    },
+    {
+      titulo: 'PUBLICADO · AGUARDANDO CONFIRMAÇÃO',
       pendente: true,
       itens: [
         {
-          nome: 'M-0003 · deduplicação determinística das vendas',
+          nome: 'PR #28 · nenhum evento de venda do Mongo some sem erro',
           descricao:
-            'Duas execuções sobre o mesmo bronze dão exatamente o mesmo resultado. As ' +
-            'vendas sem cliente foram de 4.011 para 195, e as vendas pagas contadas em ' +
-            'dobro, de 45 para 25.',
+            'Mesclado em 24/11 e publicado na produção em 25/11. Falta confirmar a ' +
+            'execução da madrugada de 26/11.',
         },
         {
-          nome: 'M-0004 · a transação com fatura vence a sem fatura',
+          nome: 'PRs #25 e #29 · segurança',
           descricao:
-            'Zera as vendas pagas contadas em dobro restantes. Na produção eram 45, ' +
-            'somando R$ 12.208,41.',
+            'Testes isolados da produção e senha da Edunext fora do código, trocada e ' +
+            'guardada no cofre em 25/11. Falta uma ingestão de 26/11 sem erro.',
         },
         {
-          nome: 'M-0005 · a API como estado final da fatura nas vendas',
+          nome: 'Fechamento da receita Routerfy',
           descricao:
-            'Corrige as vendas canceladas cuja fatura está paga na plataforma, 11 na ' +
-            'produção (R$ 4.469). A divergência de status entre faturas e vendas foi de ' +
-            '13 para 0 no staging.',
+            'Explicar duas faturas de R$ 1,23, conferir as 4 faturas fantasmas, validar ' +
+            'com as áreas e aplicar o filtro no painel “BI Unifast v1”.',
+        },
+      ],
+    },
+    {
+      titulo: 'BLOQUEADO · COPRODUÇÃO EDUZZ',
+      pendente: true,
+      itens: [
+        {
+          nome: 'A parte dos coprodutores no faturamento',
+          descricao:
+            'A fórmula foi provada no sandbox em 24/11. O bloqueio: a Eduzz guarda só o ' +
+            'percentual de hoje, sem histórico; em 247 faturas a soma passa de 100% e em ' +
+            '1.494 fica abaixo. Depende de reunião com os responsáveis pelos dados da ' +
+            'Eduzz. Já decidido: afiliado fica fora por ora e reembolso zera o valor.',
         },
       ],
     },
@@ -199,12 +237,6 @@ export const FICHA_DATABRICKS = {
             'Somam R$ 18.011,55, cerca de 0,07% da receita paga. Destas, 12 são ' +
             'pagamentos em duplicidade, que por decisão ficam fora das vendas, e 6 têm ' +
             'valores que não batem com a fatura e vão para uma ficha própria.',
-        },
-        {
-          nome: 'Faturas pagas sem transação paga',
-          descricao:
-            '6 faturas, R$ 18.606,90, também cerca de 0,07%: quatro sem nenhuma ' +
-            'transação e duas só com chargeback.',
         },
         {
           nome: 'Transação extra paga',
@@ -244,21 +276,23 @@ export const FICHA_DATABRICKS = {
     ['Staging', 'Lê o bronze de produção sem escrever nele'],
   ],
   statusDetalhe: [
-    'Checkpoint de 12/11/2026. O pipeline está em produção e é a base da receita ' +
-      'Routerfy no BI. A remodelação já entregou os PRs #1 a #18.',
-    'As fichas M-0003, M-0004 e M-0005 estão prontas e medidas no staging, com PR a ' +
-      'abrir. A M-0006 aguarda a escolha do desenho.',
-    'Os casos restantes somam cerca de 0,07% da receita paga e estão sendo conferidos ' +
-      'na plataforma, conta a conta.',
+    'Sprint 1 (Bitrix, 27/11/2026). O pipeline está em produção e é a base da receita ' +
+      'Routerfy no BI. As correções de confiabilidade das vendas e da receita Routerfy ' +
+      'chegaram à produção e foram medidas em 25/11.',
+    'A ingestão do Mongo e as correções de segurança foram publicadas em 25/11 e ' +
+      'aguardam a confirmação da execução de 26/11.',
+    'A coprodução Eduzz está parada à espera de uma reunião com a Eduzz, porque a ' +
+      'plataforma não guarda o histórico dos percentuais.',
   ],
   proximosPassos: [
-    'Abrir os PRs das fichas M-0003, M-0004 e M-0005',
-    'Escolher o desenho da M-0006 e corrigir a venda ligada à transação cancelada',
-    'Abrir a ficha própria das 6 transações com valor diferente da fatura',
-    'Concluir a conferência, conta a conta, das faturas pagas sem transação paga',
+    'Confirmar a execução de 26/11 da ingestão do Mongo e da Edunext',
+    'Fechar a receita Routerfy: faturas de R$ 1,23, faturas fantasmas, validação com as áreas e filtro no BI',
+    'Reunir com a Eduzz para destravar a coprodução',
+    'Escolher o desenho da M-0006 (venda ligada à transação cancelada)',
   ],
   fonte:
-    'Atualização do time de 12/11/2026 sobre o pipeline financeiro no Databricks. ' +
+    'Atualização do time de 12/11/2026 (PRs #1 a #18) e tarefas da Sprint 1 no ' +
+    'Bitrix (projeto Projetos Tech, epic Databricks), lidas em 27/11/2026. ' +
     'Os totais de receita e de taxas da empresa não são exibidos nesta página.',
   papel: 'Pipeline financeiro e infraestrutura de dados da UniFast.',
 }

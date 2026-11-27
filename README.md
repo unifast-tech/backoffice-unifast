@@ -56,6 +56,9 @@ src/assets/produtos/leadshug/
 src/assets/produtos/campuzz/
 src/assets/produtos/pailon/
 src/assets/produtos/relatorio-financeiro/
+src/assets/produtos/databricks/
+src/assets/produtos/certificador/
+src/assets/produtos/mcp-bitrix24/
 ```
 
 As telas do Campuzz LMS continuam na pasta `campuzz/`; as do Relatório Diário
@@ -82,7 +85,7 @@ Para testar igual à produção na sua máquina: `npm run build` e `npm start`
 ## Parâmetro de URL
 
 `?ficha=u1` abre a ficha daquele sistema já no carregamento, centrada na tela,
-para compartilhar o link de um sistema específico. Os ids são `u0` a `u6`.
+para compartilhar o link de um sistema específico. Os ids são `u0` a `u9`.
 
 ## Dependência externa
 

@@ -137,6 +137,34 @@ const ICONES = {
     ),
   },
 
+  /* Certificador: a folha do certificado com o selo e as fitas. */
+  certificado: {
+    w: 34,
+    h: 36,
+    art: (
+      <>
+        <path d="M1 1 H33 V25 H24" {...T} />
+        <path d="M14 25 H1 V1" {...T} />
+        <path d="M7 8 h20 M7 14 h12" {...T} strokeLinecap="round" />
+        <circle cx="19" cy="23" r="5" {...T} />
+        <path d="M15.5 27 L14 35 L19 32.5 L24 35 L22.5 27" {...T} />
+      </>
+    ),
+  },
+
+  /* MCP Bitrix24: o plugue que liga os assistentes de IA às tarefas. */
+  conector: {
+    w: 30,
+    h: 36,
+    art: (
+      <>
+        <path d="M10 1 V9 M20 1 V9" {...T} strokeLinecap="round" />
+        <path d="M4 9 H26 V15 a11 11 0 0 1 -22 0 Z" {...T} />
+        <path d="M15 26 V35" {...T} strokeLinecap="round" />
+      </>
+    ),
+  },
+
   envelope: {
     w: 20,
     h: 16,

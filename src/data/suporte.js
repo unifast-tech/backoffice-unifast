@@ -188,6 +188,181 @@ export const SEMANAS_SUPORTE = [
         responsavel: 'Lucas Paifer',
         status: 'resolvida',
       },
+      {
+        dia: '11/11',
+        titulo: 'Integração do checkout Eduzz · Leandro e Tadashi',
+        sistema: 'Checkout · Eduzz',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+    ],
+  },
+  {
+    inicio: '2026-11-16',
+    tarefas: [
+      {
+        dia: '16/11',
+        titulo: 'Disparo WhatsApp · Carolina Caribé',
+        descricao: 'Disparo do MBA em Incorporação e Desenvolvimento Imobiliário, às 12h.',
+        sistema: 'WhatsApp',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '16/11',
+        titulo: 'Bases e recuperação de vendas · MBA Fabiana Bertotti',
+        descricao:
+          'Base de 1.413 contatos, monitoramento e direcionamento dos leads para ' +
+          'recuperar carrinhos e pagamentos.',
+        sistema: 'WhatsApp · Bases',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '17/11',
+        titulo: 'Correção das listas do ActiveCampaign para a DotLemon',
+        descricao:
+          'Limpeza dos leads antigos que se acumulavam na lista de compradores do Funil ' +
+          'VSL e criação da automação que faltava para os compradores da gravação do ' +
+          'Pré-MBA entrarem na lista.',
+        sistema: 'ActiveCampaign · DotLemon',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '18/11',
+        titulo: 'Checkouts Parent · cursos, combos e 3+1',
+        descricao:
+          '32 checkouts criados e tabela de preços conferida. Ficaram para conferir a ' +
+          'configuração interna dos checkouts e padronizar um dos links de Educação Parental.',
+        sistema: 'Checkout',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '18/11',
+        titulo: 'Acesso da Secretaria à BU da Edtech dos Tomistas',
+        sistema: 'BU',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '19/11',
+        titulo: 'Link de pagamento · troca de turma',
+        descricao: 'Link de troca de turma do MBA em Inovação Orientada à IA e UX.',
+        sistema: 'Checkout',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '19/11',
+        titulo: 'Contas de e-mail · Comercial',
+        descricao: 'Duas contas para pessoas que começaram no Comercial em 23/11.',
+        sistema: 'E-mail',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '19/11',
+        titulo: 'Central de Vendas e consulta de alunos · Parent',
+        descricao:
+          'Criada e publicada em caráter emergencial durante a noite: escolha de curso ' +
+          'e combo, cópia do checkout com a UTM do vendedor e consulta opcional de ' +
+          'alunos, guardada em armazenamento privado.',
+        sistema: 'Central de Vendas',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '19/11',
+        titulo: 'Checkout · Pridge · MBA em Customer Experience',
+        descricao: 'Checkout com condição de pagamento recorrente.',
+        sistema: 'Checkout',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '19/11',
+        titulo: 'Contratos nos checkouts · MBA Fabi Bertotti',
+        descricao:
+          'Contratos do MBA em Comunicação Estratégica para Líderes inseridos nos ' +
+          'checkouts, com variáveis de preenchimento e vigência de 12 ou 18 meses ' +
+          'conforme a modalidade.',
+        sistema: 'Checkout',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+    ],
+  },
+  {
+    inicio: '2026-11-23',
+    tarefas: [
+      {
+        dia: '21/11',
+        titulo: 'Bases comerciais e links de WhatsApp por produto e consultor',
+        descricao:
+          'Preparação urgente no sábado: 3.766 registros divididos entre três ' +
+          'consultores e redirecionamentos por webhook no n8n. Duas tarefas no Bitrix.',
+        sistema: 'WhatsApp · n8n',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '23/11',
+        titulo: 'Conciliação das vendas de novembro no Analytics',
+        descricao:
+          'Vendas de 1 a 23/11 cruzadas entre a planilha de comissão e a exportação de ' +
+          'alunos do Insights, por data, consultor, curso e valor. A correção foi aplicada ' +
+          'no banco para ajustar os dados exibidos no Analytics.',
+        sistema: 'Analytics',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '25/11',
+        titulo: 'Protótipo da Central de Vendas · Pós-Graduação e MBA',
+        descricao:
+          'Protótipo entregue para validação. Ficaram para depois validar o fluxo com o ' +
+          'time, trocar os links de demonstração pelos checkouts oficiais e colocar os ' +
+          'nomes e fotos definitivos dos 5 cursos.',
+        sistema: 'Central de Vendas',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '25/11',
+        titulo: 'Conta de e-mail · Comercial',
+        descricao: 'Conta para uma pessoa que começa no Comercial em 30/11.',
+        sistema: 'E-mail',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '26/11',
+        titulo: 'Exclusão de e-mail e retirada de acessos',
+        descricao: 'Conta e acessos de uma pessoa que saiu da empresa.',
+        sistema: 'E-mail',
+        responsavel: 'Rafael Pilon',
+        status: 'resolvida',
+      },
+      {
+        dia: '26/11',
+        titulo: 'Checkout · Carolina Caribé · plano de 6 meses',
+        descricao: 'Checkout do plano de 6 meses, feito fora do horário de trabalho.',
+        sistema: 'Checkout',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
+      {
+        dia: '26/11',
+        titulo: 'Treinamento do comercial no WPP Hub',
+        descricao:
+          'Treinamento do líder comercial para os disparos no WPP Hub, fora do ' +
+          'horário de trabalho.',
+        sistema: 'WPP Hub',
+        responsavel: 'Lucas Paifer',
+        status: 'resolvida',
+      },
     ],
   },
 ]
