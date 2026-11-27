@@ -174,7 +174,8 @@ vinham dele:
   /`status`, `statusDetalhe`, `proximosPassos` e `checkpoint: 'dd/mm/aaaa'`
   (a data e por sistema; o estagio da ficha diz "ATUALIZADO EM <data>").
   Últimas: 27/11/2026, Sprint 1 do Bitrix (Metriczz, Databricks, LeadsHug,
-  UniNotas, Certificador e MCP Bitrix24), 12/11/2026 (Accountzz), 03/11/2026 (Relatório
+  UniNotas, Certificador e MCP Bitrix24), 27/11/2026 informado pelo usuário
+  (Accountzz), 03/11/2026 (Relatório
   Diário); Campuzz e Pailon sem data. Relatório Diário, Campuzz e Pailon não
   tinham tarefas na Sprint 1. **Accountzz não segue o fluxo de sprint**
   (decisão do usuário em 27/11/2026): a ausência de tarefas no Bitrix não
@@ -182,8 +183,8 @@ vinham dele:
   proprio ("MVP RODANDO", "EM PRODUCAO · EM TESTES") com o `state` dando a
   cor. `AVANCADO` (dourado) e "falta um passo para a entrega"; so `producao`
   conta como modulo ativo, e contagens zeradas somem da ficha tecnica.
-  Accountzz mantém o MVP rodando (`state: 'producao'`); a arquitetura da v2
-  termina em 13/11/2026 e a prototipação é na quarta, 18/11/2026.
+  Accountzz mantém o MVP rodando (`state: 'producao'`); a v2 já passou pela
+  prototipação e está em desenvolvimento (27/11/2026).
   Metriczz (`state: 'testes'`, dourado) tem a primeira versão pronta em stage,
   em QA; a primeira publicação na main espera o QA, o IAM em produção e a
   limpeza da saída do Firebase. Vai se chamar "Campuzz Data Module Metriczz"
